@@ -4,7 +4,7 @@ body,
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: OpenSans, Mikhak;
+  font-family: OpenSans, Mikhak !important;
 }
 a {
   text-decoration: none;
@@ -20,5 +20,5 @@ p,
 label,
 button,
 span {
-  font-family: OpenSans, Mikhak;
+  font-family: OpenSans, Mikhak !important;
 }
