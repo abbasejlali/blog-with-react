@@ -1,0 +1,61 @@
+/*********************** Font Mikhak **********************/
+
+@font-face {
+  font-family: Mikhak;
+  font-style: normal;
+  font-weight: 300;
+  src: url(../Fonts/Mikhak/Light/Mikhak-Light.ttf) format("truetype"),
+    url(../Fonts/Mikhak/Light/Mikhak-Light.woff2) format("woff2");
+}
+@font-face {
+  font-family: Mikhak;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../Fonts/Mikhak/Regular/Mikhak-Regular.ttf) format("truetype"),
+    url(../Fonts/Mikhak/Regular/Mikhak-Regular.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: Mikhak;
+  font-style: normal;
+  font-weight: 500;
+  src: url(../Fonts/Mikhak/Meduim/Mikhak-Medium.ttf) format("truetype"),
+    url(../Fonts/Mikhak/Meduim/Mikhak-Medium.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: Mikhak;
+  font-style: normal;
+  font-weight: 700;
+  src: url(../Fonts/Mikhak/semibold/Mikhak-SemiBold.ttf) format("truetype"),
+    url(../Fonts/Mikhak/semibold/Mikhak-SemiBold.woff2) format("woff2");
+}
+
+/*********************** Font OpenSans **********************/
+
+@font-face {
+  font-family: OpenSans;
+  font-style: normal;
+  font-weight: 300;
+  src: url(../Fonts/OpenSans/Light/OpenSans-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: OpenSans;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../Fonts/OpenSans/Regular/OpenSans-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: OpenSans;
+  font-style: normal;
+  font-weight: 500;
+  src: url(../Fonts/OpenSans/Medium/OpenSans-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: OpenSans;
+  font-style: normal;
+  font-weight: 700;
+  src: url(../Fonts/OpenSans/Bold/OpenSans-Bold.ttf) format("truetype");
+}
