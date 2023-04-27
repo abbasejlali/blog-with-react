@@ -1,3 +1,3 @@
-import { gql } from "@apollo/client";
+// import { gql } from "@apollo/client";
 
-export { GET_AUTHOR };
+// export { GET_AUTHOR };

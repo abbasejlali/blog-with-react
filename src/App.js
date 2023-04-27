@@ -1,10 +1,17 @@
 import React from "react";
-import { GET_AUTHOR } from "./Components/GraphQl/query";
-import { useQuery } from "@apollo/client";
+
+// react-router-dom
+import { Routes, Route } from "react-router-dom";
+
+// Components
+import Home from "./Components/Home/Home";
+
 function App() {
-  const { data } = useQuery(GET_AUTHOR);
-  console.log(data);
-  return <div>app</div>;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+  );
 }
 
 export default App;
