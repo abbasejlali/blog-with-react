@@ -5,6 +5,7 @@ const GET_COVERPHOTO = gql`
     posts {
       title
       id
+      slug
       coverphoto {
         url
       }

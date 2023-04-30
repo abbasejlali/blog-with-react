@@ -8,6 +8,7 @@ import { Box, MobileStepper, Button } from "@mui/material";
 // img
 import { GET_COVERPHOTO } from "../GraphQl/query";
 import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
@@ -46,44 +47,20 @@ const SlideShow = () => {
             borderRadius: "10px",
           }}
         >
-          <img
-            src={`${
-              activeStep === activeStep && data.posts[activeStep].coverphoto.url
-            }`}
-            alt={data.posts[0].title}
-            width="100%"
-            height="100%"
-            sx={{
-              borderRadius: "10px",
-            }}
-          />
-          {/* <img
-            src={`${activeStep === 1 && data.posts[activeStep].coverphoto.url}`}
-            alt={data.posts[1].title}
-            width="100%"
-            height="100%"
-            sx={{
-              borderRadius: "10px",
-            }}
-          />
-          <img
-            src={`${activeStep === 2 && data.posts[activeStep].coverphoto.url}`}
-            alt={data.posts[2].title}
-            width="100%"
-            height="100%"
-            sx={{
-              borderRadius: "10px",
-            }}
-          />
-          <img
-            src={`${activeStep === 3 && data.posts[activeStep].coverphoto.url}`}
-            alt={data.posts[3].title}
-            width="100%"
-            height="100%"
-            sx={{
-              borderRadius: "10px",
-            }}
-          /> */}
+          <Link to={`/blogs/${data.posts[activeStep].slug}`}>
+            <img
+              src={`${
+                activeStep === activeStep &&
+                data.posts[activeStep].coverphoto.url
+              }`}
+              alt={data.posts[0].title}
+              width="100%"
+              height="100%"
+              sx={{
+                borderRadius: "10px",
+              }}
+            />
+          </Link>
         </Box>
 
         <MobileStepper
