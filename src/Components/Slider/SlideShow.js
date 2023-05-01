@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 // Mui
-import { Box, MobileStepper, Button, Skeleton } from "@mui/material";
+import {
+  Box,
+  MobileStepper,
+  Button,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 
 //Styles
 import styles from "./Slider.module.css";
@@ -57,12 +63,14 @@ const SlideShow = () => {
           height="100%"
           sx={{
             overflow: "hidden",
+            position: "relative",
           }}
         >
           {loading ? (
             <Skeleton
               sx={{ bgcolor: "grey.900" }}
               variant="rectangular"
+              animation="wave"
               width="100%"
               height="100%"
             >
@@ -88,6 +96,20 @@ const SlideShow = () => {
               />
             </Link>
           )}
+          <Box
+            className={styles.title_box}
+            p={1}
+            sx={{ bgcolor: "white", borderRadius: "10px" }}
+          >
+            <Typography
+              component="h6"
+              color="#666"
+              variant="h5"
+              fontWeight="bold"
+            >
+              {data.posts[activeStep].title}
+            </Typography>
+          </Box>
         </Box>
 
         <MobileStepper

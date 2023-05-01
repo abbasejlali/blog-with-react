@@ -1,3 +1,9 @@
+.title_box {
+  position: absolute;
+  bottom: 50px;
+  left: 30px;
+}
+
 /* Responsive */
 @media screen and (min-width: 0) {
   .box_slider {
