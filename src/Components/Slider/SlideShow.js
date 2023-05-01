@@ -3,7 +3,8 @@ import React, { useState } from "react";
 // Mui
 import { Box, MobileStepper, Button } from "@mui/material";
 
-// icons
+//Styles
+import styles from "./Slider.module.css";
 
 // img
 import { GET_COVERPHOTO } from "../GraphQl/query";
@@ -30,24 +31,30 @@ const SlideShow = () => {
         container
         maxWidth="lg"
         sx={{
-          borderRadius: "5px",
-          boxShadow: "0 3px 6px 0 hsl(0deg 0% 51.8% / 15%)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
+          overflow: "hidden",
+          padding: "0 16px",
         }}
         mx="auto"
-        my={10}
+        mb={10}
+        className={styles.box_slider}
       >
         <Box
           width="100%"
           height="100%"
           sx={{
-            borderRadius: "10px",
+            overflow: "hidden",
           }}
         >
-          <Link to={`/blogs/${data.posts[activeStep].slug}`}>
+          <Link
+            width="100%"
+            height="100%"
+            to={`/blogs/${data.posts[activeStep].slug}`}
+            style={{ display: "flex" }}
+          >
             <img
               src={`${
                 activeStep === activeStep &&
@@ -56,9 +63,7 @@ const SlideShow = () => {
               alt={data.posts[0].title}
               width="100%"
               height="100%"
-              sx={{
-                borderRadius: "10px",
-              }}
+              style={{ borderRadius: "10px", fitObject: "cover" }}
             />
           </Link>
         </Box>
