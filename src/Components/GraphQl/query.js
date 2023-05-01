@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 const GET_COVERPHOTO = gql`
-  query MyQuery {
+  query {
     posts {
       title
       id
@@ -13,4 +13,12 @@ const GET_COVERPHOTO = gql`
   }
 `;
 
-export { GET_COVERPHOTO };
+const GET_CATEGORY = gql`
+  query {
+    posts {
+      category
+    }
+  }
+`;
+
+export { GET_COVERPHOTO, GET_CATEGORY };
