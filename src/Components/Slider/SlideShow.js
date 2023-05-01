@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Mui
-import { Box, MobileStepper, Button } from "@mui/material";
+import { Box, MobileStepper, Button, Skeleton } from "@mui/material";
 
 //Styles
 import styles from "./Slider.module.css";
 
-// img
+// graphql
 import { GET_COVERPHOTO } from "../GraphQl/query";
 import { useQuery } from "@apollo/client";
+
+// react-router-dom
 import { Link } from "react-router-dom";
 
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
-  console.log(data);
 
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -23,8 +24,17 @@ const SlideShow = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  useEffect(() => {
+    // activeStep !== 8 &&
+    //   setTimeout(() => {
+    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    //   }, 3000);
+    // activeStep === 8 && setActiveStep(0);
+  }, [activeStep]);
+
   if (error) return <div>error...</div>;
-  if (loading) return <div>loading...</div>;
+  if (loading) return;
+
   return (
     <>
       <Box
@@ -49,23 +59,35 @@ const SlideShow = () => {
             overflow: "hidden",
           }}
         >
-          <Link
-            width="100%"
-            height="100%"
-            to={`/blogs/${data.posts[activeStep].slug}`}
-            style={{ display: "flex" }}
-          >
-            <img
-              src={`${
-                activeStep === activeStep &&
-                data.posts[activeStep].coverphoto.url
-              }`}
-              alt={data.posts[0].title}
+          {loading ? (
+            <Skeleton
+              sx={{ bgcolor: "grey.900" }}
+              variant="rectangular"
               width="100%"
               height="100%"
-              style={{ borderRadius: "10px", fitObject: "cover" }}
-            />
-          </Link>
+            >
+              <div style={{ width: "100%" }}></div>
+            </Skeleton>
+          ) : (
+            <Link
+              width="100%"
+              height="100%"
+              to={`/blogs/${data.posts[activeStep].slug}`}
+              style={{ display: "flex" }}
+            >
+              <img
+                src={`${
+                  activeStep === activeStep &&
+                  data.posts[activeStep].coverphoto.url
+                }`}
+                alt={data.posts[0].title}
+                width="100%"
+                height="100%"
+                style={{ borderRadius: "10px", fitObject: "cover" }}
+                onMouseDown={() => setActiveStep(activeStep + 1)}
+              />
+            </Link>
+          )}
         </Box>
 
         <MobileStepper
