@@ -53,7 +53,7 @@ const CategoryHome = () => {
             borderRadius: "10px",
           }}
         >
-          <Link to="/">
+          <Link to="/blogs/category/programming">
             <Typography
               component="h4"
               variant="h6"
@@ -82,7 +82,7 @@ const CategoryHome = () => {
             borderRadius: "10px",
           }}
         >
-          <Link to="/">
+          <Link to="/blogs/category/digital-world">
             <Typography
               component="h4"
               variant="h6"
@@ -111,7 +111,7 @@ const CategoryHome = () => {
             borderRadius: "10px",
           }}
         >
-          <Link to="/">
+          <Link to="/blogs/category/technology">
             <Typography
               component="h4"
               variant="h6"

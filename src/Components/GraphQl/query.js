@@ -13,12 +13,4 @@ const GET_COVERPHOTO = gql`
   }
 `;
 
-const GET_CATEGORY = gql`
-  query {
-    posts {
-      category
-    }
-  }
-`;
-
-export { GET_COVERPHOTO, GET_CATEGORY };
+export { GET_COVERPHOTO };
