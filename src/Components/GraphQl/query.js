@@ -12,5 +12,25 @@ const GET_COVERPHOTO = gql`
     }
   }
 `;
-
-export { GET_COVERPHOTO };
+const GET_POSTSCARDSHOME = gql`
+  query MyQuery {
+    posts {
+      id
+      title
+      date
+      slug
+      category
+      comments {
+        id
+        name
+      }
+      author {
+        name
+        image {
+          url
+        }
+      }
+    }
+  }
+`;
+export { GET_COVERPHOTO, GET_POSTSCARDSHOME };

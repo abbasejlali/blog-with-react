@@ -1,6 +1,13 @@
-import { Grid, Typography, Divider } from "@mui/material";
 import React from "react";
+
+// Mui
+import { Grid, Typography, Divider } from "@mui/material";
+
+// react-router-dom
 import { Link } from "react-router-dom";
+
+// Cpmponents
+import CardElement from "../Card/CardElement";
 
 const CardsHome = () => {
   return (
@@ -43,7 +50,7 @@ const CardsHome = () => {
           alignItems: "flex-start",
         }}
       >
-        card
+        <CardElement />
       </Grid>
     </Grid>
   );
