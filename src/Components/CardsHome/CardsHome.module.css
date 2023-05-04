@@ -1,0 +1,21 @@
+/* Responsive */
+@media screen and (min-width: 0) {
+  .boxcards {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  .itemcard {
+    margin-bottom: 24px;
+  }
+}
+@media screen and (min-width: 500px) {
+  .boxcards {
+    margin-left: 36px;
+    margin-right: 36px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .itemcard {
+    margin-bottom: 0;
+  }
+}

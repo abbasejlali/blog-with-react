@@ -7,7 +7,7 @@
   -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 /* Responsive */
-@media screen and (min-width: 0) {
+/* @media screen and (min-width: 0) {
   .cardmain {
     max-width: 100%;
     width: 100%;
@@ -17,11 +17,17 @@
 }
 @media screen and (min-width: 600px) {
   .cardmain {
-    max-width: 310px;
+    max-width: 45%;
     width: 100%;
     min-height: fit-content;
     height: 100%;
   }
 }
 @media screen and (min-width: 900px) {
-}
+  .cardmain {
+    max-width: 33%;
+    width: 100%;
+    min-height: fit-content;
+    height: 100%;
+  }
+} */

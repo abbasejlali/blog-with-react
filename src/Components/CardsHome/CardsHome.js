@@ -13,6 +13,9 @@ import CardElement from "../Card/CardElement";
 import { useQuery } from "@apollo/client";
 import { GET_POSTSCARDSHOME } from "../GraphQl/query";
 
+// Styles
+import styles from "./CardsHome.module.css";
+
 const CardsHome = () => {
   const { data, loading, error } = useQuery(GET_POSTSCARDSHOME, {
     variables: { category: "programming" },
@@ -21,7 +24,7 @@ const CardsHome = () => {
   if (error) return <div>Error ...</div>;
   return (
     <>
-      <Box maxWidth="100%" mx="36px" my={5}>
+      <Box maxWidth="100%" my={5} className={styles.boxcards}>
         <Grid
           container
           display="flex"
@@ -58,12 +61,13 @@ const CardsHome = () => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "flex-start",
+              flexWrap: "wrap",
             }}
           >
             {data.posts.map((post) => (
-              <>
+              <Grid item xs={12} sm={5.8} md={3.8} className={styles.itemcard}>
                 <CardElement key={post.id} {...post} />
-              </>
+              </Grid>
             ))}
           </Grid>
         </Grid>
