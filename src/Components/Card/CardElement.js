@@ -10,7 +10,6 @@ import {
   Typography,
   CardActions,
   IconButton,
-  Box,
   AvatarGroup,
 } from "@mui/material";
 
@@ -24,7 +23,10 @@ import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 
-const CardElement = ({ title, author, slug, coverphoto }) => {
+// js
+import { fistename } from "../../js/function";
+
+const CardElement = ({ title, author, slug, coverphoto, comments }) => {
   return (
     <Card
       className={styles.cardmain}
@@ -59,16 +61,35 @@ const CardElement = ({ title, author, slug, coverphoto }) => {
           </Typography>
         </Link>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={{ direction: "ltr" }}>
         <IconButton aria-label="add to favorites">
           <FavoriteBorderIcon />
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <AvatarGroup total={24}>
-          <Avatar sx={{ bgcolor: "red" }}>R</Avatar>
-        </AvatarGroup>
+        {comments.length ? (
+          <AvatarGroup
+            total={3}
+            max={2}
+            sx={{ direction: "ltr", marginLeft: "auto", width: 30, height: 30 }}
+          >
+            {comments.map((comment) => (
+              <>
+                <Avatar
+                  key={comment.id}
+                  sx={{ bgcolor: "red", width: 30, height: 30 }}
+                >
+                  {fistename(comment.name)}
+                </Avatar>
+              </>
+            ))}
+          </AvatarGroup>
+        ) : (
+          <Typography ml="auto" component="p" variant="p">
+            بدون کامنت
+          </Typography>
+        )}
       </CardActions>
     </Card>
   );
