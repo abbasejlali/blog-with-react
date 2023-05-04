@@ -23,7 +23,6 @@ label,
 button,
 span {
   font-family: OpenSans, Mikhak !important;
-  margin-bottom: 4px !important;
 }
 button:hover {
   background-color: rgba(0, 0, 0, 0.04) !important;

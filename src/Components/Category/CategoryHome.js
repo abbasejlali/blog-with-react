@@ -26,7 +26,7 @@ const CategoryHome = () => {
         component="h3"
         fontWeight="bold"
         xs={12}
-        mb={3}
+        mb={5}
         variant="h5"
         color="#666"
       >

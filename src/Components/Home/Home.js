@@ -4,6 +4,7 @@ import React from "react";
 import Header from "../Layout/Header";
 import SlideShow from "../Slider/SlideShow";
 import CategoryHome from "../Category/CategoryHome";
+import CardsHome from "../CardsHome/CardsHome";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Header />
       <SlideShow />
       <CategoryHome />
+      <CardsHome />
     </div>
   );
 };
