@@ -13,6 +13,8 @@ const Home = () => {
       <SlideShow />
       <CategoryHome />
       <CardsHome categoryen="programming" categoryfa="برنامه نویسی" />
+      <CardsHome categoryen="digital-world" categoryfa="دنیای دیجیتال" />
+      <CardsHome categoryen="technology" categoryfa="تکنولوژی" />
     </div>
   );
 };
