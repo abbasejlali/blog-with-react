@@ -16,15 +16,16 @@ import { GET_POSTSCARDSHOME } from "../GraphQl/query";
 // Styles
 import styles from "./CardsHome.module.css";
 
-const CardsHome = () => {
+const CardsHome = ({ categoryen, categoryfa }) => {
   const { data, loading, error } = useQuery(GET_POSTSCARDSHOME, {
-    variables: { category: "programming" },
+    variables: { category: categoryen },
   });
+  console.log(data);
   if (loading) return <div>Loading ...</div>;
   if (error) return <div>Error ...</div>;
   return (
     <>
-      <Box maxWidth="100%" my={5} className={styles.boxcards}>
+      <Box maxWidth="100%" mt={5} mb={8} className={styles.boxcards}>
         <Grid
           container
           display="flex"
@@ -44,10 +45,17 @@ const CardsHome = () => {
               alignItems: "baseline",
             }}
           >
-            <Typography component="h2" variant="h5" fontWeight="bold">
-              برنامه نویسی
+            <Typography
+              component="h2"
+              color="#666"
+              variant="h5"
+              fontWeight="bold"
+            >
+              {categoryfa}
             </Typography>
-            <Link to="blogs/category/programming">مطالب بیشتر</Link>
+            <Link style={{ color: "#666" }} to="blogs/category/programming">
+              مطالب بیشتر
+            </Link>
           </Grid>
           <Grid item xs={12} width="100%" my={3}>
             <Divider />

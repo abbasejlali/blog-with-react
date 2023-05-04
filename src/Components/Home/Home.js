@@ -12,7 +12,7 @@ const Home = () => {
       <Header />
       <SlideShow />
       <CategoryHome />
-      <CardsHome />
+      <CardsHome categoryen="programming" categoryfa="برنامه نویسی" />
     </div>
   );
 };
