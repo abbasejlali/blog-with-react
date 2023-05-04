@@ -13,8 +13,8 @@ const GET_COVERPHOTO = gql`
   }
 `;
 const GET_POSTSCARDSHOME = gql`
-  query MyQuery {
-    posts {
+  query Postscard($category: String!) {
+    posts(where: { category: $category }) {
       id
       title
       date

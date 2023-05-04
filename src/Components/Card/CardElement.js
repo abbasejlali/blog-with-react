@@ -3,21 +3,19 @@ import React from "react";
 // Mui
 import { Card, CardHeader, Avatar } from "@mui/material";
 
-// Graph Ql
-import { useQuery } from "@apollo/client";
-import { GET_POSTSCARDSHOME } from "../GraphQl/query";
-
-const CardElement = () => {
-  const { data, loading, error } = useQuery(GET_POSTSCARDSHOME);
-  console.log(data);
-  if (loading) return <div>loading...</div>;
-  if (error) return <div>error...</div>;
+const CardElement = ({ title, author, date }) => {
   return (
-    <Card>
+    <Card xs={12}>
       <CardHeader
-        // avatar={<Avatar src={data.author.image.url} alt={data.title} />}
-        title={"Shrimp and Chorizo Paella"}
-        subheader="September 14, 2016"
+        avatar={
+          <Avatar
+            sx={{ bgcolor: "rgba(0, 0, 0, 0.04)" }}
+            src={author.image.url}
+            alt={title}
+          />
+        }
+        title={author.name}
+        subheader={date}
       />
     </Card>
   );
