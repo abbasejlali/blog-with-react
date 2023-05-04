@@ -1,0 +1,27 @@
+.cardmain:hover {
+  border: 3px solid #666;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+/* Responsive */
+@media screen and (min-width: 0) {
+  .cardmain {
+    max-width: 100%;
+    width: 100%;
+    min-height: fit-content;
+    height: 100%;
+  }
+}
+@media screen and (min-width: 600px) {
+  .cardmain {
+    max-width: 310px;
+    width: 100%;
+    min-height: fit-content;
+    height: 100%;
+  }
+}
+@media screen and (min-width: 900px) {
+}

@@ -52,6 +52,7 @@ const CardsHome = () => {
           <Grid
             item
             xs={12}
+            width="100%"
             sx={{
               display: "flex",
               flexDirection: "row",

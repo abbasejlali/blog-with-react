@@ -20,6 +20,9 @@ const GET_POSTSCARDSHOME = gql`
       date
       slug
       category
+      coverphoto {
+        url
+      }
       comments {
         id
         name
