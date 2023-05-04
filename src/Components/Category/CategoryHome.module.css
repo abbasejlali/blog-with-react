@@ -22,6 +22,10 @@
     margin-left: 0;
     margin-right: 0;
   }
+  .boxcategory {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 @media screen and (min-width: 600px) {
   .grid_categoryhome {
@@ -33,6 +37,10 @@
   .grid_categoryhome > div:nth-child(2) {
     margin-left: 8px;
     margin-right: 8px;
+  }
+  .boxcategory {
+    padding-left: 36px;
+    padding-right: 36px;
   }
 }
 @media screen and (min-width: 900px) {

@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 const CategoryHome = () => {
   return (
     <Box
-      px={4.5}
       mb={5}
       xs={12}
       sx={{
@@ -21,6 +20,7 @@ const CategoryHome = () => {
         justifyContent: "flex-start",
         alignItems: "flex-start",
       }}
+      className={styles.boxcategory}
     >
       <Typography
         component="h3"
