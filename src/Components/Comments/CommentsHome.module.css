@@ -3,8 +3,7 @@
   width: 100%;
   min-height: fit-content;
   height: 100%;
-  margin-top: 80px;
-  margin-bottom: 80px auto;
+  margin: 80px auto;
 }
 .about_main > .about_textmain {
   max-width: 100%;
@@ -24,12 +23,11 @@
   min-height: 233px;
   height: 100%;
   background-color: rgb(255, 255, 255);
-  box-shadow: rgb(126 87 194 / 16%) 0px 4px 12px;
-  border-radius: 14px;
-  -webkit-border-radius: 14px;
-  -moz-border-radius: 14px;
-  -ms-border-radius: 14px;
-  -o-border-radius: 14px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   position: absolute;
   transition: all 0.5s ease-in 0s;
   -webkit-transition: all 0.5s ease-in 0s;
@@ -41,6 +39,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: nowrap;
+  border: 3px solid rgba(0, 0, 0, 0.04);
 }
 
 .about_textmain > div:nth-child(1) {
