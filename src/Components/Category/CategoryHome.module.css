@@ -31,9 +31,7 @@
   .grid_categoryhome {
     flex-wrap: nowrap;
   }
-  .grid_categoryhome > div {
-    margin-bottom: 0;
-  }
+
   .grid_categoryhome > div:nth-child(2) {
     margin-left: 8px;
     margin-right: 8px;
@@ -44,4 +42,7 @@
   }
 }
 @media screen and (min-width: 900px) {
+  .grid_categoryhome > div {
+    margin-bottom: 0;
+  }
 }
