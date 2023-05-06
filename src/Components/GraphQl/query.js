@@ -36,4 +36,18 @@ const GET_POSTSCARDSHOME = gql`
     }
   }
 `;
-export { GET_COVERPHOTO, GET_POSTSCARDSHOME };
+
+const GET_COMMENTSHOME = gql`
+  query MyQuery {
+    posts {
+      id
+      title
+      slug
+      comments {
+        name
+        text
+      }
+    }
+  }
+`;
+export { GET_COVERPHOTO, GET_POSTSCARDSHOME, GET_COMMENTSHOME };

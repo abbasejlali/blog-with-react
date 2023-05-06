@@ -5,6 +5,7 @@ import Header from "../Layout/Header";
 import SlideShow from "../Slider/SlideShow";
 import CategoryHome from "../Category/CategoryHome";
 import CardsHome from "../CardsHome/CardsHome";
+import CommentsHome from "../Comments/CommentsHome";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <CardsHome categoryen="programming" categoryfa="برنامه نویسی" />
       <CardsHome categoryen="digital-world" categoryfa="دنیای دیجیتال" />
       <CardsHome categoryen="technology" categoryfa="تکنولوژی" />
+      <CommentsHome />
     </div>
   );
 };
