@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,9 +19,6 @@ import { Link } from "react-router-dom";
 
 // loader
 import { MutatingDots } from "react-loader-spinner";
-
-// gsap
-import { gsap } from "gsap";
 
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);

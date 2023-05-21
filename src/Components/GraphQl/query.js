@@ -38,16 +38,13 @@ const GET_POSTSCARDSHOME = gql`
 `;
 
 const GET_COMMENTSHOME = gql`
-  query MyQuery {
-    posts {
+  query {
+    comments {
+      name
+      text
       id
-      title
-      slug
-      comments {
-        name
-        text
-      }
     }
   }
 `;
+
 export { GET_COVERPHOTO, GET_POSTSCARDSHOME, GET_COMMENTSHOME };
