@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-// Mui
-import {
-  Box,
-  MobileStepper,
-  Button,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+// Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
 
-//Styles
-import styles from "./Slider.module.css";
+// Swiper Styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+import "./Slider.css";
 
 // graphql
 import { GET_COVERPHOTO } from "../GraphQl/query";
@@ -21,29 +19,19 @@ import { Link } from "react-router-dom";
 
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
-
-  const [activeStep, setActiveStep] = useState(0);
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  useEffect(() => {
-    // activeStep !== 8 &&
-    //   setTimeout(() => {
-    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    //   }, 3000);
-    // activeStep === 8 && setActiveStep(0);
-  }, [activeStep]);
+  console.log(data);
+  // useEffect(() => {
+  //   const filterPost = data.posts.filter((post) => {
+  //     return post.id === "clgxuzyo12u9k0clho2n4ke6y";
+  //     console.log(filterPost);
+  //   });
+  // }, []);
 
   if (error) return <div>error...</div>;
-  if (loading) return;
-
+  if (loading) return <div>Loading...</div>;
   return (
     <>
-      <Box
+      {/* <Box
         container
         maxWidth="lg"
         sx={{
@@ -139,7 +127,26 @@ const SlideShow = () => {
             </Button>
           }
         />
-      </Box>
+      </Box> */}
+      <Swiper
+        pagination={{
+          dynamicBullets: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+        {data.posts.map((post, index) => (
+          <SwiperSlide key="post.id">
+            <Link
+              to={`/blogs/${data.posts[index].slug}`}
+              style={{ display: "flex", width: "100%", height: "100%" }}
+            >
+              <img src={post.coverphoto.url} alt={post.title} />
+              {/* {console.log(index)} */}
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </>
   );
 };

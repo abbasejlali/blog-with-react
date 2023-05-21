@@ -4,9 +4,6 @@ import React from "react";
 import { Box, Grid, Typography, Tabs, Tab, useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-// react router dom
-import { Link } from "react-router-dom";
-
 // Icons
 import TelegramIcon from "@mui/icons-material/Telegram";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -145,7 +142,7 @@ const Footer = (props) => {
             coponent="a"
             variant="h6"
             href="/https://ir.linkedin.com/in/abbas-ejlali-30541520b?original_referer=https%3A%2F%2Fwww.google.com%2F"
-            sx="_blank"
+            target="_blank"
             sx={{
               color: "#dadada",
               transition: "all ease 0.2s",
