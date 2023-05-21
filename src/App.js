@@ -11,13 +11,13 @@ import Layout from "./Components/Layout/Layout";
 
 function App() {
   return (
-    <>
+    <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs/:slug" element={<Blog />} />
         <Route path="/blogs/category/:slug" element={<Category />} />
       </Routes>
-    </>
+    </Layout>
   );
 }
 

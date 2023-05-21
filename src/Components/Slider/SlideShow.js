@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,18 +20,15 @@ import { Link } from "react-router-dom";
 // loader
 import { MutatingDots } from "react-loader-spinner";
 
+// gsap
+import { gsap } from "gsap";
+
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
-  console.log(data);
-  // useEffect(() => {
-  //   const filterPost = data.posts.filter((post) => {
-  //     return post.id === "clgxuzyo12u9k0clho2n4ke6y";
-  //     console.log(filterPost);
-  //   });
-  // }, []);
+  const app = useRef();
+  const img_main = useRef();
 
   if (error) return <div>error...</div>;
-  // if (loading) return <div>Loading...</div>;
   return (
     <>
       <Swiper
@@ -40,6 +37,7 @@ const SlideShow = () => {
         }}
         modules={[Pagination]}
         className="mySwiper"
+        ref={app}
       >
         {loading ? (
           <SwiperSlide
@@ -63,7 +61,7 @@ const SlideShow = () => {
           </SwiperSlide>
         ) : (
           data.posts.map((post, index) => (
-            <SwiperSlide key="post.id">
+            <SwiperSlide key="post.id" ref={img_main}>
               <Link
                 to={`/blogs/${data.posts[index].slug}`}
                 style={{ display: "flex", width: "100%", height: "100%" }}
