@@ -15,13 +15,12 @@ import { GET_POSTSCARDSHOME } from "../GraphQl/query";
 
 // Styles
 import styles from "./CardsHome.module.css";
+import { MutatingDots } from "react-loader-spinner";
 
 const CardsHome = ({ categoryen, categoryfa }) => {
   const { data, loading, error } = useQuery(GET_POSTSCARDSHOME, {
     variables: { category: categoryen },
   });
-  console.log(data);
-  if (loading) return <div>Loading ...</div>;
   if (error) return <div>Error ...</div>;
   return (
     <>
@@ -67,16 +66,36 @@ const CardsHome = ({ categoryen, categoryfa }) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
+              justifyContent: `${loading ? "center" : "space-between"}`,
+              alignItems: `${loading ? "center" : "flex-start"}`,
               flexWrap: "wrap",
             }}
           >
-            {data.posts.map((post) => (
-              <Grid item xs={12} sm={5.8} md={3.8} className={styles.itemcard}>
-                <CardElement key={post.id} {...post} />
-              </Grid>
-            ))}
+            {loading ? (
+              <MutatingDots
+                height="100"
+                width="100"
+                color="#666"
+                secondaryColor="#666"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            ) : (
+              data.posts.map((post) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={5.8}
+                  md={3.8}
+                  className={styles.itemcard}
+                >
+                  <CardElement key={post.id} {...post} />
+                </Grid>
+              ))
+            )}
           </Grid>
         </Grid>
       </Box>
