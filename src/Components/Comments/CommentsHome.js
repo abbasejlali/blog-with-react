@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 
 import "./CommentsHome.css";
+import { MutatingDots } from "react-loader-spinner";
 
 const CommentsHome = () => {
   // const [number, setNumber] = useState(1);
@@ -33,7 +34,6 @@ const CommentsHome = () => {
   const { data, loading, error } = useQuery(GET_COMMENTSHOME);
   console.log(data);
 
-  if (loading) return <div>loading ...</div>;
   if (error) return <div>error ...</div>;
   return (
     // <section className={styles.about_main}>
@@ -87,21 +87,47 @@ const CommentsHome = () => {
       className="mySwiper"
       id="swiper"
     >
-      <SwiperSlide>
-        <h4>{data.posts[0].title}</h4>
-        <h5>{data.posts[0].comments[0].name}</h5>
-        <p>{data.posts[0].comments[0].text}</p>
-      </SwiperSlide>
-      <SwiperSlide>
-        <h4>{data.posts[0].title}</h4>
-        <h5>{data.posts[0].comments[1].name}</h5>
-        <p>{data.posts[0].comments[1].text}</p>
-      </SwiperSlide>
-      <SwiperSlide>
-        <h4>{data.posts[0].title}</h4>
-        <h5>{data.posts[0].comments[2].name}</h5>
-        <p>{data.posts[0].comments[2].text}</p>
-      </SwiperSlide>
+      {loading ? (
+        <SwiperSlide
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "transparent",
+            border: "0",
+          }}
+        >
+          <MutatingDots
+            height="100"
+            width="100"
+            color="#666"
+            secondaryColor="#666"
+            radius="12.5"
+            ariaLabel="mutating-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </SwiperSlide>
+      ) : (
+        <>
+          <SwiperSlide>
+            <h4>{data.posts[0].title}</h4>
+            <h5>{data.posts[0].comments[0].name}</h5>
+            <p>{data.posts[0].comments[0].text}</p>
+          </SwiperSlide>
+          <SwiperSlide>
+            <h4>{data.posts[0].title}</h4>
+            <h5>{data.posts[0].comments[1].name}</h5>
+            <p>{data.posts[0].comments[1].text}</p>
+          </SwiperSlide>
+          <SwiperSlide>
+            <h4>{data.posts[0].title}</h4>
+            <h5>{data.posts[0].comments[2].name}</h5>
+            <p>{data.posts[0].comments[2].text}</p>
+          </SwiperSlide>
+        </>
+      )}
     </Swiper>
   );
 };
