@@ -17,6 +17,9 @@ import { useQuery } from "@apollo/client";
 // react-router-dom
 import { Link } from "react-router-dom";
 
+// loader
+import { MutatingDots } from "react-loader-spinner";
+
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
   console.log(data);
@@ -28,7 +31,7 @@ const SlideShow = () => {
   // }, []);
 
   if (error) return <div>error...</div>;
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <div>Loading...</div>;
   return (
     <>
       <Swiper
@@ -38,17 +41,38 @@ const SlideShow = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {data.posts.map((post, index) => (
-          <SwiperSlide key="post.id">
-            <Link
-              to={`/blogs/${data.posts[index].slug}`}
-              style={{ display: "flex", width: "100%", height: "100%" }}
-            >
-              <img src={post.coverphoto.url} alt={post.title} />
-              {/* {console.log(index)} */}
-            </Link>
+        {loading ? (
+          <SwiperSlide
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MutatingDots
+              height="100"
+              width="100"
+              color="#666"
+              secondaryColor="#666"
+              radius="12.5"
+              ariaLabel="mutating-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
           </SwiperSlide>
-        ))}
+        ) : (
+          data.posts.map((post, index) => (
+            <SwiperSlide key="post.id">
+              <Link
+                to={`/blogs/${data.posts[index].slug}`}
+                style={{ display: "flex", width: "100%", height: "100%" }}
+              >
+                <img src={post.coverphoto.url} alt={post.title} />
+              </Link>
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
     </>
   );
