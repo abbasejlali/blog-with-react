@@ -1,11 +1,15 @@
-.cardmain:hover {
-  border: 3px solid #666;
+/* .cardmain {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  -webkit-transition:;
+  -moz-transition:;
+  -ms-transition:;
+  -o-transition:;
+  box-shadow: 0px 2px 15px 1px rgba(0, 0, 0, 0.2);
 }
+.cardmain:hover {
+  box-shadow: 0px 2px 15px 3px rgba(0, 0, 0, 0.2);
+} */
+
 /* Responsive */
 /* @media screen and (min-width: 0) {
   .cardmain {

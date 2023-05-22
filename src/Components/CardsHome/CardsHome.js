@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // Mui
 import { Grid, Typography, Divider, Box, Skeleton } from "@mui/material";
@@ -15,7 +15,6 @@ import { GET_POSTSCARDSHOME } from "../GraphQl/query";
 
 // Styles
 import styles from "./CardsHome.module.css";
-import { MutatingDots } from "react-loader-spinner";
 
 const CardsHome = ({ categoryen, categoryfa }) => {
   const { data, loading, error } = useQuery(GET_POSTSCARDSHOME, {
@@ -24,7 +23,6 @@ const CardsHome = ({ categoryen, categoryfa }) => {
 
   const lengthpost = [{ id: 1 }, { id: 2 }, { id: 3 }];
   if (error) return <div>Error ...</div>;
-  // if (loading) return <div>loadnig ...</div>;
   return (
     <>
       <Box maxWidth="100%" mt={5} mb={8} className={styles.boxcards}>

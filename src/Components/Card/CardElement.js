@@ -26,21 +26,17 @@ import ShareIcon from "@mui/icons-material/Share";
 // js
 import { fistename } from "../../js/function";
 
-const CardElement = ({
-  title,
-  author,
-  slug,
-  coverphoto,
-  comments,
-}) => {
+const CardElement = ({ title, author, slug, coverphoto, comments }) => {
   return (
     <Card
       className={styles.cardmain}
       sx={{
-        bgcolor: "rgba(0, 0, 0, 0.04)!important",
-        border: "3px solid rgba(0, 0, 0, 0.04)",
+        bgcolor: "white",
         borderRadius: "10px",
         cursor: "pointer",
+        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
+        "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
       }}
     >
       <CardHeader
