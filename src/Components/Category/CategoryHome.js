@@ -109,8 +109,12 @@ const CategoryHome = () => {
           md={3.8}
           height="90px"
           sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.04) !important",
+            bgcolor: "white",
             borderRadius: "10px",
+            cursor: "pointer",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+            boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
+            "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
           }}
           ref={Itemone}
         >
@@ -139,8 +143,12 @@ const CategoryHome = () => {
           md={3.8}
           height="90px"
           sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.04) !important",
+            bgcolor: "white",
             borderRadius: "10px",
+            cursor: "pointer",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+            boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
+            "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
           }}
           ref={Itemtwo}
         >
@@ -169,8 +177,12 @@ const CategoryHome = () => {
           md={3.8}
           height="90px"
           sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.04) !important",
+            bgcolor: "white",
             borderRadius: "10px",
+            cursor: "pointer",
+            transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+            boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
+            "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
           }}
           ref={Itemthree}
         >
