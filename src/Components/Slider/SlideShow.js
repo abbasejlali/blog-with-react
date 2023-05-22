@@ -44,7 +44,7 @@ const SlideShow = () => {
               alignItems: "center",
             }}
           >
-            <Skeleton variant="rectangular" width="100%" height="100%" />
+            <Skeleton variant="rounded" width="100%" height="100%" />
           </SwiperSlide>
         ) : (
           data.posts.map((post, index) => (

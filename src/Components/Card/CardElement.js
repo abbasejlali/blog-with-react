@@ -26,7 +26,13 @@ import ShareIcon from "@mui/icons-material/Share";
 // js
 import { fistename } from "../../js/function";
 
-const CardElement = ({ title, author, slug, coverphoto, comments }) => {
+const CardElement = ({
+  title,
+  author,
+  slug,
+  coverphoto,
+  comments,
+}) => {
   return (
     <Card
       className={styles.cardmain}

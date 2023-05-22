@@ -11,10 +11,10 @@ const Home = () => {
     <div>
       <SlideShow sx={{ backgroundColor: "red" }} />
       <CategoryHome />
-      {/* <CardsHome categoryen="programming" categoryfa="برنامه نویسی" /> */}
-      {/* <CardsHome categoryen="digital-world" categoryfa="دنیای دیجیتال" /> */}
-      {/* <CardsHome categoryen="technology" categoryfa="تکنولوژی" /> */}
-      {/* <CommentsHome /> */}
+      <CardsHome categoryen="programming" categoryfa="برنامه نویسی" />
+      <CardsHome categoryen="digital-world" categoryfa="دنیای دیجیتال" />
+      <CardsHome categoryen="technology" categoryfa="تکنولوژی" />
+      <CommentsHome />
     </div>
   );
 };
