@@ -5,6 +5,7 @@
   -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   -ms-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   -o-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  opacity: 0;
 }
 .grid_categoryhome > div:hover {
   border: 3px solid #666;
