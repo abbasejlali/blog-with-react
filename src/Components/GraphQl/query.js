@@ -43,6 +43,9 @@ const GET_COMMENTSHOME = gql`
       name
       text
       id
+      avatar {
+        url
+      }
     }
   }
 `;

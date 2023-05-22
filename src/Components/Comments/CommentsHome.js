@@ -53,9 +53,8 @@ const CommentsHome = () => {
         <>
           {data.comments.map((comment) => (
             <SwiperSlide key={comment.id}>
-              <h4>{comment.title}</h4>
-              <h5>{comment.name}</h5>
-              <p>{comment.text}</p>
+              <h5 style={{ fontSize: "20px" }}>{comment.name}</h5>
+              <p style={{ fontSize: "18px" }}>{comment.text}</p>
             </SwiperSlide>
           ))}
         </>

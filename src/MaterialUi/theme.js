@@ -5,7 +5,7 @@ const theme = createTheme({
     fontFamily: ["OpenSans", "Mikhak"],
   },
   bgColo: {
-    themeKey: "rgba(0, 0, 0, 0.04)",
+    themeKey: "#f2f2f2",
   },
 });
 
