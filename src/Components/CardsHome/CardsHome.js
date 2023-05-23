@@ -21,7 +21,7 @@ const CardsHome = ({ categoryen, categoryfa }) => {
     variables: { category: categoryen },
   });
 
-  const lengthpost = [{ id: 1 }, { id: 2 }, { id: 3 }];
+  const lengthpost = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
   if (error) return <div>Error ...</div>;
   return (
     <>
@@ -78,7 +78,7 @@ const CardsHome = ({ categoryen, categoryfa }) => {
                   item
                   xs={12}
                   sm={5.8}
-                  md={3.8}
+                  md={2.8}
                   sx={{ borderRadius: "10px" }}
                   className={styles.itemcard}
                   key={post.id}
