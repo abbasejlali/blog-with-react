@@ -13,7 +13,15 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 
 import "./CommentsHome.css";
+
+// Loader Spinner
 import { MutatingDots } from "react-loader-spinner";
+
+// Mui
+import { Avatar } from "@mui/material";
+
+// function
+import { fistename } from "../../js/function";
 
 const CommentsHome = () => {
   const { data, loading, error } = useQuery(GET_COMMENTSHOME);
@@ -53,6 +61,24 @@ const CommentsHome = () => {
         <>
           {data.comments.map((comment) => (
             <SwiperSlide key={comment.id}>
+              {comment.avatar.url && (
+                <Avatar
+                  alt={comment.name}
+                  src={comment.avatar.url}
+                  sx={{ width: "80px !important", height: "80px !important" }}
+                />
+              )}
+              {comment.avatar.url === null && (
+                <Avatar
+                  sx={{
+                    width: "80px !important",
+                    height: "80px !important",
+                    bgcolor: "#f2f2f2",
+                  }}
+                >
+                  {fistename(`${comment.name}`)}
+                </Avatar>
+              )}
               <h5 style={{ fontSize: "20px" }}>{comment.name}</h5>
               <p style={{ fontSize: "18px" }}>{comment.text}</p>
             </SwiperSlide>

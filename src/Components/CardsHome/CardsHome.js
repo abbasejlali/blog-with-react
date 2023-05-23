@@ -107,7 +107,7 @@ const CardsHome = ({ categoryen, categoryfa }) => {
                   item
                   xs={12}
                   sm={5.8}
-                  md={3.8}
+                  md={2.8}
                   className={styles.itemcard}
                   key={post.id}
                 >
