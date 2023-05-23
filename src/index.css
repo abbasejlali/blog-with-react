@@ -44,11 +44,11 @@ div.MuiCardHeader-content span:nth-child(1) {
   color: #666;
   font-size: 16px;
 }
-div.MuiAvatar-root {
-  width: 30px;
-  height: 30px;
+div.MuiAvatarGroup-root > div.MuiAvatar-root:first-child {
   direction: ltr;
   font-size: 18px;
+  width: 100%;
+  height: 100%;
 }
 span.css-1aquho2-MuiTabs-indicator {
   background-color: #dadada;

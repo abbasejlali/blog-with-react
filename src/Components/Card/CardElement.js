@@ -39,10 +39,17 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
         "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
       }}
     >
+      {console.log(comments)}
+
       <CardHeader
         avatar={
           <Avatar
-            sx={{ bgcolor: "rgba(0, 0, 0, 0.04)", marginLeft: "8px" }}
+            sx={{
+              bgcolor: "rgba(0, 0, 0, 0.04)",
+              marginLeft: "8px",
+              width: 40,
+              height: 40,
+            }}
             src={author.image.url}
             alt={title}
           />
@@ -58,7 +65,16 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
       />
       <CardContent>
         <Link to={`blogs/${slug}`} style={{ color: "#666" }}>
-          <Typography component="h3" varianr="h5" fontWeight="bold">
+          <Typography
+            sx={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+            component="h3"
+            varianr="h5"
+            fontWeight="bold"
+          >
             {title}
           </Typography>
         </Link>
@@ -72,20 +88,36 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
         </IconButton>
         {comments.length ? (
           <AvatarGroup
-            total={3}
-            max={2}
+            total={comments.length}
+            max={3}
             sx={{ direction: "ltr", marginLeft: "auto", width: 30, height: 30 }}
           >
-            {comments.map((comment) => (
-              <>
-                <Avatar
-                  key={comment.id}
-                  sx={{ bgcolor: "red", width: 30, height: 30 }}
-                >
-                  {fistename(comment.name)}
-                </Avatar>
-              </>
-            ))}
+            <Avatar
+              sx={{
+                bgcolor: "#f2f2f2",
+                color: "#666",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            >
+              {fistename(comments[0].name)}
+            </Avatar>
+            <Avatar
+              sx={{
+                bgcolor: "#f2f2f2",
+                color: "#666",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            >
+              {fistename(comments[1].name)}
+            </Avatar>
           </AvatarGroup>
         ) : (
           <Typography ml="auto" component="p" variant="p">
