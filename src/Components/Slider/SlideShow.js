@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 
 // Mui
 import { Skeleton } from "@mui/material";
+import { generate_rabndomnum } from "../../js/function";
 
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
@@ -36,7 +37,7 @@ const SlideShow = () => {
         className="mySwiper"
         ref={app}
       >
-        {loading ? (
+        {loading && (
           <SwiperSlide
             style={{
               display: "flex",
@@ -46,18 +47,23 @@ const SlideShow = () => {
           >
             <Skeleton variant="rounded" width="100%" height="100%" />
           </SwiperSlide>
-        ) : (
-          data.posts.map((post, index) => (
-            <SwiperSlide key="post.id" ref={img_main}>
-              <Link
-                to={`/blogs/${data.posts[index].slug}`}
-                style={{ display: "flex", width: "100%", height: "100%" }}
-              >
-                <img src={post.coverphoto.url} alt={post.title} />
-              </Link>
-            </SwiperSlide>
-          ))
         )}
+        {!loading &&
+          data.posts
+            .slice(
+              `${Math.floor(Math.random() * 2) + 0}`,
+              generate_rabndomnum(data.posts.length)
+            )
+            .map((post, index) => (
+              <SwiperSlide key="post.id" ref={img_main}>
+                <Link
+                  to={`/blogs/${data.posts[index].slug}`}
+                  style={{ display: "flex", width: "100%", height: "100%" }}
+                >
+                  <img src={post.coverphoto.url} alt={post.title} />
+                </Link>
+              </SwiperSlide>
+            ))}
       </Swiper>
     </>
   );
