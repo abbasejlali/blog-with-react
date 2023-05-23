@@ -11,55 +11,28 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      variant="h6"
-      sx={{ fontSize: "16px", fontWeight: "bold", color: "#dadada !important" }}
-      {...props}
-    />
-  );
-}
 const Footer = (props) => {
   // Media Query
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.up("xs"));
-  const matchesSM = useMediaQuery(theme.breakpoints.up("sm"));
-  const matchesMD = useMediaQuery(theme.breakpoints.up("md"));
-  const dynamicStyles = {
-    ...(matchesXS && { mb: "1rem" }),
-    ...(matchesMD && { mb: "0rem" }),
-  };
-  const dynamicStyles2 = {
-    ...(matchesXS && { display: "none" }),
-    ...(matchesSM && { display: "flex" }),
-  };
+
   const dynamicStyles3 = {
     ...(matchesXS && {
       display: "flex",
       flexDirection: "column",
-      justifyContent: "space-between",
+      justifyContent: "flex-start",
       alignItems: "center",
     }),
-    ...(matchesMD && {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-    }),
-  };
-  const dynamicStyles4 = {
-    ...(matchesXS && { alignSelf: "center", width: "100%" }),
-    ...(matchesMD && { alignSelf: "end" }),
   };
 
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   return (
-    <Box maxWidth="100%" sx={{ background: "#666" }}>
+    <Box
+      maxWidth="100%"
+      sx={{
+        background: "white",
+        boxShadow: "0px 4px 15px 0px rgba(0, 0, 0, 0.2)",
+      }}
+    >
       <Grid
         container
         px={4}
@@ -71,51 +44,23 @@ const Footer = (props) => {
           width: "100%",
         }}
       >
-        <Grid item xs={12} md={4} lg={2} sx={{ ...dynamicStyles }}>
-          <Typography
-            component="h2"
-            fontWeight="bold"
-            color="#dadada"
-            variant="h4"
-          >
-            وبلاگ اجلالی
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={4}
-          lg={3}
-          sx={{ ...dynamicStyles, ...dynamicStyles2 }}
-        >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <LinkTab label="صفحه اصلی" href="#" />
-            <LinkTab label="نویسنده ها" href="#" />
-            {/* href="/blogs/category" */}
-            <LinkTab label="دسته بندی" href="#" />
-          </Tabs>
-        </Grid>
         <Grid
           item
           xs={8}
-          md={2}
+          md={6}
           sx={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
-            ...dynamicStyles4,
           }}
+          width="100%"
         >
           <Typography
             coponent="a"
             variant="h6"
             href="/https://www.telegram.org/abbas_ejlali"
             sx={{
-              color: "#dadada",
+              color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
               "&:hover": { color: "#0088BB" },
@@ -129,7 +74,7 @@ const Footer = (props) => {
             variant="h6"
             href="/https://www.instagram.com/abbas_ejlali1"
             sx={{
-              color: "#dadada",
+              color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
               "&:hover": { color: "#E1306C" },
@@ -144,7 +89,7 @@ const Footer = (props) => {
             href="/https://ir.linkedin.com/in/abbas-ejlali-30541520b?original_referer=https%3A%2F%2Fwww.google.com%2F"
             target="_blank"
             sx={{
-              color: "#dadada",
+              color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
               "&:hover": { color: "#0077B5" },
@@ -157,7 +102,7 @@ const Footer = (props) => {
             variant="h6"
             href="/https://wa.me/989199294036"
             sx={{
-              color: "#dadada",
+              color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
               "&:hover": { color: "rgb(45, 183, 66)" },
@@ -171,7 +116,7 @@ const Footer = (props) => {
             variant="h6"
             href="/https://github.com/abbasejlali"
             sx={{
-              color: "#dadada",
+              color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
               "&:hover": { color: "#4078c0" },
@@ -192,13 +137,37 @@ const Footer = (props) => {
           }}
         >
           <Typography
-            color="#dadada"
+            color="#666"
             component="h2"
             variant="h6"
-            sx={{ fontSize: "14px" }}
+            sx={{
+              fontSize: "16px",
+              display: "flex",
+              alignItems: "center",
+              wordSpacing: "1px",
+            }}
           >
-            کدنویسی با <span style={{ color: "red" }}>&#x2764;</span> توسط عباس
-            اجلالی
+            کد نویسی با{" "}
+            <Typography
+              color="red"
+              fontWeight="bold"
+              component="span"
+              variant="span"
+              mx="3px"
+            >
+              &#x2764;
+            </Typography>{" "}
+            توسط{" "}
+            <Typography
+              fontWeight="bold"
+              color="#666"
+              component="a"
+              variant="a"
+              href="https://github.com/abbasejlali"
+              mr="3px"
+            >
+              عباس اجلالی
+            </Typography>
           </Typography>
         </Grid>
       </Grid>
