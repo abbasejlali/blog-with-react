@@ -11,6 +11,7 @@ import {
   CardActions,
   IconButton,
   AvatarGroup,
+  Box,
 } from "@mui/material";
 
 // Styles
@@ -37,10 +38,9 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
         boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
         "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
+        position: "relative",
       }}
     >
-      {console.log(comments)}
-
       <CardHeader
         avatar={
           <Avatar
@@ -63,6 +63,28 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
         image={coverphoto.url}
         alt={title}
       />
+      <Box
+        sx={{
+          position: "absolute",
+          top: "78px",
+          left: "5px",
+          backgroundColor: "white",
+          padding: "0px 10px 5px 10px",
+          borderRadius: "31px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          component="span"
+          variant="span"
+          fontWeight="bold"
+          fontSize="14px"
+        >
+          عباس
+        </Typography>
+      </Box>
       <CardContent>
         <Link to={`blogs/${slug}`} style={{ color: "#666" }}>
           <Typography
