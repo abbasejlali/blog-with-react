@@ -48,7 +48,6 @@ const CardElement = ({
         position: "relative",
       }}
     >
-      {console.log(category)}
       <CardHeader
         avatar={
           <Avatar

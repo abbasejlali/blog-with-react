@@ -1,5 +1,5 @@
 import React from "react";
-
+import { grey } from "@mui/material/colors";
 // Mui
 import {
   AppBar,
@@ -14,6 +14,8 @@ import {
   IconButton,
   Divider,
   Drawer,
+  Grid,
+  TextField,
 } from "@mui/material";
 
 // ICons
@@ -21,6 +23,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import Groups2Icon from "@mui/icons-material/Groups2";
 import TuneIcon from "@mui/icons-material/Tune";
+import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+import CloseIcon from "@mui/icons-material/Close";
 
 // react-router-dom
 import { Link } from "react-router-dom";
@@ -29,7 +33,7 @@ const Header = () => {
   const [state, setState] = React.useState({
     right: false,
   });
-
+  const grey1 = grey[600];
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -108,12 +112,12 @@ const Header = () => {
 
   return (
     <>
-      <Box maxWidth="100%">
+      <Box maxWidth="100%" position="sticky" sx={{ top: 0, zIndex: "999" }}>
         <AppBar
-          position="sticky"
           sx={{
             boxShadow: "0 3px 6px 0 hsl(0deg 0% 51.8% / 15%)",
             backgroundColor: "white !important",
+            position: "unset !important",
           }}
         >
           <Toolbar
@@ -147,6 +151,10 @@ const Header = () => {
             >
               وبلاگ اجلالی
             </Typography>
+
+            <IconButton size="large" color="white">
+              <ManageSearchIcon style={{ fontSize: "35px", color: "#666" }} />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
@@ -157,6 +165,75 @@ const Header = () => {
       >
         {list("right")}
       </Drawer>
+      <Box
+        maxWidth="100%"
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: "9999",
+          backgroundColor: "#f2f2f2",
+        }}
+      >
+        <Grid container height="100%">
+          <Grid item xs={12} height="fit-content">
+            <IconButton size="large" color="white">
+              <CloseIcon style={{ fontSize: "35px", color: "#666" }} />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} height="fit-content">
+            <Box
+              sx={{
+                minHeight: "fit-content",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                mb={5}
+                mt={3}
+                component="h4"
+                variant="h6"
+                color="#666"
+              >
+                <Typography
+                  component="span"
+                  fontWeight="bold"
+                  ml="3px"
+                  variant="h6"
+                  color="#ff4c60"
+                >
+                  Esc
+                </Typography>
+                را فشار دهید تا بسته شود
+              </Typography>
+              <Box
+                component="form"
+                sx={{ px: 5, width: "700px" }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  type="search"
+                  variant="standard"
+                  placeholder="شروع به جستجو کنید ..."
+                  fullWidth
+                  fontWeight="bold"
+                />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
     </>
   );
 };
