@@ -27,7 +27,14 @@ import ShareIcon from "@mui/icons-material/Share";
 // js
 import { fistename } from "../../js/function";
 
-const CardElement = ({ title, author, slug, coverphoto, comments }) => {
+const CardElement = ({
+  title,
+  author,
+  slug,
+  coverphoto,
+  comments,
+  category,
+}) => {
   return (
     <Card
       className={styles.cardmain}
@@ -41,6 +48,7 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
         position: "relative",
       }}
     >
+      {console.log(category)}
       <CardHeader
         avatar={
           <Avatar
@@ -82,7 +90,9 @@ const CardElement = ({ title, author, slug, coverphoto, comments }) => {
           fontWeight="bold"
           fontSize="14px"
         >
-          عباس
+          {category === "programming" && "برنامه نویسی"}
+          {category === "digital-world" && "دنیای دیجیتال"}
+          {category === "technology" && "تکنولوژی"}
         </Typography>
       </Box>
       <CardContent>
