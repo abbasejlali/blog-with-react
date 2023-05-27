@@ -32,10 +32,13 @@ import CircleIcon from "@mui/icons-material/Circle";
 // react-router-dom
 import { Link } from "react-router-dom";
 
-// Gsap
-import { gsap } from "gsap";
+// Graph Ql
+import { useQuery } from "@apollo/client";
+import { GET_POSTS } from "../GraphQl/query";
 
 const Header = () => {
+  const { data } = useQuery(GET_POSTS);
+  console.log(data);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -125,6 +128,7 @@ const Header = () => {
   }, [open]);
 
   const [search, setSearch] = useState("");
+
   const searchHandeler = (e) => {
     setSearch(e.target.value);
   };
@@ -260,6 +264,10 @@ const Header = () => {
                     onChange={searchHandeler}
                     value={search}
                   />
+                  {data &&
+                    data.posts
+                      .filter((post) => post.title.includes(search))
+                      .map((post) => <p>{post.title}</p>)}
                 </Box>
               </Box>
             </Grid>
