@@ -16,6 +16,7 @@ import {
   Drawer,
   Grid,
   TextField,
+  Button,
 } from "@mui/material";
 
 // ICons
@@ -25,6 +26,7 @@ import Groups2Icon from "@mui/icons-material/Groups2";
 import TuneIcon from "@mui/icons-material/Tune";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import CloseIcon from "@mui/icons-material/Close";
+import CircleIcon from "@mui/icons-material/Circle";
 
 // react-router-dom
 import { Link } from "react-router-dom";
@@ -230,6 +232,100 @@ const Header = () => {
                   fontWeight="bold"
                 />
               </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} height="fit-content">
+            <Typography
+              component="h4"
+              variant="h6"
+              sx={{ textAlign: "center", color: "#666" }}
+            >
+              یا دسته بندی های محبوب ما را بررسی کنید...
+            </Typography>
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              mt={2}
+            >
+              <Link
+                to="/"
+                style={{
+                  color: "#666",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                <Button
+                  disabled={false}
+                  size="medium"
+                  variant="elevated"
+                  sx={{
+                    backgroundColor: "white",
+                    "&:hover": { backgroundColor: "#f2f2f2" },
+                  }}
+                >
+                  <CircleIcon
+                    style={{
+                      fontSize: "10px",
+                      marginLeft: "4px",
+                      color: "#49dfd4",
+                    }}
+                  />{" "}
+                  برنامه نویسی
+                </Button>
+              </Link>
+              <Link
+                to="/"
+                style={{
+                  color: "#666",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                <Button
+                  disabled={false}
+                  size="medium"
+                  variant="elevated"
+                  sx={{
+                    backgroundColor: "white",
+                    "&:hover": { backgroundColor: "#f2f2f2" },
+                  }}
+                >
+                  <CircleIcon
+                    style={{
+                      fontSize: "10px",
+                      marginLeft: "4px",
+                      color: "#85b2f4",
+                    }}
+                  />{" "}
+                  تکنولوژی
+                </Button>
+              </Link>
+              <Link to="/" style={{ color: "#666", fontWeight: "bold" }}>
+                <Button
+                  disabled={false}
+                  size="medium"
+                  variant="elevated"
+                  sx={{
+                    backgroundColor: "white",
+                    "&:hover": { backgroundColor: "#f2f2f2" },
+                  }}
+                >
+                  <CircleIcon
+                    style={{
+                      fontSize: "10px",
+                      marginLeft: "4px",
+                      color: "#c5c5fe",
+                    }}
+                  />{" "}
+                  دنیای دیجیتال
+                </Button>
+              </Link>
             </Box>
           </Grid>
         </Grid>
