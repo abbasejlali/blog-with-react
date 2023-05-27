@@ -1,5 +1,4 @@
-import React from "react";
-import { grey } from "@mui/material/colors";
+import React, { useEffect, useRef, useState } from "react";
 // Mui
 import {
   AppBar,
@@ -17,6 +16,8 @@ import {
   Grid,
   TextField,
   Button,
+  Zoom,
+  Slide,
 } from "@mui/material";
 
 // ICons
@@ -31,11 +32,13 @@ import CircleIcon from "@mui/icons-material/Circle";
 // react-router-dom
 import { Link } from "react-router-dom";
 
+// Gsap
+import { gsap } from "gsap";
+
 const Header = () => {
   const [state, setState] = React.useState({
     right: false,
   });
-  const grey1 = grey[600];
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -111,7 +114,14 @@ const Header = () => {
       </List>
     </Box>
   );
+  const [open, setOpen] = useState(false);
+  const searchBox = useRef();
 
+  useEffect(() => {
+    gsap.to(searchBox.current, {
+      sclae: 1,
+    });
+  }, [open]);
   return (
     <>
       <Box maxWidth="100%" position="sticky" sx={{ top: 0, zIndex: "999" }}>
@@ -155,7 +165,10 @@ const Header = () => {
             </Typography>
 
             <IconButton size="large" color="white">
-              <ManageSearchIcon style={{ fontSize: "35px", color: "#666" }} />
+              <ManageSearchIcon
+                onClick={() => setOpen(true)}
+                style={{ fontSize: "35px", color: "#666" }}
+              />
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -167,169 +180,177 @@ const Header = () => {
       >
         {list("right")}
       </Drawer>
-      <Box
-        maxWidth="100%"
-        sx={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          zIndex: "9999",
-          backgroundColor: "#f2f2f2",
-        }}
-      >
-        <Grid container height="100%">
-          <Grid item xs={12} height="fit-content">
-            <IconButton size="large" color="white">
-              <CloseIcon style={{ fontSize: "35px", color: "#666" }} />
-            </IconButton>
-          </Grid>
-          <Grid item xs={12} height="fit-content">
-            <Box
-              sx={{
-                minHeight: "fit-content",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                mb={5}
-                mt={3}
-                component="h4"
-                variant="h6"
-                color="#666"
+      <Slide direction="up" in={open}>
+        <Box
+          maxWidth="100%"
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            transition: "all 0.4s ease",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: "9999",
+            backgroundColor: "#f2f2f2",
+          }}
+          ref={searchBox}
+        >
+          <Grid container height="100%">
+            <Grid item xs={12} height="fit-content">
+              <IconButton
+                size="large"
+                color="white"
+                onClick={() => setOpen(false)}
+              >
+                <CloseIcon style={{ fontSize: "35px", color: "#666" }} />
+              </IconButton>
+            </Grid>
+            <Grid item xs={12} height="fit-content">
+              <Box
+                sx={{
+                  minHeight: "fit-content",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
               >
                 <Typography
-                  component="span"
-                  fontWeight="bold"
-                  ml="3px"
+                  mb={5}
+                  mt={3}
+                  component="h4"
                   variant="h6"
-                  color="#ff4c60"
+                  color="#666"
                 >
-                  Esc
+                  <Typography
+                    component="span"
+                    fontWeight="bold"
+                    ml="3px"
+                    variant="h6"
+                    color="#ff4c60"
+                  >
+                    Esc
+                  </Typography>
+                  را فشار دهید تا بسته شود
                 </Typography>
-                را فشار دهید تا بسته شود
+                <Box
+                  component="form"
+                  sx={{ px: 5, width: "700px" }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField
+                    type="search"
+                    variant="standard"
+                    placeholder="شروع به جستجو کنید ..."
+                    fullWidth
+                    fontWeight="bold"
+                  />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12} height="fit-content">
+              <Typography
+                component="h4"
+                variant="h6"
+                sx={{ textAlign: "center", color: "#666" }}
+              >
+                یا دسته بندی های محبوب ما را بررسی کنید...
               </Typography>
               <Box
-                component="form"
-                sx={{ px: 5, width: "700px" }}
-                noValidate
-                autoComplete="off"
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                mt={2}
               >
-                <TextField
-                  type="search"
-                  variant="standard"
-                  placeholder="شروع به جستجو کنید ..."
-                  fullWidth
-                  fontWeight="bold"
-                />
+                <Link
+                  to="/"
+                  style={{
+                    color: "#666",
+                    fontWeight: "bold",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <Button
+                    disabled={false}
+                    size="medium"
+                    variant="elevated"
+                    sx={{
+                      backgroundColor: "white",
+                      "&:hover": { backgroundColor: "#f2f2f2" },
+                    }}
+                  >
+                    <CircleIcon
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "4px",
+                        color: "#49dfd4",
+                      }}
+                    />{" "}
+                    برنامه نویسی
+                  </Button>
+                </Link>
+                <Link
+                  to="/"
+                  style={{
+                    color: "#666",
+                    fontWeight: "bold",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <Button
+                    disabled={false}
+                    size="medium"
+                    variant="elevated"
+                    sx={{
+                      backgroundColor: "white",
+                      "&:hover": { backgroundColor: "#f2f2f2" },
+                    }}
+                  >
+                    <CircleIcon
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "4px",
+                        color: "#85b2f4",
+                      }}
+                    />{" "}
+                    تکنولوژی
+                  </Button>
+                </Link>
+                <Link to="/" style={{ color: "#666", fontWeight: "bold" }}>
+                  <Button
+                    disabled={false}
+                    size="medium"
+                    variant="elevated"
+                    sx={{
+                      backgroundColor: "white",
+                      "&:hover": { backgroundColor: "#f2f2f2" },
+                    }}
+                  >
+                    <CircleIcon
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "4px",
+                        color: "#c5c5fe",
+                      }}
+                    />{" "}
+                    دنیای دیجیتال
+                  </Button>
+                </Link>
               </Box>
-            </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12} height="fit-content">
-            <Typography
-              component="h4"
-              variant="h6"
-              sx={{ textAlign: "center", color: "#666" }}
-            >
-              یا دسته بندی های محبوب ما را بررسی کنید...
-            </Typography>
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              mt={2}
-            >
-              <Link
-                to="/"
-                style={{
-                  color: "#666",
-                  fontWeight: "bold",
-                  marginLeft: "10px",
-                }}
-              >
-                <Button
-                  disabled={false}
-                  size="medium"
-                  variant="elevated"
-                  sx={{
-                    backgroundColor: "white",
-                    "&:hover": { backgroundColor: "#f2f2f2" },
-                  }}
-                >
-                  <CircleIcon
-                    style={{
-                      fontSize: "10px",
-                      marginLeft: "4px",
-                      color: "#49dfd4",
-                    }}
-                  />{" "}
-                  برنامه نویسی
-                </Button>
-              </Link>
-              <Link
-                to="/"
-                style={{
-                  color: "#666",
-                  fontWeight: "bold",
-                  marginLeft: "10px",
-                }}
-              >
-                <Button
-                  disabled={false}
-                  size="medium"
-                  variant="elevated"
-                  sx={{
-                    backgroundColor: "white",
-                    "&:hover": { backgroundColor: "#f2f2f2" },
-                  }}
-                >
-                  <CircleIcon
-                    style={{
-                      fontSize: "10px",
-                      marginLeft: "4px",
-                      color: "#85b2f4",
-                    }}
-                  />{" "}
-                  تکنولوژی
-                </Button>
-              </Link>
-              <Link to="/" style={{ color: "#666", fontWeight: "bold" }}>
-                <Button
-                  disabled={false}
-                  size="medium"
-                  variant="elevated"
-                  sx={{
-                    backgroundColor: "white",
-                    "&:hover": { backgroundColor: "#f2f2f2" },
-                  }}
-                >
-                  <CircleIcon
-                    style={{
-                      fontSize: "10px",
-                      marginLeft: "4px",
-                      color: "#c5c5fe",
-                    }}
-                  />{" "}
-                  دنیای دیجیتال
-                </Button>
-              </Link>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </Slide>
     </>
   );
 };
