@@ -123,6 +123,11 @@ const Header = () => {
         e.key === "Escape" && setOpen(false);
       });
   }, [open]);
+
+  const [search, setSearch] = useState("");
+  const searchHandeler = (e) => {
+    setSearch(e.target.value);
+  };
   return (
     <>
       <Box maxWidth="100%" position="sticky" sx={{ top: 0, zIndex: "999" }}>
@@ -252,6 +257,8 @@ const Header = () => {
                     placeholder="شروع به جستجو کنید ..."
                     fullWidth
                     fontWeight="bold"
+                    onChange={searchHandeler}
+                    value={search}
                   />
                 </Box>
               </Box>
@@ -275,12 +282,13 @@ const Header = () => {
                 mt={2}
               >
                 <Link
-                  to="/"
+                  to="/blogs/category/programming"
                   style={{
                     color: "#666",
                     fontWeight: "bold",
                     marginLeft: "10px",
                   }}
+                  onClick={() => setOpen(false)}
                 >
                   <Button
                     disabled={false}
@@ -302,12 +310,13 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link
-                  to="/"
+                  to="/blogs/category/technology"
                   style={{
                     color: "#666",
                     fontWeight: "bold",
                     marginLeft: "10px",
                   }}
+                  onClick={() => setOpen(false)}
                 >
                   <Button
                     disabled={false}
@@ -328,7 +337,11 @@ const Header = () => {
                     تکنولوژی
                   </Button>
                 </Link>
-                <Link to="/" style={{ color: "#666", fontWeight: "bold" }}>
+                <Link
+                  to="/blogs/category/digital-world"
+                  style={{ color: "#666", fontWeight: "bold" }}
+                  onClick={() => setOpen(false)}
+                >
                   <Button
                     disabled={false}
                     size="medium"

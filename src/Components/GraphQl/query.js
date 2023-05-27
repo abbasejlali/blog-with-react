@@ -49,5 +49,11 @@ const GET_COMMENTSHOME = gql`
     }
   }
 `;
-
-export { GET_COVERPHOTO, GET_POSTSCARDSHOME, GET_COMMENTSHOME };
+const GET_POSTS = gql`
+  query {
+    posts {
+      title
+    }
+  }
+`;
+export { GET_COVERPHOTO, GET_POSTSCARDSHOME, GET_COMMENTSHOME, GET_POSTS };
