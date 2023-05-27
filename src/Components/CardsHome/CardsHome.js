@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Mui
-import { Grid, Typography, Divider, Box, Skeleton } from "@mui/material";
+import { Grid, Typography, Divider, Box, Skeleton, Grow } from "@mui/material";
 
 // react-router-dom
 import { Link } from "react-router-dom";
@@ -23,6 +23,7 @@ const CardsHome = ({ categoryen, categoryfa }) => {
 
   const lengthpost = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
   if (error) return <div>Error ...</div>;
+
   return (
     <>
       <Box maxWidth="100%" mt={5} mb={8} className={styles.boxcards}>

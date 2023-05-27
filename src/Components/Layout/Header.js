@@ -118,9 +118,10 @@ const Header = () => {
   const searchBox = useRef();
 
   useEffect(() => {
-    gsap.to(searchBox.current, {
-      sclae: 1,
-    });
+    open &&
+      document.addEventListener("keydown", (e) => {
+        e.key === "Escape" && setOpen(false);
+      });
   }, [open]);
   return (
     <>
@@ -180,6 +181,7 @@ const Header = () => {
       >
         {list("right")}
       </Drawer>
+
       <Slide direction="up" in={open}>
         <Box
           maxWidth="100%"
