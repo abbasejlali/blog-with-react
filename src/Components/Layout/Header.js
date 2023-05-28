@@ -17,8 +17,8 @@ import {
   TextField,
   Button,
   Slide,
-  Card,
-  CardMedia,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 // ICons
@@ -42,6 +42,39 @@ import CardBoxSearch from "../Card/CardBoxSearch";
 
 const Header = () => {
   const [isfocus, setIsfocus] = useState(false);
+
+  const theme = useTheme();
+  const matchesXS = useMediaQuery(theme.breakpoints.up("xs"));
+  const matchesSM = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const cardXS = {
+    ...(matchesXS && {
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    }),
+  };
+
+  const cardSM = {
+    ...(matchesSM && {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      flexWrap: "wrap",
+    }),
+  };
+
+  const formXS = {
+    ...(matchesXS && {
+      maxWidth: "100vw",
+    }),
+  };
+
+  const formSM = {
+    ...(matchesSM && {
+      maxWidth: "60vw",
+    }),
+  };
 
   const { data } = useQuery(GET_POSTS);
   const [state, setState] = React.useState({
@@ -216,6 +249,7 @@ const Header = () => {
             left: 0,
             zIndex: "9999",
             backgroundColor: "#f2f2f2",
+            overflowY: "scroll",
           }}
           ref={searchBox}
         >
@@ -260,7 +294,7 @@ const Header = () => {
                 </Typography>
                 <Box
                   component="form"
-                  sx={{ px: 5, width: "700px" }}
+                  sx={{ px: 5, ...formXS, ...formSM, width: "100%" }}
                   noValidate
                   autoComplete="off"
                 >
@@ -284,21 +318,29 @@ const Header = () => {
                       شما هنوز جست جویی انجام ندادید
                     </Typography>
                   )}
-                  {data &&
-                    search &&
-                    data.posts
-                      .filter((post) => post.title.includes(search))
-                      .map((post) => (
-                        <>
-                          <Grid col={12} container sx={{ flexWrap: "wrap" }}>
-                            <CardBoxSearch {...post} />
-                          </Grid>
-                        </>
-                      ))}
+                  <Grid
+                    container
+                    sx={{
+                      display: "flex",
+                      ...cardXS,
+                      ...cardSM,
+                      maxWidth: "100%",
+                      width: "100%",
+                    }}
+                    my={3}
+                  >
+                    {data &&
+                      search &&
+                      data.posts
+                        .filter((post) => post.title.includes(search))
+                        .map((post) => (
+                          <CardBoxSearch key={post.id} {...post} />
+                        ))}
+                  </Grid>
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} height="fit-content">
+            <Grid item xs={12} height="fit-content" pb={5}>
               <Typography
                 component="h4"
                 variant="h6"

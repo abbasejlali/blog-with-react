@@ -52,7 +52,18 @@ const GET_COMMENTSHOME = gql`
 const GET_POSTS = gql`
   query {
     posts {
+      id
       title
+      slug
+      coverphoto {
+        url
+      }
+      author {
+        name
+        image {
+          url
+        }
+      }
     }
   }
 `;
