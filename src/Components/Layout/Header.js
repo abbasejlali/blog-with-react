@@ -41,8 +41,7 @@ import { GET_POSTS } from "../GraphQl/query";
 import CardBoxSearch from "../Card/CardBoxSearch";
 
 const Header = () => {
-  const [isfocus, setIsfocus] = useState(false);
-
+  // Media Query in Mui
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.up("xs"));
   const matchesSM = useMediaQuery(theme.breakpoints.up("sm"));
@@ -75,8 +74,10 @@ const Header = () => {
       maxWidth: "60vw",
     }),
   };
-
+  // Get data by GrapgQl
   const { data } = useQuery(GET_POSTS);
+
+  // Mobile Menu in Mui
   const [state, setState] = React.useState({
     right: false,
   });
@@ -155,6 +156,8 @@ const Header = () => {
       </List>
     </Box>
   );
+
+  // beting in search box
   const [open, setOpen] = useState(false);
   const searchBox = useRef();
 
@@ -170,9 +173,14 @@ const Header = () => {
   const searchHandeler = (e) => {
     setSearch(e.target.value);
   };
+  const [isfocus, setIsfocus] = useState(false);
 
   const focusHandeler = () => {
     setIsfocus(true);
+  };
+
+  const blurHandeler = () => {
+    setIsfocus(false);
   };
   return (
     <>
@@ -307,6 +315,7 @@ const Header = () => {
                     onChange={searchHandeler}
                     value={search}
                     onFocus={focusHandeler}
+                    onBlur={blurHandeler}
                   />
                   {search === "" && isfocus && (
                     <Typography
