@@ -16,8 +16,9 @@ import {
   Grid,
   TextField,
   Button,
-  Zoom,
   Slide,
+  Card,
+  CardMedia,
 } from "@mui/material";
 
 // ICons
@@ -36,9 +37,13 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_POSTS } from "../GraphQl/query";
 
+// CardElement SearchBox
+import CardBoxSearch from "../Card/CardBoxSearch";
+
 const Header = () => {
+  const [isfocus, setIsfocus] = useState(false);
+
   const { data } = useQuery(GET_POSTS);
-  console.log(data);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -131,6 +136,10 @@ const Header = () => {
 
   const searchHandeler = (e) => {
     setSearch(e.target.value);
+  };
+
+  const focusHandeler = () => {
+    setIsfocus(true);
   };
   return (
     <>
@@ -263,11 +272,29 @@ const Header = () => {
                     fontWeight="bold"
                     onChange={searchHandeler}
                     value={search}
+                    onFocus={focusHandeler}
                   />
+                  {search === "" && isfocus && (
+                    <Typography
+                      component="span"
+                      variant="span"
+                      fontWeight="bold"
+                      color="#ff4c60"
+                    >
+                      شما هنوز جست جویی انجام ندادید
+                    </Typography>
+                  )}
                   {data &&
+                    search &&
                     data.posts
                       .filter((post) => post.title.includes(search))
-                      .map((post) => <p>{post.title}</p>)}
+                      .map((post) => (
+                        <>
+                          <Grid col={12} container sx={{ flexWrap: "wrap" }}>
+                            <CardBoxSearch {...post} />
+                          </Grid>
+                        </>
+                      ))}
                 </Box>
               </Box>
             </Grid>
