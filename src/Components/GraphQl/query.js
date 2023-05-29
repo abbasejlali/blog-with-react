@@ -61,4 +61,42 @@ const GET_POSTS = gql`
     }
   }
 `;
-export { GET_COVERPHOTO, GET_POSTSCARDSHOME, GET_COMMENTSHOME, GET_POSTS };
+
+const GET_POSTTOBLOG = gql`
+  query postblog($slug: String!) {
+    posts(where: { slug: $slug }) {
+      title
+      category
+      date
+      coverphoto {
+        url
+      }
+      author {
+        name
+        image {
+          url
+        }
+        field
+        describtion
+      }
+      content {
+        html
+      }
+      comments {
+        id
+        name
+        avatar {
+          url
+        }
+        text
+      }
+    }
+  }
+`;
+export {
+  GET_COVERPHOTO,
+  GET_POSTSCARDSHOME,
+  GET_COMMENTSHOME,
+  GET_POSTS,
+  GET_POSTTOBLOG,
+};
