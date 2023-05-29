@@ -220,15 +220,17 @@ const Header = () => {
                 }}
               />
             </IconButton>
-            <Typography
-              component="h1"
-              mb="4px"
-              variant="h6"
-              color="#666"
-              pl="12px"
-            >
-              وبلاگ اجلالی
-            </Typography>
+            <Link to="/" style={{ color: "#666" }}>
+              <Typography
+                component="h1"
+                mb="4px"
+                variant="h6"
+                color="#666"
+                pl="12px"
+              >
+                وبلاگ اجلالی
+              </Typography>
+            </Link>
 
             <IconButton size="large" color="white">
               <ManageSearchIcon

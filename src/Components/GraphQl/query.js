@@ -58,12 +58,6 @@ const GET_POSTS = gql`
       coverphoto {
         url
       }
-      author {
-        name
-        image {
-          url
-        }
-      }
     }
   }
 `;

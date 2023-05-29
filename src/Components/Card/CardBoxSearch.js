@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const CardBoxSearch = ({ title, slug, coverphoto, author, setopen }) => {
+const CardBoxSearch = ({ title, slug, coverphoto, setopen }) => {
   // Media Query in Mui
   const theme = useTheme();
   const MatchesXS = useMediaQuery(theme.breakpoints.up("xs"));
