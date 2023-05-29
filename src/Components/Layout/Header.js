@@ -317,16 +317,7 @@ const Header = () => {
                     onFocus={focusHandeler}
                     onBlur={blurHandeler}
                   />
-                  {search === "" && isfocus && (
-                    <Typography
-                      component="span"
-                      variant="span"
-                      fontWeight="bold"
-                      color="#ff4c60"
-                    >
-                      شما هنوز جست جویی انجام ندادید
-                    </Typography>
-                  )}
+
                   <Grid
                     container
                     sx={{
@@ -339,12 +330,24 @@ const Header = () => {
                     my={3}
                   >
                     {data &&
-                      search &&
-                      data.posts
-                        .filter((post) => post.title.includes(search))
-                        .map((post) => (
-                          <CardBoxSearch key={post.id} {...post} />
-                        ))}
+                    search &&
+                    data.posts.find((post) => post.title.includes(search))
+                      ? data.posts
+                          .filter((post) => post.title.includes(search))
+                          .map((post) => (
+                            <CardBoxSearch key={post.id} {...post} />
+                          ))
+                      : isfocus &&
+                        search !== "" && (
+                          <Typography
+                            component="span"
+                            fontWeight="bold"
+                            color="#ff4c60"
+                            variant="span"
+                          >
+                            متاسفانه مطلبی یافت نشد !!!
+                          </Typography>
+                        )}
                   </Grid>
                 </Box>
               </Box>
