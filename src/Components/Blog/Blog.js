@@ -15,10 +15,13 @@ import {
   ListItemIcon,
   ListItemText,
   List,
+  Typography,
+  IconButton,
 } from "@mui/material";
 
 // icons Mui
 import CircleIcon from "@mui/icons-material/Circle";
+import WestIcon from "@mui/icons-material/West";
 
 const Blog = () => {
   const { slug } = useParams();
@@ -36,16 +39,39 @@ const Blog = () => {
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
+          boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
           padding: "24px",
-          margin: "40px 24px 40px 24px",
+          margin: "40px 200px 40px 200px",
           borderRadius: "10px",
         }}
       >
+        <Box
+          maxWidth="100%"
+          mb={4}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Typography
+            component="h2"
+            color="#666"
+            variant="h6"
+            fontWeight="bolder"
+          >
+            {data.post.title}
+          </Typography>
+          <IconButton sx={{ fontSize: "30px", color: "#666" }}>
+            <WestIcon />
+          </IconButton>
+        </Box>
         <Avatar
           src={data.post.coverphoto.url}
           alt={data.post.title}
-          sx={{ width: "100%", height: "250px", borderRadius: "10px" }}
+          sx={{ width: "100%", height: "360px", borderRadius: "10px" }}
         />
         <List
           sx={{
@@ -72,6 +98,19 @@ const Blog = () => {
             />
           </ListItem>
         </List>
+
+        <Box
+          maxWidth="100%"
+          pt={0.7}
+          pb={1}
+          px={2}
+          sx={{
+            borderRadius: "10px",
+            color: "#666",
+          }}
+          component="div"
+          dangerouslySetInnerHTML={{ __html: data.post.content.html }}
+        ></Box>
       </article>
     </>
   );
