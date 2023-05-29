@@ -64,7 +64,7 @@ const GET_POSTS = gql`
 
 const GET_POSTTOBLOG = gql`
   query postblog($slug: String!) {
-    posts(where: { slug: $slug }) {
+    post(where: { slug: $slug }) {
       title
       category
       date
