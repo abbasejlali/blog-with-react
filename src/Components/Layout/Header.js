@@ -335,7 +335,11 @@ const Header = () => {
                       ? data.posts
                           .filter((post) => post.title.includes(search))
                           .map((post) => (
-                            <CardBoxSearch key={post.id} {...post} />
+                            <CardBoxSearch
+                              setopen={setOpen}
+                              key={post.id}
+                              {...post}
+                            />
                           ))
                       : isfocus &&
                         search !== "" && (

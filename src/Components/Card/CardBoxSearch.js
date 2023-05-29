@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const CardBoxSearch = ({ title, slug, coverphoto, author }) => {
+const CardBoxSearch = ({ title, slug, coverphoto, author, setopen }) => {
   // Media Query in Mui
   const theme = useTheme();
   const MatchesXS = useMediaQuery(theme.breakpoints.up("xs"));
@@ -34,6 +34,9 @@ const CardBoxSearch = ({ title, slug, coverphoto, author }) => {
       width: "30%",
     }),
   };
+
+  //   beting for card
+
   return (
     <>
       <Grid item sx={{ ...sizeXS, ...sizeSM, ...sizeMD }} mb={2}>
@@ -43,6 +46,7 @@ const CardBoxSearch = ({ title, slug, coverphoto, author }) => {
             width: "100%",
             boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
           }}
+          onClick={() => setopen(false)}
         >
           <Link
             style={{ maxWidth: "100%", width: "100%" }}
