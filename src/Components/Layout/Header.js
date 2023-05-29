@@ -166,10 +166,16 @@ const Header = () => {
       document.addEventListener("keydown", (e) => {
         e.key === "Escape" && setOpen(false);
       });
+    if (open) document.body.style.overflowY = "hidden";
+    if (!open) document.body.style.overflowY = "scroll";
   }, [open]);
 
   const [search, setSearch] = useState("");
 
+  const closeHandeler = () => {
+    setOpen(false);
+    setSearch("");
+  };
   const searchHandeler = (e) => {
     setSearch(e.target.value);
   };
@@ -263,11 +269,7 @@ const Header = () => {
         >
           <Grid container height="100%">
             <Grid item xs={12} height="fit-content">
-              <IconButton
-                size="large"
-                color="white"
-                onClick={() => setOpen(false)}
-              >
+              <IconButton size="large" color="white" onClick={closeHandeler}>
                 <CloseIcon style={{ fontSize: "35px", color: "#666" }} />
               </IconButton>
             </Grid>
@@ -302,7 +304,7 @@ const Header = () => {
                 </Typography>
                 <Box
                   component="form"
-                  sx={{ px: 5, ...formXS, ...formSM, width: "100%" }}
+                  sx={{ px: 2.5, ...formXS, ...formSM, width: "100%" }}
                   noValidate
                   autoComplete="off"
                 >

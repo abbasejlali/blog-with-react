@@ -58,13 +58,13 @@ const CardBoxSearch = ({ title, slug, coverphoto, author, setopen }) => {
               image={coverphoto.url}
               alt={title}
             />
-            <CardContent p={1}>
+            <CardContent p={1} pb={0}>
               <Typography
                 variant="h6"
                 component="div"
                 fontWeight="bold"
                 color="#666"
-                fontSize="16px"
+                fontSize="14px"
                 pb={1}
                 sx={{
                   whiteSpace: "nowrap",
