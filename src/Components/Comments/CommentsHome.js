@@ -27,6 +27,7 @@ const CommentsHome = () => {
   const { data, loading, error } = useQuery(GET_COMMENTSHOME);
 
   if (error) return <div>error ...</div>;
+
   return (
     <Swiper
       effect={"cards"}
@@ -35,7 +36,7 @@ const CommentsHome = () => {
       className="mySwiper"
       id="swiper"
     >
-      {loading ? (
+      {!data && loading ? (
         <SwiperSlide
           style={{
             display: "flex",

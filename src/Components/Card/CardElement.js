@@ -32,7 +32,7 @@ const CardElement = ({
   author,
   slug,
   coverphoto,
-  comments,
+  // comments,
   category,
 }) => {
   return (
@@ -117,7 +117,7 @@ const CardElement = ({
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        {comments.length ? (
+        {/* {comments.length ? (
           <AvatarGroup
             total={comments.length}
             max={3}
@@ -154,7 +154,7 @@ const CardElement = ({
           <Typography ml="auto" component="p" variant="p">
             بدون کامنت
           </Typography>
-        )}
+        )} */}
       </CardActions>
     </Card>
   );
