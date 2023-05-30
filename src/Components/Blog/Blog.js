@@ -345,6 +345,16 @@ const Blog = () => {
           borderRadius: "10px",
         }}
       >
+        <Typography
+          sx={{ alignSelf: "flex-start" }}
+          component="h4"
+          variant="h5"
+          color="#666"
+          fontWeight="bold"
+          mb={3}
+        >
+          کامنت ها
+        </Typography>
         {data.post.comments.map((comment) => (
           <CommentBlog {...comment} key={comment.id} />
         ))}
