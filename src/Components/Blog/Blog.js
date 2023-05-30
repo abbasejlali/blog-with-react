@@ -24,6 +24,9 @@ import {
 // icons Mui
 import CircleIcon from "@mui/icons-material/Circle";
 import WestIcon from "@mui/icons-material/West";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
 
 // Function convert En to Fa
 import { generate_fa } from "../../js/function";
@@ -135,47 +138,72 @@ const Blog = () => {
           sx={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             alignItems: "center",
             width: "100%",
           }}
         >
-          <Typography component="h3" variant="h6" color="#666" ml={3}>
-            تگ ها :
-          </Typography>
-          <Link
-            to={`/blogs/category/${data.post.category}`}
-            style={{
-              color: "#666",
-              fontWeight: "bold",
-              marginLeft: "10px",
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              width: "fit-content",
             }}
           >
-            <Button
-              disabled={false}
-              size="medium"
-              variant="elevated"
-              sx={{
-                backgroundColor: "#f2f2f2",
-                paddingBottom: "10px",
+            <Typography component="h3" variant="h6" color="#666" ml={3}>
+              تگ ها :
+            </Typography>
+            <Link
+              to={`/blogs/category/${data.post.category}`}
+              style={{
+                color: "#666",
+                fontWeight: "bold",
+                marginLeft: "10px",
               }}
             >
-              <Typography
+              <Button
+                disabled={false}
+                size="medium"
+                variant="elevated"
                 sx={{
-                  fontSize: "20px",
-                  marginLeft: "4px",
-                  color: "#666",
-                  marginTop: "4px",
-                  fontWeight: "bold",
+                  paddingBottom: "10px",
                 }}
-                component="span"
-                variant="h6"
               >
-                #
-              </Typography>
-              {generate_fa(data.post.category)}
-            </Button>
-          </Link>
+                <Typography
+                  sx={{
+                    fontSize: "20px",
+                    marginLeft: "4px",
+                    color: "#666",
+                    marginTop: "4px",
+                    fontWeight: "bold",
+                  }}
+                  component="span"
+                  variant="h6"
+                >
+                  #
+                </Typography>
+                {generate_fa(data.post.category)}
+              </Button>
+            </Link>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              width: "fit-content",
+            }}
+          >
+            <IconButton aria-label="add to favorites">
+              <FavoriteBorderIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </Box>
         </Box>
       </article>
     </>
