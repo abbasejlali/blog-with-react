@@ -1,7 +1,7 @@
 import React from "react";
 
 // react router dom
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // Graph Ql
 import { useQuery } from "@apollo/client";
@@ -17,6 +17,8 @@ import {
   List,
   Typography,
   IconButton,
+  Button,
+  Divider,
 } from "@mui/material";
 
 // icons Mui
@@ -123,6 +125,58 @@ const Blog = () => {
           component="div"
           dangerouslySetInnerHTML={{ __html: data.post.content.html }}
         ></Box>
+        <Divider
+          variant="middle"
+          sx={{ width: "100%", margin: "16px 0 16px 0" }}
+        />
+        <Box
+          maxWidth="100%"
+          mb={4}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Typography component="h3" variant="h6" color="#666" ml={3}>
+            تگ ها :
+          </Typography>
+          <Link
+            to={`/blogs/category/${data.post.category}`}
+            style={{
+              color: "#666",
+              fontWeight: "bold",
+              marginLeft: "10px",
+            }}
+          >
+            <Button
+              disabled={false}
+              size="medium"
+              variant="elevated"
+              sx={{
+                backgroundColor: "#f2f2f2",
+                paddingBottom: "10px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  marginLeft: "4px",
+                  color: "#666",
+                  marginTop: "4px",
+                  fontWeight: "bold",
+                }}
+                component="span"
+                variant="h6"
+              >
+                #
+              </Typography>
+              {generate_fa(data.post.category)}
+            </Button>
+          </Link>
+        </Box>
       </article>
     </>
   );

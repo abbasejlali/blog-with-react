@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 // Components
 import Home from "./Components/Home/Home";
 import Blog from "./Components/Blog/Blog";
-import Category from "./Components/Category/Category";
+import CategorySlug from "./Components/Category/CategorySlug";
 import Layout from "./Components/Layout/Layout";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs/:slug" element={<Blog />} />
-        <Route path="/blogs/category/:slug" element={<Category />} />
+        <Route path="/blogs/category/:slug" element={<CategorySlug />} />
       </Routes>
     </Layout>
   );
