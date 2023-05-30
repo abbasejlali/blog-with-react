@@ -73,6 +73,7 @@ const GET_POSTTOBLOG = gql`
       }
       author {
         name
+        slug
         image {
           url
         }

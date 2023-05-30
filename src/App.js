@@ -8,6 +8,7 @@ import Home from "./Components/Home/Home";
 import Blog from "./Components/Blog/Blog";
 import CategorySlug from "./Components/Category/CategorySlug";
 import Layout from "./Components/Layout/Layout";
+import AuthorsSlug from "./Components/Authors/AuthorsSlug";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/blogs/:slug" element={<Blog />} />
         <Route path="/blogs/category/:slug" element={<CategorySlug />} />
+        <Route path="/authors/:slug" element={<AuthorsSlug />} />
       </Routes>
     </Layout>
   );

@@ -40,8 +40,9 @@ const Blog = () => {
   if (loading) return <div>loading</div>;
   return (
     <>
-      <article
-        style={{
+      <Box
+        component="article"
+        sx={{
           maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
@@ -134,7 +135,6 @@ const Blog = () => {
         />
         <Box
           maxWidth="100%"
-          mb={4}
           sx={{
             display: "flex",
             flexDirection: "row",
@@ -161,31 +161,25 @@ const Blog = () => {
                 color: "#666",
                 fontWeight: "bold",
                 marginLeft: "10px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <Button
-                disabled={false}
-                size="medium"
-                variant="elevated"
+              <Typography
                 sx={{
-                  paddingBottom: "10px",
+                  fontSize: "20px",
+                  marginLeft: "4px",
+                  color: "#666",
+                  fontWeight: "bold",
                 }}
+                component="span"
+                variant="h6"
               >
-                <Typography
-                  sx={{
-                    fontSize: "20px",
-                    marginLeft: "4px",
-                    color: "#666",
-                    marginTop: "4px",
-                    fontWeight: "bold",
-                  }}
-                  component="span"
-                  variant="h6"
-                >
-                  #
-                </Typography>
-                {generate_fa(data.post.category)}
-              </Button>
+                #
+              </Typography>
+              {generate_fa(data.post.category)}
             </Link>
           </Box>
           <Box
@@ -205,7 +199,138 @@ const Blog = () => {
             </IconButton>
           </Box>
         </Box>
-      </article>
+      </Box>
+      <Box
+        component="section"
+        sx={{
+          maxWidth: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
+          padding: "24px",
+          margin: "40px 200px 40px 200px",
+          borderRadius: "10px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Avatar
+            src={data.post.author.image.url}
+            alt={data.post.author.name}
+            sx={{ width: "72px", height: "72px", borderRadius: "50%" }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+            mr={1}
+          >
+            <Typography
+              component="h4"
+              variant="h6"
+              fontWeight="bold"
+              color="#666"
+              fontSize="18px"
+            >
+              {data.post.author.name}
+            </Typography>
+            <Typography component="h5" variant="span" color="#666">
+              {data.post.author.field}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Typography
+          component="p"
+          variant="p"
+          sx={{ textAlign: "justify" }}
+          color="#666"
+          mt={1}
+        >
+          {data.post.author.describtion}
+        </Typography>
+
+        <Box
+          maxWidth="100%"
+          mt={2}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              width: "fit-content",
+            }}
+          >
+            <Link
+              to={`/authors/${data.post.author.slug}`}
+              style={{
+                color: "#666",
+                fontWeight: "bold",
+                marginLeft: "10px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <IconButton
+                sx={{ borderRadius: "4px", backgroundColor: "#f2f2f2" }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "17px",
+                    marginLeft: "4px",
+                    color: "#666",
+                    fontWeight: "bold",
+                  }}
+                  component="span"
+                  variant="h6"
+                >
+                  همه مقالات {data.post.author.name}
+                </Typography>
+              </IconButton>
+            </Link>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              width: "fit-content",
+            }}
+          >
+            <IconButton aria-label="add to favorites">
+              <FavoriteBorderIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </Box>
+        </Box>
+      </Box>
+      <Box component="section"></Box>
     </>
   );
 };
