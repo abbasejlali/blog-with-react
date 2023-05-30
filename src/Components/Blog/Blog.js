@@ -30,6 +30,7 @@ import ShareIcon from "@mui/icons-material/Share";
 
 // Function convert En to Fa
 import { generate_fa } from "../../js/function";
+import CommentBlog from "../Comments/CommentBlog";
 
 const Blog = () => {
   const { slug } = useParams();
@@ -330,7 +331,24 @@ const Blog = () => {
           </Box>
         </Box>
       </Box>
-      <Box component="section"></Box>
+      <Box
+        component="section"
+        sx={{
+          maxWidth: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
+          padding: "24px",
+          margin: "40px 200px 40px 200px",
+          borderRadius: "10px",
+        }}
+      >
+        {data.post.comments.map((comment) => (
+          <CommentBlog {...comment} key={comment.id} />
+        ))}
+      </Box>
     </>
   );
 };
