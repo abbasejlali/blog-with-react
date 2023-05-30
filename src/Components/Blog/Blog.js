@@ -23,6 +23,9 @@ import {
 import CircleIcon from "@mui/icons-material/Circle";
 import WestIcon from "@mui/icons-material/West";
 
+// Function convert En to Fa
+import { generate_fa } from "../../js/function";
+
 const Blog = () => {
   const { slug } = useParams();
   const { loading, error, data } = useQuery(GET_POSTTOBLOG, {
@@ -88,12 +91,21 @@ const Blog = () => {
             </ListItemIcon>
             <ListItemText primary={data.post.date} sx={{ color: "#666" }} />
           </ListItem>
-          <ListItem disablePadding sx={{ width: "fit-content" }}>
+          <ListItem disablePadding sx={{ width: "fit-content", ml: 2 }}>
             <ListItemIcon sx={{ minWidth: "fit-content", pl: 1 }}>
               <CircleIcon sx={{ fontSize: "10px", color: "#f2f2f2" }} />
             </ListItemIcon>
             <ListItemText
               primary={data.post.author.name}
+              sx={{ color: "#666", mb: 1 }}
+            />
+          </ListItem>
+          <ListItem disablePadding sx={{ width: "fit-content", ml: 2 }}>
+            <ListItemIcon sx={{ minWidth: "fit-content", pl: 1 }}>
+              <CircleIcon sx={{ fontSize: "10px", color: "#f2f2f2" }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={generate_fa(data.post.category)}
               sx={{ color: "#666", mb: 1 }}
             />
           </ListItem>
