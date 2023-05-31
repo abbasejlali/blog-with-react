@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // react router dom
 import { Link, useParams } from "react-router-dom";
@@ -148,6 +148,32 @@ const Blog = () => {
     }),
   };
 
+  // send Comment
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
+
+  const textHandeler = (e) => {
+    setText(e.target.value);
+  };
+
+  const nameHandeler = (e) => {
+    setName(e.target.value);
+  };
+
+  const passHandeler = (e) => {
+    setPass(e.target.value);
+  };
+
+  const emailHandeler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const dateHandeler = (e) => {
+    setDate(e.target.value);
+  };
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
   return (
@@ -514,6 +540,8 @@ const Blog = () => {
             fullWidth
             multiline
             rows={4}
+            value={text}
+            onChange={textHandeler}
           />
           <Box
             sx={{
@@ -530,12 +558,16 @@ const Blog = () => {
               id="custom-css-outlined-input"
               label="نام و نام خانوادگی"
               sx={{ width: "49%" }}
+              value={name}
+              onChange={nameHandeler}
             />
             <CssTextField
               id="custom-css-outlined-input"
               label="پسورد"
               type="password"
               sx={{ width: "49%" }}
+              value={pass}
+              onChange={passHandeler}
             />
           </Box>
           <Box
@@ -553,6 +585,8 @@ const Blog = () => {
               id="custom-css-outlined-input"
               label="ایمیل خود را وارد نمایید"
               fullWidth
+              value={email}
+              onChange={emailHandeler}
             />
           </Box>
           <Button
