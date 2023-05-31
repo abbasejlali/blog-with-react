@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 // Graph Ql
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_POSTTOBLOG } from "../GraphQl/query";
+import { SEND_COMMENT } from "../GraphQl/mutation";
 
 // Mui
 import {
@@ -34,7 +35,10 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 // Function convert En to Fa
 import { generate_fa } from "../../js/function";
+
+// COMPONENTS
 import CommentBlog from "../Comments/CommentBlog";
+import SendCommentBlog from "../Comments/SendCommentBlog";
 
 // Customize Mui Textfield
 const CssBox = styled(Box)({
@@ -46,42 +50,10 @@ const CssBox = styled(Box)({
     marginBottom: "8px",
   },
 });
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "#A0AAB4",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#B2BAC2",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "3px solid #f2f2f2 ",
-    },
-
-    "&.Mui-focused fieldset": {
-      border: "3px solid #666 ",
-    },
-  },
-  "& .muirtl-flo563-MuiFormLabel-root-MuiInputLabel-root": {
-    color: "#666 !important",
-    fontSize: "14px",
-  },
-  "& .muirtl-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input": {
-    color: "#666 !important",
-  },
-  "& .muirtl-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
-    color: "#666 !important",
-  },
-});
 
 const Blog = () => {
   // Get Slug
   const { slug } = useParams();
-
-  // Get data
-  const { loading, error, data } = useQuery(GET_POSTTOBLOG, {
-    variables: { slug },
-  });
 
   // MefiaQuery in Mui
   const theme = useTheme();
@@ -148,36 +120,17 @@ const Blog = () => {
     }),
   };
 
-  // send Comment
-  const [text, setText] = useState("");
-  const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
+  // Get data
+  const { loading, error, data } = useQuery(GET_POSTTOBLOG, {
+    variables: { slug },
+  });
 
-  const textHandeler = (e) => {
-    setText(e.target.value);
-  };
-
-  const nameHandeler = (e) => {
-    setName(e.target.value);
-  };
-
-  const passHandeler = (e) => {
-    setPass(e.target.value);
-  };
-
-  const emailHandeler = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const dateHandeler = (e) => {
-    setDate(e.target.value);
-  };
+  const today = new Date();
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
   return (
     <>
+      {console.log(today)}
       <Box
         component="article"
         sx={{
@@ -524,85 +477,7 @@ const Blog = () => {
           }}
           mt={4}
         >
-          <Typography
-            component="h4"
-            variant="h5"
-            color="#666"
-            fontWeight="bold"
-            mb={3}
-          >
-            ثبت دیدگاه
-          </Typography>
-
-          <CssTextField
-            label="لطفا نظر خود را وارد نمایید ..."
-            id="custom-css-outlined-input"
-            fullWidth
-            multiline
-            rows={4}
-            value={text}
-            onChange={textHandeler}
-          />
-          <Box
-            sx={{
-              maxWidth: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-            mt={2}
-          >
-            <CssTextField
-              id="custom-css-outlined-input"
-              label="نام و نام خانوادگی"
-              sx={{ width: "49%" }}
-              value={name}
-              onChange={nameHandeler}
-            />
-            <CssTextField
-              id="custom-css-outlined-input"
-              label="پسورد"
-              type="password"
-              sx={{ width: "49%" }}
-              value={pass}
-              onChange={passHandeler}
-            />
-          </Box>
-          <Box
-            sx={{
-              maxWidth: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-            mt={2}
-          >
-            <CssTextField
-              id="custom-css-outlined-input"
-              label="ایمیل خود را وارد نمایید"
-              fullWidth
-              value={email}
-              onChange={emailHandeler}
-            />
-          </Box>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#00e676",
-              "&:hover": {
-                backgroundColor: "#00c853 !important",
-              },
-              fontWeight: "bold",
-              alignSelf: "flex-start",
-              marginTop: "16px",
-            }}
-          >
-            ثبت دیدگاه
-          </Button>
+          <SendCommentBlog slug={slug} />
         </Box>
       </Box>
     </>
