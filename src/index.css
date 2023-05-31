@@ -11,8 +11,8 @@ body,
   box-sizing: border-box;
   text-decoration: none;
   font-family: OpenSans, Mikhak !important;
-  direction: rtl;
-  text-align: right;
+  direction: rtl !important ;
+  text-align: right !important ;
 }
 a {
   text-decoration: none;

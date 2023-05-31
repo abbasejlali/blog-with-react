@@ -17,15 +17,14 @@ import {
   List,
   Typography,
   IconButton,
-  Button,
   Divider,
+  TextField,
 } from "@mui/material";
 
 // icons Mui
 import CircleIcon from "@mui/icons-material/Circle";
 import WestIcon from "@mui/icons-material/West";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 
 // Function convert En to Fa
@@ -358,6 +357,29 @@ const Blog = () => {
         {data.post.comments.map((comment) => (
           <CommentBlog {...comment} key={comment.id} />
         ))}
+        <Box
+          component="form"
+          sx={{
+            maxWidth: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
+          <TextField
+            id="outlined-multiline-static"
+            label="لطفا نظر خود را وارد نمایید ..."
+            multiline
+            rows={4}
+            sx={{
+              border: "3px solid #f2f2f2",
+              borderRadius: "10px",
+              width: "100%",
+            }}
+          ></TextField>
+        </Box>
       </Box>
     </>
   );

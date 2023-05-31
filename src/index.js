@@ -9,7 +9,9 @@ import { BrowserRouter } from "react-router-dom";
 
 // Mui
 import { ThemeProvider } from "@mui/material";
-import { theme } from "./MaterialUi/theme";
+import { cacheRtl, theme } from "./MaterialUi/theme";
+
+import { CacheProvider } from "@emotion/react";
 
 // Apollo Client
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
@@ -22,9 +24,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </CacheProvider>
     </BrowserRouter>
   </ApolloProvider>
 );
