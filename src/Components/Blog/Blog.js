@@ -15,10 +15,12 @@ import {
   ListItemIcon,
   ListItemText,
   List,
+  Button,
   Typography,
   IconButton,
   Divider,
   TextField,
+  styled,
 } from "@mui/material";
 
 // icons Mui
@@ -31,10 +33,39 @@ import ShareIcon from "@mui/icons-material/Share";
 import { generate_fa } from "../../js/function";
 import CommentBlog from "../Comments/CommentBlog";
 
+// Customize Mui Textfield
+const CssTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "#A0AAB4",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#B2BAC2",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "3px solid #f2f2f2 ",
+    },
+
+    "&.Mui-focused fieldset": {
+      border: "3px solid #666 ",
+    },
+  },
+  "& .muirtl-flo563-MuiFormLabel-root-MuiInputLabel-root": {
+    color: "#666 !important",
+    fontSize: "14px",
+  },
+  "& .muirtl-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input": {
+    color: "#666 !important",
+  },
+  "& .muirtl-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
+    color: "#666 !important",
+  },
+});
+
 const Blog = () => {
   const { slug } = useParams();
   const { loading, error, data } = useQuery(GET_POSTTOBLOG, {
-    variables: { slug: slug },
+    variables: { slug },
   });
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
@@ -367,18 +398,62 @@ const Blog = () => {
             justifyContent: "flex-start",
             alignItems: "center",
           }}
+          mt={4}
         >
-          <TextField
-            id="outlined-multiline-static"
+          <Typography
+            component="h4"
+            variant="h5"
+            color="#666"
+            fontWeight="bold"
+            mb={3}
+          >
+            ثبت دیدگاه
+          </Typography>
+
+          <CssTextField
             label="لطفا نظر خود را وارد نمایید ..."
+            id="custom-css-outlined-input"
+            fullWidth
             multiline
             rows={4}
+          />
+          <Box
             sx={{
-              border: "3px solid #f2f2f2",
-              borderRadius: "10px",
+              maxWidth: "100%",
               width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
-          ></TextField>
+            mt={2}
+          >
+            <CssTextField
+              id="custom-css-outlined-input"
+              label="نام و نام خانوادگی"
+              sx={{ width: "49%" }}
+            />
+            <CssTextField
+              id="custom-css-outlined-input"
+              label="پسورد"
+              type="password"
+              sx={{ width: "49%" }}
+            />
+          </Box>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#00e676",
+              "&:hover": {
+                backgroundColor: "#00c853 !important",
+              },
+              fontWeight: "bold",
+              alignSelf: "flex-start",
+              marginTop: "16px",
+            }}
+          >
+            ثبت دیدگاه
+          </Button>
         </Box>
       </Box>
     </>

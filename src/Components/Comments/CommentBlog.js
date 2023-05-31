@@ -3,7 +3,7 @@ import React from "react";
 // Mui
 import { Avatar, Box, Typography } from "@mui/material";
 
-const CommentBlog = ({ name, avatar, text }) => {
+const CommentBlog = ({ name, avatar, text, date }) => {
   return (
     <Box
       component="div"
@@ -46,7 +46,7 @@ const CommentBlog = ({ name, avatar, text }) => {
             justifyContent: "flex-start",
             alignItems: "flex-start",
           }}
-          mr={1}
+          ml={1}
         >
           <Typography
             component="h4"
@@ -58,7 +58,7 @@ const CommentBlog = ({ name, avatar, text }) => {
             {name}
           </Typography>
           <Typography component="h5" variant="span" color="#666">
-            zasas
+            {date}
           </Typography>
         </Box>
       </Box>
@@ -86,9 +86,9 @@ const CommentBlog = ({ name, avatar, text }) => {
             background: "#f2f2f2",
             position: "absolute",
             top: "-11px",
-            right: "15px",
             borderRadius: "2px",
             zIndex: "-1",
+            left: "15px",
           }}
         ></Box>
         {text}

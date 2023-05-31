@@ -86,6 +86,7 @@ const GET_POSTTOBLOG = gql`
       comments {
         id
         name
+        date
         avatar {
           url
         }
