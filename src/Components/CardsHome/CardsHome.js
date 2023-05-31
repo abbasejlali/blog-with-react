@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Mui
-import { Grid, Typography, Divider, Box, Skeleton, Grow } from "@mui/material";
+import { Grid, Typography, Divider, Box, Skeleton } from "@mui/material";
 
 // react-router-dom
 import { Link } from "react-router-dom";

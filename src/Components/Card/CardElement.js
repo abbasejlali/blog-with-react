@@ -14,9 +14,6 @@ import {
   Box,
 } from "@mui/material";
 
-// Styles
-import styles from "./CardEle.module.css";
-
 // react-ruoter-dom
 import { Link } from "react-router-dom";
 
@@ -37,7 +34,6 @@ const CardElement = ({
 }) => {
   return (
     <Card
-      className={styles.cardmain}
       sx={{
         bgcolor: "white",
         borderRadius: "10px",

@@ -21,6 +21,8 @@ import {
   Divider,
   TextField,
   styled,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 // icons Mui
@@ -32,6 +34,8 @@ import ShareIcon from "@mui/icons-material/Share";
 // Function convert En to Fa
 import { generate_fa } from "../../js/function";
 import CommentBlog from "../Comments/CommentBlog";
+
+// Media Query in Mui
 
 // Customize Mui Textfield
 const CssTextField = styled(TextField)({
@@ -67,6 +71,31 @@ const Blog = () => {
   const { loading, error, data } = useQuery(GET_POSTTOBLOG, {
     variables: { slug },
   });
+  const theme = useTheme();
+  const MatchesXS = useMediaQuery(theme.breakpoints.up("xs"));
+  const MatchesSM = useMediaQuery(theme.breakpoints.up("sm"));
+  const MatchesMD = useMediaQuery(theme.breakpoints.up("md"));
+
+  const boxXS = {
+    ...(MatchesXS && {
+      marginRight: "16px",
+      marginLeft: "16px",
+    }),
+  };
+
+  const boxSM = {
+    ...(MatchesSM && {
+      marginRight: "24px",
+      marginLeft: "24px",
+    }),
+  };
+
+  const boxMD = {
+    ...(MatchesMD && {
+      marginRight: "200px",
+      marginLeft: "200px",
+    }),
+  };
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
   return (
@@ -74,6 +103,9 @@ const Blog = () => {
       <Box
         component="article"
         sx={{
+          ...boxXS,
+          ...boxSM,
+          ...boxMD,
           maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
@@ -81,7 +113,8 @@ const Blog = () => {
           alignItems: "flex-start",
           boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
           padding: "24px",
-          margin: "40px 200px 40px 200px",
+          marginTop: "40px",
+          marginBottom: "40px",
           borderRadius: "10px",
         }}
       >
@@ -234,6 +267,9 @@ const Blog = () => {
       <Box
         component="section"
         sx={{
+          ...boxXS,
+          ...boxSM,
+          ...boxMD,
           maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
@@ -241,7 +277,8 @@ const Blog = () => {
           alignItems: "center",
           boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
           padding: "24px",
-          margin: "40px 200px 40px 200px",
+          marginTop: "40px",
+          marginBottom: "40px",
           borderRadius: "10px",
         }}
       >
@@ -364,6 +401,9 @@ const Blog = () => {
       <Box
         component="section"
         sx={{
+          ...boxXS,
+          ...boxSM,
+          ...boxMD,
           maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
@@ -371,7 +411,8 @@ const Blog = () => {
           alignItems: "center",
           boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
           padding: "24px",
-          margin: "40px 200px 40px 200px",
+          marginTop: "40px",
+          marginBottom: "40px",
           borderRadius: "10px",
         }}
       >
