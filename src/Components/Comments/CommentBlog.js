@@ -3,6 +3,9 @@ import React from "react";
 // Mui
 import { Avatar, Box, Typography } from "@mui/material";
 
+// function
+import { fistename } from "../../js/function";
+
 const CommentBlog = ({ name, avatar, text, date }) => {
   return (
     <Box
@@ -29,16 +32,33 @@ const CommentBlog = ({ name, avatar, text, date }) => {
           width: "100%",
         }}
       >
-        <Avatar
-          src={avatar.url}
-          alt={name}
-          sx={{
-            width: "60px",
-            height: "60px",
-            objectFit: "cover",
-            borderRadius: "50%",
-          }}
-        />
+        {avatar.url ? (
+          <Avatar
+            src={avatar.url}
+            alt={name}
+            sx={{
+              width: "60px",
+              height: "60px",
+              objectFit: "cover",
+              borderRadius: "50%",
+            }}
+          />
+        ) : (
+          <Avatar
+            sx={{
+              bgcolor: "#f2f2f2",
+              color: "#666",
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            {fistename(name)}
+          </Avatar>
+        )}
+
         <Box
           sx={{
             display: "flex",

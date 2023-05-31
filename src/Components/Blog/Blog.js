@@ -30,6 +30,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import WestIcon from "@mui/icons-material/West";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 // Function convert En to Fa
 import { generate_fa } from "../../js/function";
@@ -305,6 +306,9 @@ const Blog = () => {
               width: "fit-content",
             }}
           >
+            <IconButton>
+              <BookmarkBorderIcon />
+            </IconButton>
             <IconButton aria-label="add to favorites">
               <FavoriteBorderIcon />
             </IconButton>
@@ -532,6 +536,23 @@ const Blog = () => {
               label="پسورد"
               type="password"
               sx={{ width: "49%" }}
+            />
+          </Box>
+          <Box
+            sx={{
+              maxWidth: "100%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+            mt={2}
+          >
+            <CssTextField
+              id="custom-css-outlined-input"
+              label="ایمیل خود را وارد نمایید"
+              fullWidth
             />
           </Box>
           <Button
