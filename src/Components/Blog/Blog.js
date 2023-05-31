@@ -35,9 +35,16 @@ import ShareIcon from "@mui/icons-material/Share";
 import { generate_fa } from "../../js/function";
 import CommentBlog from "../Comments/CommentBlog";
 
-// Media Query in Mui
-
 // Customize Mui Textfield
+const CssBox = styled(Box)({
+  "& p": {
+    textAlign: "justify !important",
+    marginBottom: "24px",
+  },
+  "& h2 , & h2 , & h3 , & h5 , & h6 , & h4": {
+    marginBottom: "8px",
+  },
+});
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
     color: "#A0AAB4",
@@ -67,10 +74,15 @@ const CssTextField = styled(TextField)({
 });
 
 const Blog = () => {
+  // Get Slug
   const { slug } = useParams();
+
+  // Get data
   const { loading, error, data } = useQuery(GET_POSTTOBLOG, {
     variables: { slug },
   });
+
+  // MefiaQuery in Mui
   const theme = useTheme();
   const MatchesXS = useMediaQuery(theme.breakpoints.up("xs"));
   const MatchesSM = useMediaQuery(theme.breakpoints.up("sm"));
@@ -96,6 +108,45 @@ const Blog = () => {
       marginLeft: "200px",
     }),
   };
+
+  const boxdirectionXS = {
+    ...(MatchesXS && {
+      flexDirection: "column",
+      justifyContent: "flex-start",
+      alignItems: "center",
+    }),
+  };
+
+  const boxdirectionSM = {
+    ...(MatchesSM && {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }),
+  };
+
+  const paddingXS = {
+    ...(MatchesXS && {
+      padding: "16px",
+    }),
+  };
+  const paddingSM = {
+    ...(MatchesSM && {
+      padding: "24PX",
+    }),
+  };
+
+  const flexdirecXS = {
+    ...(MatchesXS && {
+      flexDirection: "column",
+    }),
+  };
+  const flexdirecSM = {
+    ...(MatchesSM && {
+      flexDirection: "row",
+    }),
+  };
+
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
   return (
@@ -112,7 +163,8 @@ const Blog = () => {
           justifyContent: "flex-start",
           alignItems: "flex-start",
           boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px -4px",
-          padding: "24px",
+          ...paddingXS,
+          ...paddingSM,
           marginTop: "40px",
           marginBottom: "40px",
           borderRadius: "10px",
@@ -148,21 +200,22 @@ const Blog = () => {
         />
         <List
           sx={{
+            ...flexdirecXS,
+            ...flexdirecSM,
             display: "flex",
-            flexDirection: "row",
             justifyContent: "center",
             alignItems: "baseline",
             width: "100%",
           }}
         >
-          <ListItem disablePadding sx={{ width: "fit-content", ml: 2 }}>
-            <ListItemIcon sx={{ minWidth: "fit-content", pl: 1 }}>
+          <ListItem disablePadding sx={{ width: "fit-content", mr: 2 }}>
+            <ListItemIcon sx={{ minWidth: "fit-content", pr: 1 }}>
               <CircleIcon sx={{ fontSize: "10px", color: "#f2f2f2" }} />
             </ListItemIcon>
             <ListItemText primary={data.post.date} sx={{ color: "#666" }} />
           </ListItem>
-          <ListItem disablePadding sx={{ width: "fit-content", ml: 2 }}>
-            <ListItemIcon sx={{ minWidth: "fit-content", pl: 1 }}>
+          <ListItem disablePadding sx={{ width: "fit-content", mr: 2 }}>
+            <ListItemIcon sx={{ minWidth: "fit-content", pr: 1 }}>
               <CircleIcon sx={{ fontSize: "10px", color: "#f2f2f2" }} />
             </ListItemIcon>
             <ListItemText
@@ -170,8 +223,8 @@ const Blog = () => {
               sx={{ color: "#666", mb: 1 }}
             />
           </ListItem>
-          <ListItem disablePadding sx={{ width: "fit-content", ml: 2 }}>
-            <ListItemIcon sx={{ minWidth: "fit-content", pl: 1 }}>
+          <ListItem disablePadding sx={{ width: "fit-content", mr: 2 }}>
+            <ListItemIcon sx={{ minWidth: "fit-content", pr: 1 }}>
               <CircleIcon sx={{ fontSize: "10px", color: "#f2f2f2" }} />
             </ListItemIcon>
             <ListItemText
@@ -181,18 +234,15 @@ const Blog = () => {
           </ListItem>
         </List>
 
-        <Box
+        <CssBox
           maxWidth="100%"
-          pt={0.7}
-          pb={1}
-          px={2}
           sx={{
             borderRadius: "10px",
             color: "#666",
           }}
           component="div"
           dangerouslySetInnerHTML={{ __html: data.post.content.html }}
-        ></Box>
+        ></CssBox>
         <Divider
           variant="middle"
           sx={{ width: "100%", margin: "16px 0 16px 0" }}
@@ -201,10 +251,10 @@ const Blog = () => {
           maxWidth="100%"
           sx={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
+
             width: "100%",
+            ...boxdirectionXS,
+            ...boxdirectionSM,
           }}
         >
           <Box
@@ -216,7 +266,7 @@ const Blog = () => {
               width: "fit-content",
             }}
           >
-            <Typography component="h3" variant="h6" color="#666" ml={3}>
+            <Typography component="h3" variant="h6" color="#666">
               تگ ها :
             </Typography>
             <Link
@@ -224,7 +274,7 @@ const Blog = () => {
               style={{
                 color: "#666",
                 fontWeight: "bold",
-                marginLeft: "10px",
+                marginRight: "5px",
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
@@ -303,7 +353,7 @@ const Blog = () => {
               justifyContent: "flex-start",
               alignItems: "flex-start",
             }}
-            mr={1}
+            ml={1}
           >
             <Typography
               component="h4"
@@ -323,7 +373,7 @@ const Blog = () => {
         <Typography
           component="p"
           variant="p"
-          sx={{ textAlign: "justify" }}
+          sx={{ textAlign: "justify !important" }}
           color="#666"
           mt={1}
         >
@@ -335,10 +385,9 @@ const Blog = () => {
           mt={2}
           sx={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
             width: "100%",
+            ...boxdirectionXS,
+            ...boxdirectionSM,
           }}
         >
           <Box
@@ -363,7 +412,11 @@ const Blog = () => {
               }}
             >
               <IconButton
-                sx={{ borderRadius: "4px", backgroundColor: "#f2f2f2" }}
+                sx={{
+                  borderRadius: "4px",
+                  backgroundColor: "white",
+                  border: "3px solid #f2f2f2 !important",
+                }}
               >
                 <Typography
                   sx={{
