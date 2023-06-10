@@ -32,7 +32,7 @@ const CommentBlog = ({ name, avatar, text, date }) => {
           width: "100%",
         }}
       >
-        {avatar.url ? (
+        {avatar !== null && avatar.url && (
           <Avatar
             src={avatar.url}
             alt={name}
@@ -43,21 +43,24 @@ const CommentBlog = ({ name, avatar, text, date }) => {
               borderRadius: "50%",
             }}
           />
-        ) : (
+        )}
+        {avatar === null && (
           <Avatar
             sx={{
               bgcolor: "#f2f2f2",
               color: "#666",
-              width: "100%",
-              height: "100%",
+              width: "60px",
+              height: "60px",
               display: "flex",
               justifyContent: "center",
-              alignItems: "flex-start",
+              alignItems: "center",
+              borderRadius: "50%",
             }}
           >
             {fistename(name)}
           </Avatar>
         )}
+        {console.log(avatar)}
 
         <Box
           sx={{

@@ -113,13 +113,19 @@ const CardElement = ({
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        {comments.length ? (
+        {console.log(comments)}
+        {comments.length > 2 ? (
           <AvatarGroup
             total={comments.length}
             max={3}
             sx={{ direction: "ltr", marginLeft: "auto", width: 30, height: 30 }}
           >
             <Avatar
+              src={`${
+                comments[0].avatar !== null &&
+                comments[0].avatar.url &&
+                comments[0].avatar.url
+              }`}
               sx={{
                 bgcolor: "#f2f2f2",
                 color: "#666",
@@ -128,11 +134,17 @@ const CardElement = ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "flex-start",
+                objectFit: "cover",
               }}
             >
-              {fistename(comments[0].name)}
+              {comments[0].avatar === null && fistename(comments[0].name)}
             </Avatar>
             <Avatar
+              src={`${
+                comments[1].avatar !== null &&
+                comments[1].avatar.url &&
+                comments[1].avatar.url
+              }`}
               sx={{
                 bgcolor: "#f2f2f2",
                 color: "#666",
@@ -141,12 +153,48 @@ const CardElement = ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "flex-start",
+                objectFit: "cover",
               }}
             >
-              {fistename(comments[1].name)}
+              {comments[1].avatar === null && fistename(comments[1].name)}
             </Avatar>
           </AvatarGroup>
         ) : (
+          comments.length >= 1 && (
+            <AvatarGroup
+              total={comments.length}
+              max={1}
+              sx={{
+                direction: "ltr",
+                marginLeft: "auto",
+                width: 30,
+                height: 30,
+              }}
+            >
+              <Avatar
+                src={`${
+                  comments[0].avatar !== null &&
+                  comments[0].avatar.url &&
+                  comments[0].avatar.url
+                }`}
+                sx={{
+                  bgcolor: "#f2f2f2",
+                  color: "#666",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                  objectFit: "cover",
+                }}
+              >
+                {comments[0].avatar === null && fistename(comments[0].name)}
+              </Avatar>
+            </AvatarGroup>
+          )
+        )}
+
+        {comments.length === 0 && (
           <Typography ml="auto" component="p" variant="p">
             بدون کامنت
           </Typography>

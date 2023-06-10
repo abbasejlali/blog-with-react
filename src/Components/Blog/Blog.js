@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import jalaali from "jalaali-js";
 
 // react router dom
 import { Link, useParams } from "react-router-dom";
@@ -126,11 +127,11 @@ const Blog = () => {
   });
 
   const today = new Date();
+  const { jy, jm, jd } = jalaali.toJalaali(today);
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
   return (
     <>
-      {console.log(today)}
       <Box
         component="article"
         sx={{
@@ -477,7 +478,7 @@ const Blog = () => {
           }}
           mt={4}
         >
-          <SendCommentBlog slug={slug} />
+          <SendCommentBlog years={jy} mount={jm} day={jd} slug={slug} />
         </Box>
       </Box>
     </>

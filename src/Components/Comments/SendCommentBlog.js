@@ -52,12 +52,17 @@ const CssTextField = styled(TextField)({
 });
 
 const SendCommentBlog = ({ slug }) => {
+  const today = new Date();
+  const date1 = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
   // send Comment
   const [text, setText] = useState("");
   const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
+  //   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
+  //   const [date, setDate] = useState(`${year}-${month}-${date1}`);
 
   const textHandeler = (e) => {
     setText(e.target.value);
@@ -67,16 +72,12 @@ const SendCommentBlog = ({ slug }) => {
     setName(e.target.value);
   };
 
-  const passHandeler = (e) => {
-    setPass(e.target.value);
-  };
+  //   const passHandeler = (e) => {
+  //     setPass(e.target.value);
+  //   };
 
   const emailHandeler = (e) => {
     setEmail(e.target.value);
-  };
-
-  const dateHandeler = (e) => {
-    setDate(e.target.value);
   };
 
   // get data and post data
@@ -85,13 +86,15 @@ const SendCommentBlog = ({ slug }) => {
       name,
       email,
       text,
-      date,
       slug,
     },
   });
-
+  if (data) {
+    alert("نظرات با موفقیت ثبت شد و منتظر تایید می باشد");
+    console.log(data);
+  }
   const sendHandeler = () => {
-    if (name && text && email && pass && date) {
+    if (name && text && email) {
       sendcomment();
     } else {
       alert("لطفا همه ی فیلد ها را پر کنید");
@@ -109,7 +112,10 @@ const SendCommentBlog = ({ slug }) => {
       >
         ثبت دیدگاه
       </Typography>
-
+      {console.log(name)}
+      {console.log(email)}
+      {console.log(text)}
+      {console.log(slug)}
       <CssTextField
         label="لطفا نظر خود را وارد نمایید ..."
         id="custom-css-outlined-input"
@@ -137,14 +143,14 @@ const SendCommentBlog = ({ slug }) => {
           value={name}
           onChange={nameHandeler}
         />
-        <CssTextField
+        {/* <CssTextField
           id="custom-css-outlined-input"
           label="پسورد"
           type="password"
           sx={{ width: "49%" }}
           value={pass}
           onChange={passHandeler}
-        />
+        /> */}
       </Box>
       <Box
         sx={{
