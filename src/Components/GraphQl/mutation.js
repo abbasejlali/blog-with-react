@@ -6,6 +6,7 @@ const SEND_COMMENT = gql`
     $email: String!
     $text: String!
     $slug: String!
+    $date: String!
   ) {
     createComment(
       data: {
@@ -13,6 +14,7 @@ const SEND_COMMENT = gql`
         email: $email
         text: $text
         post: { connect: { slug: $slug } }
+        date: $date
       }
     ) {
       id
