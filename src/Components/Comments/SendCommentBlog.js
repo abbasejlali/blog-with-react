@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 // Mui
-import {
-  Avatar,
-  Box,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  List,
-  Button,
-  Typography,
-  IconButton,
-  Divider,
-  TextField,
-  styled,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Typography, TextField, styled } from "@mui/material";
 
 // Graph Ql
 import { useMutation } from "@apollo/client";
 import { SEND_COMMENT } from "../GraphQl/mutation";
+
+// Mui Icons
 import { MutatingDots } from "react-loader-spinner";
+
+import jalaali from "jalaali-js";
 
 // Customize Mui Textfield
 const CssTextField = styled(TextField)({
@@ -54,9 +43,6 @@ const CssTextField = styled(TextField)({
 
 const SendCommentBlog = ({ slug }) => {
   const today = new Date();
-  const date1 = today.getDate();
-  const month = today.getMonth() + 1;
-  const year = today.getFullYear();
 
   // send Comment
   const [text, setText] = useState("");
@@ -79,6 +65,14 @@ const SendCommentBlog = ({ slug }) => {
     setEmail(e.target.value);
   };
 
+  useEffect(() => {
+    const { jy, jm, jd } = jalaali.toJalaali(today);
+
+    setDate(`${jy}-${jm}-${jd}`);
+
+    console.log(typeof date);
+  }, []);
+
   // get data and post data
   const [sendcomment, { data, loading, error }] = useMutation(SEND_COMMENT, {
     variables: {
@@ -92,7 +86,6 @@ const SendCommentBlog = ({ slug }) => {
 
   if (data) {
     alert("نظرات با موفقیت ثبت شد و منتظر تایید می باشد");
-    console.log(data);
   }
 
   const sendHandeler = () => {

@@ -7,8 +7,6 @@ const SEND_COMMENT = gql`
     $text: String!
     $slug: String!
     $date: String!
-    $fileName: String!
-    $handel: String!
   ) {
     createComment(
       data: {
@@ -17,7 +15,6 @@ const SEND_COMMENT = gql`
         text: $text
         post: { connect: { slug: $slug } }
         date: $date
-        avatar: { create: { handle: $handel, fileName: $fileName } }
       }
     ) {
       id
