@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Mui
 import {
@@ -21,6 +21,7 @@ import {
 // Graph Ql
 import { useMutation } from "@apollo/client";
 import { SEND_COMMENT } from "../GraphQl/mutation";
+import { MutatingDots } from "react-loader-spinner";
 
 // Customize Mui Textfield
 const CssTextField = styled(TextField)({
@@ -59,9 +60,9 @@ const SendCommentBlog = ({ slug }) => {
 
   // send Comment
   const [text, setText] = useState("");
+
   const [name, setName] = useState("");
 
-  //   const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
 
   const [date, setDate] = useState("");
@@ -72,11 +73,6 @@ const SendCommentBlog = ({ slug }) => {
 
   const nameHandeler = (e) => {
     setName(e.target.value);
-  };
-
-  const dateeHandeler = (e) => {
-    const date_main = String(`${year}-${month}-${date1}`);
-    setDate(date_main);
   };
 
   const emailHandeler = (e) => {
@@ -118,77 +114,86 @@ const SendCommentBlog = ({ slug }) => {
       >
         ثبت دیدگاه
       </Typography>
-      {console.log(date)}
-      <CssTextField
-        label="لطفا نظر خود را وارد نمایید ..."
-        id="custom-css-outlined-input"
-        fullWidth
-        multiline
-        rows={4}
-        value={text}
-        onChange={textHandeler}
-      />
-      <Box
-        sx={{
-          maxWidth: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        mt={2}
-      >
+      <Box sx={{ width: "100%", height: "100%" }}>
         <CssTextField
+          label="لطفا نظر خود را وارد نمایید ..."
           id="custom-css-outlined-input"
-          label="نام و نام خانوادگی"
-          sx={{ width: "49%" }}
-          value={name}
-          onChange={nameHandeler}
-        />
-        <CssTextField
-          id="custom-css-outlined-input"
-          label="تاریخ"
-          type="text"
-          sx={{ width: "49%" }}
-          value={date}
-          onClick={dateeHandeler}
-        />
-      </Box>
-      <Box
-        sx={{
-          maxWidth: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-        mt={2}
-      >
-        <CssTextField
-          id="custom-css-outlined-input"
-          label="ایمیل خود را وارد نمایید"
           fullWidth
-          value={email}
-          onChange={emailHandeler}
+          multiline
+          rows={4}
+          value={text}
+          onChange={textHandeler}
         />
+
+        <Box
+          sx={{
+            maxWidth: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            opacity: `${loading && "0.3"}`,
+            position: "relative",
+          }}
+          mt={2}
+        >
+          {loading && (
+            <Box
+              sx={{
+                zIndex: "99",
+                position: "absolute",
+                top: "-50%",
+                right: "50%",
+                transform: "translateX(50%) translateY(-50%)",
+              }}
+            >
+              <MutatingDots
+                height="100"
+                width="100"
+                color="#666"
+                secondaryColor="#666"
+                radius="12.5"
+                ariaLabel="mutating-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            </Box>
+          )}
+
+          <CssTextField
+            id="custom-css-outlined-input"
+            label="نام و نام خانوادگی"
+            sx={{ width: "49%" }}
+            value={name}
+            onChange={nameHandeler}
+          />
+          <CssTextField
+            id="custom-css-outlined-input"
+            label="ایمیل خود را وارد نمایید"
+            fullWidth
+            value={email}
+            sx={{ width: "49%" }}
+            onChange={emailHandeler}
+          />
+        </Box>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#00e676",
+            "&:hover": {
+              backgroundColor: "#00c853 !important",
+            },
+            fontWeight: "bold",
+            alignSelf: "flex-start",
+            marginTop: "16px",
+          }}
+          onClick={sendHandeler}
+        >
+          ثبت دیدگاه
+        </Button>
       </Box>
-      <Button
-        variant="contained"
-        sx={{
-          backgroundColor: "#00e676",
-          "&:hover": {
-            backgroundColor: "#00c853 !important",
-          },
-          fontWeight: "bold",
-          alignSelf: "flex-start",
-          marginTop: "16px",
-        }}
-        onClick={sendHandeler}
-      >
-        ثبت دیدگاه
-      </Button>
     </>
   );
 };
