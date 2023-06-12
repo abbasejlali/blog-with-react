@@ -67,7 +67,6 @@ const SendCommentBlog = ({ slug }) => {
   const [text, setText] = useState("");
 
   const [name, setName] = useState("");
-  const [isvalidatename, setIsvalidatename] = useState(false);
 
   const [email, setEmail] = useState("");
   const [isvalidateemail, setIsvalidateemail] = useState(false);
@@ -81,11 +80,6 @@ const SendCommentBlog = ({ slug }) => {
   const nameHandeler = (e) => {
     const newname = e.target.value;
     setName(newname);
-    setIsvalidatename(validatename(newname));
-  };
-  const validatename = (name) => {
-    const regex_name_fa = /^[\u0600-\u06FF]+(\s[\u0600-\u06FF]+)?$/;
-    return regex_name_fa.test(name);
   };
 
   const emailHandeler = (e) => {
@@ -189,11 +183,13 @@ const SendCommentBlog = ({ slug }) => {
       text &&
       email &&
       isvalidateemail &&
-      isvalidatename &&
       name.length >= 5 &&
       text.length >= 20
     ) {
       sendcomment();
+      setName("");
+      setText("");
+      setEmail("");
     }
 
     if (name === "" || text === "" || email === "") {
@@ -204,17 +200,7 @@ const SendCommentBlog = ({ slug }) => {
     if (name && text && email && text.length < 20) setOpen5(true);
 
     // betting name
-    if (name && text && email && text.length >= 20 && !isvalidatename)
-      setOpen4(true);
-
-    if (
-      name &&
-      text &&
-      email &&
-      text.length >= 20 &&
-      isvalidatename &&
-      name.length < 5
-    )
+    if (name && text && email && text.length >= 20 && name.length < 5)
       setOpen4(true);
 
     // betting email
@@ -222,7 +208,6 @@ const SendCommentBlog = ({ slug }) => {
       name &&
       text &&
       email &&
-      isvalidatename &&
       name.length >= 5 &&
       text.length >= 20 &&
       !isvalidateemail
@@ -359,7 +344,7 @@ const SendCommentBlog = ({ slug }) => {
         action={action}
       >
         <Alert onClose={handleClose4} severity="error" sx={{ width: "100%" }}>
-          لطفا نام رو بدرستی و فارسی بنویسید
+          نام نباید کمتر از 5 حرف باشد
         </Alert>
       </Snackbar>
 
