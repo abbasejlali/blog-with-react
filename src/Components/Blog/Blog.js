@@ -2,7 +2,7 @@ import React from "react";
 import jalaali from "jalaali-js";
 
 // react router dom
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Graph Ql
 import { useQuery } from "@apollo/client";
@@ -53,6 +53,9 @@ const CssBox = styled(Box)({
 });
 
 const Blog = () => {
+  // Navigate
+  const navigate = useNavigate();
+
   // Get Slug
   const { slug } = useParams();
 
@@ -126,10 +129,10 @@ const Blog = () => {
     variables: { slug },
   });
 
-  const today = new Date();
-  const { jy, jm, jd } = jalaali.toJalaali(today);
   if (error) return <div>error</div>;
+
   if (loading) return <div>loading</div>;
+
   return (
     <React.Fragment>
       <Box
@@ -170,7 +173,10 @@ const Blog = () => {
           >
             {data.post.title}
           </Typography>
-          <IconButton sx={{ fontSize: "30px", color: "#666" }}>
+          <IconButton
+            onClick={() => navigate(-1)}
+            sx={{ fontSize: "30px", color: "#666" }}
+          >
             <WestIcon />
           </IconButton>
         </Box>
@@ -478,7 +484,7 @@ const Blog = () => {
           }}
           mt={4}
         >
-          <SendCommentBlog years={jy} mount={jm} day={jd} slug={slug} />
+          <SendCommentBlog slug={slug} />
         </Box>
       </Box>
     </React.Fragment>
