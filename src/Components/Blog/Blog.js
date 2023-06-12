@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import jalaali from "jalaali-js";
 
 // react router dom
 import { Link, useParams } from "react-router-dom";
 
 // Graph Ql
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_POSTTOBLOG } from "../GraphQl/query";
-import { SEND_COMMENT } from "../GraphQl/mutation";
 
 // Mui
 import {
@@ -17,11 +16,9 @@ import {
   ListItemIcon,
   ListItemText,
   List,
-  Button,
   Typography,
   IconButton,
   Divider,
-  TextField,
   styled,
   useTheme,
   useMediaQuery,
@@ -40,6 +37,9 @@ import { generate_fa } from "../../js/function";
 // COMPONENTS
 import CommentBlog from "../Comments/CommentBlog";
 import SendCommentBlog from "../Comments/SendCommentBlog";
+
+// toastify
+import { ToastContainer } from "react-toastify";
 
 // Customize Mui Textfield
 const CssBox = styled(Box)({
@@ -131,7 +131,7 @@ const Blog = () => {
   if (error) return <div>error</div>;
   if (loading) return <div>loading</div>;
   return (
-    <>
+    <React.Fragment>
       <Box
         component="article"
         sx={{
@@ -481,7 +481,7 @@ const Blog = () => {
           <SendCommentBlog years={jy} mount={jm} day={jd} slug={slug} />
         </Box>
       </Box>
-    </>
+    </React.Fragment>
   );
 };
 

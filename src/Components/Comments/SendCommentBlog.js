@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // Mui
-import { Box, Button, Typography, TextField, styled } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  TextField,
+  styled,
+  IconButton,
+  Snackbar,
+} from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
 // Graph Ql
 import { useMutation } from "@apollo/client";
@@ -9,8 +18,13 @@ import { SEND_COMMENT } from "../GraphQl/mutation";
 
 // Mui Icons
 import { MutatingDots } from "react-loader-spinner";
+import CloseIcon from "@mui/icons-material/Close";
 
+// jalaali
 import jalaali from "jalaali-js";
+
+// toast
+import { ToastContainer, toast } from "react-toastify";
 
 // Customize Mui Textfield
 const CssTextField = styled(TextField)({
@@ -41,10 +55,15 @@ const CssTextField = styled(TextField)({
   },
 });
 
+// Mui toast
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const SendCommentBlog = ({ slug }) => {
   const today = new Date();
 
-  // send Comment
+  // data for send Comment
   const [text, setText] = useState("");
 
   const [name, setName] = useState("");
@@ -69,10 +88,53 @@ const SendCommentBlog = ({ slug }) => {
     const { jy, jm, jd } = jalaali.toJalaali(today);
 
     setDate(`${jy}-${jm}-${jd}`);
-
-    console.log(typeof date);
   }, []);
 
+  // build toast by Mui
+
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const handleClose2 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen2(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  const action2 = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
   // get data and post data
   const [sendcomment, { data, loading, error }] = useMutation(SEND_COMMENT, {
     variables: {
@@ -80,22 +142,24 @@ const SendCommentBlog = ({ slug }) => {
       email,
       text,
       slug,
-      date: date,
+      date,
     },
   });
 
-  if (data) {
-    alert("نظرات با موفقیت ثبت شد و منتظر تایید می باشد");
-  }
+  useEffect(() => {
+    if (data) {
+      setOpen(true);
+    }
+  }, [data]);
 
-  const sendHandeler = () => {
+  const sendHandeler = (e) => {
     if (name && text && email) {
       sendcomment();
     } else {
-      alert("لطفا همه ی فیلد ها را پر کنید");
+      setOpen2(true);
     }
   };
-
+  const refbtn = useRef();
   return (
     <>
       <Typography
@@ -183,10 +247,32 @@ const SendCommentBlog = ({ slug }) => {
             marginTop: "16px",
           }}
           onClick={sendHandeler}
+          ref={refbtn}
         >
           ثبت دیدگاه
         </Button>
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        action={action}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          رفیق ، نظرت ثبت شد و منتظر تایید مدیره
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={open2}
+        autoHideDuration={6000}
+        onClose={handleClose2}
+        action={action2}
+      >
+        <Alert onClose={handleClose2} severity="error" sx={{ width: "100%" }}>
+          لطفا همه فیلد ها رو پر کن
+        </Alert>
+      </Snackbar>
     </>
   );
 };
