@@ -69,6 +69,7 @@ const SendCommentBlog = ({ slug }) => {
   const [name, setName] = useState("");
 
   const [email, setEmail] = useState("");
+  const [isvalidateemail, setIsvalidateemail] = useState(false);
 
   const [date, setDate] = useState("");
 
@@ -81,7 +82,14 @@ const SendCommentBlog = ({ slug }) => {
   };
 
   const emailHandeler = (e) => {
-    setEmail(e.target.value);
+    const newemail = e.target.value;
+    setEmail(newemail);
+    setIsvalidateemail(validateemail(newemail));
+  };
+
+  const validateemail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   useEffect(() => {
@@ -94,6 +102,7 @@ const SendCommentBlog = ({ slug }) => {
 
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -109,7 +118,13 @@ const SendCommentBlog = ({ slug }) => {
 
     setOpen2(false);
   };
+  const handleClose3 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpen3(false);
+  };
   const action = (
     <React.Fragment>
       <IconButton
@@ -124,6 +139,19 @@ const SendCommentBlog = ({ slug }) => {
   );
 
   const action2 = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  const action3 = (
     <React.Fragment>
       <IconButton
         size="small"
@@ -153,13 +181,16 @@ const SendCommentBlog = ({ slug }) => {
   }, [data]);
 
   const sendHandeler = (e) => {
-    if (name && text && email) {
+    if (name && text && email && isvalidateemail) {
       sendcomment();
-    } else {
+    }
+
+    if (name === "" || text === "" || email === "") {
       setOpen2(true);
     }
+
+    if (name && text && email && !isvalidateemail) setOpen3(true);
   };
-  const refbtn = useRef();
   return (
     <>
       <Typography
@@ -181,7 +212,6 @@ const SendCommentBlog = ({ slug }) => {
           value={text}
           onChange={textHandeler}
         />
-
         <Box
           sx={{
             maxWidth: "100%",
@@ -218,7 +248,6 @@ const SendCommentBlog = ({ slug }) => {
               />
             </Box>
           )}
-
           <CssTextField
             id="custom-css-outlined-input"
             label="نام و نام خانوادگی"
@@ -247,7 +276,6 @@ const SendCommentBlog = ({ slug }) => {
             marginTop: "16px",
           }}
           onClick={sendHandeler}
-          ref={refbtn}
         >
           ثبت دیدگاه
         </Button>
@@ -273,6 +301,18 @@ const SendCommentBlog = ({ slug }) => {
           لطفا همه فیلد ها رو پر کن
         </Alert>
       </Snackbar>
+
+      <Snackbar
+        open={open3}
+        autoHideDuration={6000}
+        onClose={handleClose3}
+        action={action3}
+      >
+        <Alert onClose={handleClose3} severity="error" sx={{ width: "100%" }}>
+          لطفا ایمیل رو بدرستی پر کن
+        </Alert>
+      </Snackbar>
+      {console.log(validateemail())}
     </>
   );
 };
