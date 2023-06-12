@@ -67,6 +67,7 @@ const SendCommentBlog = ({ slug }) => {
   const [text, setText] = useState("");
 
   const [name, setName] = useState("");
+  const [isvalidatename, setIsvalidatename] = useState(false);
 
   const [email, setEmail] = useState("");
   const [isvalidateemail, setIsvalidateemail] = useState(false);
@@ -78,7 +79,13 @@ const SendCommentBlog = ({ slug }) => {
   };
 
   const nameHandeler = (e) => {
-    setName(e.target.value);
+    const newname = e.target.value;
+    setName(newname);
+    setIsvalidatename(validatename(newname));
+  };
+  const validatename = (name) => {
+    const regex_name_fa = /^[\u0600-\u06FF]+(\s[\u0600-\u06FF]+)?$/;
+    return regex_name_fa.test(name);
   };
 
   const emailHandeler = (e) => {
@@ -103,6 +110,8 @@ const SendCommentBlog = ({ slug }) => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
+  const [open5, setOpen5] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -111,6 +120,7 @@ const SendCommentBlog = ({ slug }) => {
 
     setOpen(false);
   };
+
   const handleClose2 = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -118,6 +128,7 @@ const SendCommentBlog = ({ slug }) => {
 
     setOpen2(false);
   };
+
   const handleClose3 = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -125,6 +136,23 @@ const SendCommentBlog = ({ slug }) => {
 
     setOpen3(false);
   };
+
+  const handleClose4 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen4(false);
+  };
+
+  const handleClose5 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen5(false);
+  };
+
   const action = (
     <React.Fragment>
       <IconButton
@@ -138,31 +166,6 @@ const SendCommentBlog = ({ slug }) => {
     </React.Fragment>
   );
 
-  const action2 = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
-
-  const action3 = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
   // get data and post data
   const [sendcomment, { data, loading, error }] = useMutation(SEND_COMMENT, {
     variables: {
@@ -181,7 +184,15 @@ const SendCommentBlog = ({ slug }) => {
   }, [data]);
 
   const sendHandeler = (e) => {
-    if (name && text && email && isvalidateemail) {
+    if (
+      name &&
+      text &&
+      email &&
+      isvalidateemail &&
+      isvalidatename &&
+      name.length >= 5 &&
+      text.length >= 20
+    ) {
       sendcomment();
     }
 
@@ -189,8 +200,36 @@ const SendCommentBlog = ({ slug }) => {
       setOpen2(true);
     }
 
-    if (name && text && email && !isvalidateemail) setOpen3(true);
+    // betting text
+    if (name && text && email && text.length < 20) setOpen5(true);
+
+    // betting name
+    if (name && text && email && text.length >= 20 && !isvalidatename)
+      setOpen4(true);
+
+    if (
+      name &&
+      text &&
+      email &&
+      text.length >= 20 &&
+      isvalidatename &&
+      name.length < 5
+    )
+      setOpen4(true);
+
+    // betting email
+    if (
+      name &&
+      text &&
+      email &&
+      isvalidatename &&
+      name.length >= 5 &&
+      text.length >= 20 &&
+      !isvalidateemail
+    )
+      setOpen3(true);
   };
+
   return (
     <>
       <Typography
@@ -295,7 +334,7 @@ const SendCommentBlog = ({ slug }) => {
         open={open2}
         autoHideDuration={6000}
         onClose={handleClose2}
-        action={action2}
+        action={action}
       >
         <Alert onClose={handleClose2} severity="error" sx={{ width: "100%" }}>
           لطفا همه فیلد ها رو پر کن
@@ -306,13 +345,34 @@ const SendCommentBlog = ({ slug }) => {
         open={open3}
         autoHideDuration={6000}
         onClose={handleClose3}
-        action={action3}
+        action={action}
       >
         <Alert onClose={handleClose3} severity="error" sx={{ width: "100%" }}>
           لطفا ایمیل رو بدرستی پر کن
         </Alert>
       </Snackbar>
-      {console.log(validateemail())}
+
+      <Snackbar
+        open={open4}
+        autoHideDuration={6000}
+        onClose={handleClose4}
+        action={action}
+      >
+        <Alert onClose={handleClose4} severity="error" sx={{ width: "100%" }}>
+          لطفا نام رو بدرستی و فارسی بنویسید
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={open5}
+        autoHideDuration={6000}
+        onClose={handleClose5}
+        action={action}
+      >
+        <Alert onClose={handleClose5} severity="error" sx={{ width: "100%" }}>
+          متن توضیح نباید کمتر از 20 حرف باشه
+        </Alert>
+      </Snackbar>
     </>
   );
 };
