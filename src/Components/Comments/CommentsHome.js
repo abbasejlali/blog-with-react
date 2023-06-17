@@ -23,6 +23,11 @@ import { Avatar } from "@mui/material";
 // function
 import { fistename } from "../../js/function";
 
+// LazyLoadImage
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "../shared/lazy_load.css";
+
 const CommentsHome = () => {
   const { data, loading, error } = useQuery(GET_COMMENTSHOME);
 
@@ -64,10 +69,17 @@ const CommentsHome = () => {
             <SwiperSlide key={comment.id}>
               {comment.avatar.url && (
                 <Avatar
-                  alt={comment.name}
-                  src={comment.avatar.url}
                   sx={{ width: "80px !important", height: "80px !important" }}
-                />
+                >
+                  <LazyLoadImage
+                    width="100%"
+                    height="100%"
+                    src={comment.avatar.url}
+                    effect="blur"
+                    alt={comment.name}
+                    id="lazy_img"
+                  />
+                </Avatar>
               )}
               {comment.avatar.url === null && (
                 <Avatar

@@ -39,6 +39,7 @@
 #swiper .swiper-pagination {
   bottom: 19px !important;
 }
+
 /* Media Query */
 @media only screen and (min-width: 0) {
   #swiper {

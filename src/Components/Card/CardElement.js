@@ -24,6 +24,11 @@ import ShareIcon from "@mui/icons-material/Share";
 // js
 import { fistename } from "../../js/function";
 
+// LazyLoadImage
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "../shared/lazy_load.css";
+
 const CardElement = ({
   title,
   author,
@@ -53,19 +58,29 @@ const CardElement = ({
               width: 40,
               height: 40,
             }}
-            src={author.image.url}
-            alt={title}
-          />
+          >
+            <LazyLoadImage
+              width="100%"
+              height="100%"
+              src={author.image.url}
+              effect="blur"
+              alt={title}
+              id="lazy_img"
+            />
+          </Avatar>
         }
         title={author.name}
       />
-      <CardMedia
-        component="img"
-        width="100%"
-        height="194"
-        image={coverphoto.url}
-        alt={title}
-      />
+      <CardMedia width="100%" height="100%">
+        <LazyLoadImage
+          width="100%"
+          height={194}
+          src={coverphoto.url}
+          effect="blur"
+          alt={title}
+          id="lazy_img"
+        />
+      </CardMedia>
       <Box
         sx={{
           position: "absolute",

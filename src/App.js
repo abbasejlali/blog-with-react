@@ -14,9 +14,8 @@ import AuthorsSlug from "./Components/Authors/AuthorsSlug";
 import ScrollToTop from "./Components/shared/ScrollToTop";
 
 function App() {
-  const { slug } = useParams();
   useEffect(() => {
-    console.log(slug);
+    console.clear();
   }, []);
 
   return (

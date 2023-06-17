@@ -1,4 +1,4 @@
-import React, { useRef, lazy, Suspense } from "react";
+import React, { useRef } from "react";
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,6 +20,11 @@ import { Link } from "react-router-dom";
 // Mui
 import { Skeleton } from "@mui/material";
 import { generate_rabndomnum } from "../../js/function";
+
+// LazyLoadImage
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "../shared/lazy_load.css";
 
 const SlideShow = () => {
   const { data, loading, error } = useQuery(GET_COVERPHOTO);
@@ -60,10 +65,13 @@ const SlideShow = () => {
                   to={`/blogs/${data.posts[index].slug}`}
                   style={{ display: "flex", width: "100%", height: "100%" }}
                 >
-                  {/* <img src={lazy(() => post.coverphoto.url)} alt={post.title} /> */}
-                  <Suspense fallback={<div>Loading...</div>}>
-                    {data && lazy(() => post.coverphoto.url)}
-                  </Suspense>
+                  <LazyLoadImage
+                    width="100%"
+                    height="100%"
+                    src={post.coverphoto.url}
+                    effect="blur"
+                    id="lazy_img"
+                  />
                 </Link>
               </SwiperSlide>
             ))}

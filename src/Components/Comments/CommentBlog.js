@@ -6,6 +6,11 @@ import { Avatar, Box, Typography } from "@mui/material";
 // function
 import { fistename } from "../../js/function";
 
+// LazyLoadImage
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "../shared/lazy_load.css";
+
 const CommentBlog = ({ name, avatar, text, date }) => {
   return (
     <Box
@@ -34,15 +39,22 @@ const CommentBlog = ({ name, avatar, text, date }) => {
       >
         {avatar !== null && avatar.url && (
           <Avatar
-            src={avatar.url}
-            alt={name}
             sx={{
               width: "60px",
               height: "60px",
               objectFit: "cover",
               borderRadius: "50%",
             }}
-          />
+          >
+            <LazyLoadImage
+              width="100%"
+              height="100%"
+              src={avatar.url}
+              effect="blur"
+              alt={name}
+              id="lazy_img"
+            />
+          </Avatar>
         )}
         {avatar === null && (
           <Avatar

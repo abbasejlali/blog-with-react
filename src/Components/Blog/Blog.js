@@ -37,6 +37,11 @@ import { generate_fa } from "../../js/function";
 import CommentBlog from "../Comments/CommentBlog";
 import SendCommentBlog from "../Comments/SendCommentBlog";
 
+// LazyLoadImage
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "../shared/lazy_load.css";
+
 // Customize Mui Textfield
 const CssBox = styled(Box)({
   "& p": {
@@ -176,11 +181,16 @@ const Blog = () => {
             <WestIcon />
           </IconButton>
         </Box>
-        <Avatar
-          src={data.post.coverphoto.url}
-          alt={data.post.title}
-          sx={{ width: "100%", height: "360px", borderRadius: "10px" }}
-        />
+        <Avatar sx={{ width: "100%", height: "360px", borderRadius: "10px" }}>
+          <LazyLoadImage
+            width="100%"
+            height="100%"
+            src={data.post.coverphoto.url}
+            effect="blur"
+            alt={data.post.title}
+            id="lazy_img"
+          />
+        </Avatar>
         <List
           sx={{
             ...flexdirecXS,
@@ -327,11 +337,16 @@ const Blog = () => {
             width: "100%",
           }}
         >
-          <Avatar
-            src={data.post.author.image.url}
-            alt={data.post.author.name}
-            sx={{ width: "72px", height: "72px", borderRadius: "50%" }}
-          />
+          <Avatar sx={{ width: "72px", height: "72px", borderRadius: "50%" }}>
+            <LazyLoadImage
+              width="100%"
+              height="100%"
+              src={data.post.author.image.url}
+              effect="blur"
+              alt={data.post.author.name}
+              id="lazy_img"
+            />
+          </Avatar>
           <Box
             sx={{
               display: "flex",
