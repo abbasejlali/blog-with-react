@@ -113,7 +113,6 @@ const CardElement = ({
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        {console.log(comments)}
         {comments.length > 2 ? (
           <AvatarGroup
             total={comments.length}

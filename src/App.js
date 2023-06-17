@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // react-router-dom
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 // Components
 import Home from "./Components/Home/Home";
@@ -14,6 +14,11 @@ import AuthorsSlug from "./Components/Authors/AuthorsSlug";
 import ScrollToTop from "./Components/shared/ScrollToTop";
 
 function App() {
+  const { slug } = useParams();
+  useEffect(() => {
+    console.log(slug);
+  }, []);
+
   return (
     <Layout>
       <ScrollToTop />

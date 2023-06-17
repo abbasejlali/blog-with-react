@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 // Mui
 import { Box, Typography, Grid } from "@mui/material";
@@ -9,65 +9,7 @@ import styles from "./CategoryHome.module.css";
 // react-router-dom
 import { Link } from "react-router-dom";
 
-// Green Sock
-import { gsap } from "gsap";
-
 const CategoryHome = () => {
-  const Itemone = useRef();
-  const Itemtwo = useRef();
-  const Itemthree = useRef();
-  const tl = useRef();
-  const App1 = useRef();
-
-  useEffect(() => {
-    tl.current = gsap
-      .timeline()
-      .fromTo(
-        Itemone.current,
-        {
-          y: 50,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.35,
-          scrollTrigger: {
-            trigger: "#boxcategory",
-            start: "top center",
-          },
-        }
-      )
-      .fromTo(
-        Itemtwo.current,
-        {
-          y: 50,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.35,
-          scrollTrigger: {
-            trigger: "#boxcategory",
-            start: "top center",
-          },
-        }
-      )
-      .fromTo(
-        Itemthree.current,
-        {
-          y: 50,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.35,
-          scrollTrigger: {
-            trigger: "#boxcategory",
-            start: "top center",
-          },
-        }
-      );
-  }, []);
   return (
     <Box
       mb={5}
@@ -80,7 +22,6 @@ const CategoryHome = () => {
       }}
       className={styles.boxcategory}
       id="boxcategory"
-      ref={App1}
     >
       <Typography
         component="h3"
@@ -116,7 +57,6 @@ const CategoryHome = () => {
             boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
             "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
           }}
-          ref={Itemone}
         >
           <Link to="/blogs/category/programming">
             <Typography
@@ -150,7 +90,6 @@ const CategoryHome = () => {
             boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
             "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
           }}
-          ref={Itemtwo}
         >
           <Link to="/blogs/category/digital-world">
             <Typography
@@ -184,7 +123,6 @@ const CategoryHome = () => {
             boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
             "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
           }}
-          ref={Itemthree}
         >
           <Link to="/blogs/category/technology">
             <Typography

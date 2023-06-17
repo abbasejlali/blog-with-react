@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, lazy, Suspense } from "react";
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -60,7 +60,10 @@ const SlideShow = () => {
                   to={`/blogs/${data.posts[index].slug}`}
                   style={{ display: "flex", width: "100%", height: "100%" }}
                 >
-                  <img src={post.coverphoto.url} alt={post.title} />
+                  {/* <img src={lazy(() => post.coverphoto.url)} alt={post.title} /> */}
+                  <Suspense fallback={<div>Loading...</div>}>
+                    {data && lazy(() => post.coverphoto.url)}
+                  </Suspense>
                 </Link>
               </SwiperSlide>
             ))}

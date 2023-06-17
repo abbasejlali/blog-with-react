@@ -1,5 +1,4 @@
 import React from "react";
-import jalaali from "jalaali-js";
 
 // react router dom
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -37,9 +36,6 @@ import { generate_fa } from "../../js/function";
 // COMPONENTS
 import CommentBlog from "../Comments/CommentBlog";
 import SendCommentBlog from "../Comments/SendCommentBlog";
-
-// toastify
-import { ToastContainer } from "react-toastify";
 
 // Customize Mui Textfield
 const CssBox = styled(Box)({

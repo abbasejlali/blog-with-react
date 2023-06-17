@@ -60,7 +60,6 @@ const CommentBlog = ({ name, avatar, text, date }) => {
             {fistename(name)}
           </Avatar>
         )}
-        {console.log(avatar)}
 
         <Box
           sx={{

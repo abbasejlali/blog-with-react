@@ -14,7 +14,7 @@ const Home = () => {
       <CardsHome categoryen="programming" categoryfa="برنامه نویسی" />
       <CardsHome categoryen="digital-world" categoryfa="دنیای دیجیتال" />
       <CardsHome categoryen="technology" categoryfa="تکنولوژی" />
-      {/* <CommentsHome /> */}
+      <CommentsHome />
     </div>
   );
 };

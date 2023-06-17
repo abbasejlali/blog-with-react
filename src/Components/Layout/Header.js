@@ -79,7 +79,7 @@ const Header = () => {
 
   // Mobile Menu in Mui
   const [state, setState] = React.useState({
-    right: false,
+    left: false,
   });
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -206,7 +206,7 @@ const Header = () => {
             }}
           >
             <IconButton
-              onClick={toggleDrawer("right", true)}
+              onClick={toggleDrawer("left", true)}
               size="large"
               edge="start"
               color="white"
@@ -242,11 +242,11 @@ const Header = () => {
         </AppBar>
       </Box>
       <Drawer
-        anchor="right"
-        open={state.right}
-        onClose={toggleDrawer("right", false)}
+        anchor="left"
+        open={state.left}
+        onClose={toggleDrawer("left", false)}
       >
-        {list("right")}
+        {list("left")}
       </Drawer>
 
       <Slide direction="up" in={open}>
@@ -364,7 +364,7 @@ const Header = () => {
               <Typography
                 component="h4"
                 variant="h6"
-                sx={{ textAlign: "center", color: "#666" }}
+                sx={{ textAlign: "center !important", color: "#666" }}
               >
                 یا دسته بندی های محبوب ما را بررسی کنید...
               </Typography>
