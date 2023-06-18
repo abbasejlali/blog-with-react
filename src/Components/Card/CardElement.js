@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 
-// js
+// js function
 import { fistename, sharePage } from "../../js/function";
 
 // LazyLoadImage

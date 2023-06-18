@@ -17,15 +17,12 @@ const generate_fa = (en) => {
 // share article
 const sharePage = (title, url) => {
   if (navigator.share) {
-    navigator
-      .share({
-        title: title,
-        url: url,
-      })
-      .then(() => console.log("Page shared successfully."))
-      .catch((error) => console.error("Error sharing page:", error));
+    navigator.share({
+      title: title,
+      url: url,
+    });
   } else {
-    console.log("Sharing not supported on this browser.");
+    alert("Sharing not supported on this browser.");
   }
 };
 
