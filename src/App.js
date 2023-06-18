@@ -14,9 +14,9 @@ import AuthorsSlug from "./Components/Authors/AuthorsSlug";
 import ScrollToTop from "./Components/shared/ScrollToTop";
 
 function App() {
-  useEffect(() => {
-    console.clear();
-  }, []);
+  // useEffect(() => {
+  //   console.clear();
+  // }, []);
 
   return (
     <Layout>

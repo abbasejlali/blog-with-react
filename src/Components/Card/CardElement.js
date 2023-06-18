@@ -22,7 +22,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 
 // js
-import { fistename } from "../../js/function";
+import { fistename, sharePage } from "../../js/function";
 
 // LazyLoadImage
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -125,7 +125,10 @@ const CardElement = ({
         <IconButton aria-label="add to favorites">
           <FavoriteBorderIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        <IconButton
+          aria-label="share"
+          onClick={() => sharePage(title, `/blogs/${slug}`)}
+        >
           <ShareIcon />
         </IconButton>
         {comments.length > 2 ? (

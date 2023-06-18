@@ -1,7 +1,7 @@
 import React from "react";
 
 // react router dom
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 // Graph Ql
 import { useQuery } from "@apollo/client";
@@ -42,6 +42,9 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../shared/lazy_load.css";
 
+// function share
+import { sharePage } from "../../js/function";
+
 // Customize Mui Textfield
 const CssBox = styled(Box)({
   "& p": {
@@ -56,6 +59,7 @@ const CssBox = styled(Box)({
 const Blog = () => {
   // Navigate
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Get Slug
   const { slug } = useParams();
@@ -136,6 +140,7 @@ const Blog = () => {
 
   return (
     <React.Fragment>
+      {console.log(location)}
       <Box
         component="article"
         sx={{
@@ -304,7 +309,10 @@ const Blog = () => {
             <IconButton aria-label="add to favorites">
               <FavoriteBorderIcon />
             </IconButton>
-            <IconButton aria-label="share">
+            <IconButton
+              aria-label="share"
+              onClick={() => sharePage(document.title, window.location.href)}
+            >
               <ShareIcon />
             </IconButton>
           </Box>
@@ -446,7 +454,15 @@ const Blog = () => {
             <IconButton aria-label="add to favorites">
               <FavoriteBorderIcon />
             </IconButton>
-            <IconButton aria-label="share">
+            <IconButton
+              aria-label="share"
+              onClick={() =>
+                sharePage(
+                  data.post.author.name,
+                  `/authors/${data.post.author.slug}`
+                )
+              }
+            >
               <ShareIcon />
             </IconButton>
           </Box>

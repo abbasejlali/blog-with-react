@@ -14,4 +14,19 @@ const generate_fa = (en) => {
   if (en === "technology") return (en = "تکنولوژی");
 };
 
-export { fistename, generate_rabndomnum, generate_fa };
+// share article
+const sharePage = (title, url) => {
+  if (navigator.share) {
+    navigator
+      .share({
+        title: title,
+        url: url,
+      })
+      .then(() => console.log("Page shared successfully."))
+      .catch((error) => console.error("Error sharing page:", error));
+  } else {
+    console.log("Sharing not supported on this browser.");
+  }
+};
+
+export { fistename, generate_rabndomnum, generate_fa, sharePage };
