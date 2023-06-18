@@ -29,6 +29,7 @@ import TuneIcon from "@mui/icons-material/Tune";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import CloseIcon from "@mui/icons-material/Close";
 import CircleIcon from "@mui/icons-material/Circle";
+import LoginIcon from "@mui/icons-material/Login";
 
 // react-router-dom
 import { Link } from "react-router-dom";
@@ -210,6 +211,7 @@ const Header = () => {
               size="large"
               edge="start"
               color="white"
+              sx={{ padding: "8px" }}
             >
               <MenuIcon
                 sx={{
@@ -231,13 +233,25 @@ const Header = () => {
                 وبلاگ اجلالی
               </Typography>
             </Link>
-
-            <IconButton size="large" color="white">
-              <ManageSearchIcon
-                onClick={() => setOpen(true)}
-                style={{ fontSize: "35px", color: "#666" }}
-              />
-            </IconButton>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <Link to="/login">
+                <IconButton size="large" sx={{ padding: "8px" }} color="white">
+                  <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
+                </IconButton>
+              </Link>
+              <IconButton size="large" sx={{ padding: "8px" }} color="white">
+                <ManageSearchIcon
+                  onClick={() => setOpen(true)}
+                  style={{ fontSize: "35px", color: "#666" }}
+                />
+              </IconButton>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
