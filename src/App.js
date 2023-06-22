@@ -1,7 +1,7 @@
 import React from "react";
 
 // react-router-dom
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // Components
 import Home from "./Components/Home/Home";
@@ -15,17 +15,30 @@ import Login from "./Components/Login/Login";
 import ScrollToTop from "./Components/shared/ScrollToTop";
 
 function App() {
+  const { pathname } = useLocation();
   return (
-    <Layout>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/blogs/:slug" element={<Blog />} />
-        <Route path="/blogs/category/:slug" element={<CategorySlug />} />
-        <Route path="/authors/:slug" element={<AuthorsSlug />} />
-      </Routes>
-    </Layout>
+    <>
+      {pathname === "/login" ? (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/blogs/:slug" element={<Blog />} />
+          <Route path="/blogs/category/:slug" element={<CategorySlug />} />
+          <Route path="/authors/:slug" element={<AuthorsSlug />} />
+        </Routes>
+      ) : (
+        <Layout>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/blogs/:slug" element={<Blog />} />
+            <Route path="/blogs/category/:slug" element={<CategorySlug />} />
+            <Route path="/authors/:slug" element={<AuthorsSlug />} />
+          </Routes>
+        </Layout>
+      )}
+    </>
   );
 }
 

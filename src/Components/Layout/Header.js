@@ -92,7 +92,7 @@ const Header = () => {
 
     setState({ ...state, [anchor]: open });
   };
-  const listMenu = ["صفحه اصلی", "نویسنده ها", "دسته بندی"];
+  const listMenu = ["صفحه اصلی", "نویسنده ها", "دسته بندی", "جستجو کن"];
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -109,6 +109,7 @@ const Header = () => {
                   {index === 0 && <HomeIcon />}
                   {index === 1 && <Groups2Icon />}
                   {index === 2 && <TuneIcon />}
+                  {index === 3 && <ManageSearchIcon />}
                 </ListItemIcon>
                 {index === 0 && (
                   <>
@@ -147,6 +148,19 @@ const Header = () => {
                         sx={{ fontWeight: "bold !important" }}
                       />
                     </Link>
+                  </>
+                )}
+                {index === 3 && (
+                  <>
+                    <ListItemText
+                      onClick={() => setOpen(true)}
+                      primary={text}
+                      color="#666"
+                      sx={{
+                        fontWeight: "bold !important",
+                        marginBottom: "4px",
+                      }}
+                    />
                   </>
                 )}
               </ListItemButton>
@@ -233,25 +247,12 @@ const Header = () => {
                 وبلاگ اجلالی
               </Typography>
             </Link>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
-              <Link to="/login">
-                <IconButton size="large" sx={{ padding: "8px" }} color="white">
-                  <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
-                </IconButton>
-              </Link>
+
+            <Link to="/login">
               <IconButton size="large" sx={{ padding: "8px" }} color="white">
-                <ManageSearchIcon
-                  onClick={() => setOpen(true)}
-                  style={{ fontSize: "35px", color: "#666" }}
-                />
+                <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
               </IconButton>
-            </Box>
+            </Link>
           </Toolbar>
         </AppBar>
       </Box>
