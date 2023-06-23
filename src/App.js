@@ -14,21 +14,16 @@ import Login from "./Components/Login/Login";
 // scroll to top
 import ScrollToTop from "./Components/shared/ScrollToTop";
 
+// redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 function App() {
   const { pathname } = useLocation();
   return (
     <>
-      {pathname === "/login" ? (
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/blogs/:slug" element={<Blog />} />
-          <Route path="/blogs/category/:slug" element={<CategorySlug />} />
-          <Route path="/authors/:slug" element={<AuthorsSlug />} />
-        </Routes>
-      ) : (
-        <Layout>
-          <ScrollToTop />
+      <Provider store={store}>
+        {pathname === "/login" ? (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -36,8 +31,19 @@ function App() {
             <Route path="/blogs/category/:slug" element={<CategorySlug />} />
             <Route path="/authors/:slug" element={<AuthorsSlug />} />
           </Routes>
-        </Layout>
-      )}
+        ) : (
+          <Layout>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/blogs/:slug" element={<Blog />} />
+              <Route path="/blogs/category/:slug" element={<CategorySlug />} />
+              <Route path="/authors/:slug" element={<AuthorsSlug />} />
+            </Routes>
+          </Layout>
+        )}
+      </Provider>
     </>
   );
 }

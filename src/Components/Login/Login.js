@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Mui
 import { Box, Grid, Button, Typography } from "@mui/material";
@@ -9,19 +9,55 @@ import background_blog from "../../asset/img/background-login1.jpg";
 // customize Mui
 import { CssTextField } from "../shared/CustomizeMui";
 
+// Graph Ql
+import { useQuery } from "@apollo/client";
+import { GET_USERS } from "../GraphQl/query";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { infouser } from "../../redux/users/usersActions";
+
+// react router dom
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
-  const [pass, setPass] = useState("");
   const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  const emailHandeler = (e) => {
+    setEmail(e.target.value);
+  };
 
   const passHandeler = (e) => {
     setPass(e.target.value);
   };
 
-  const emailHandeler = (e) => {
-    setEmail(e.target.value);
+  // Redux
+  const dispatch = useDispatch();
+  const info_user = useSelector((state) => state.userState);
+
+  // location
+  const navigate = useNavigate();
+
+  // Graph Ql
+  const { loading, errors, data } = useQuery(GET_USERS);
+
+  const loginHandeler = (e) => {
+    if (data) {
+      const users = data.persons;
+      if (
+        users.find((user) => user.email === email) &&
+        users.find((user) => user.password === pass)
+      ) {
+        let user = users.find((user) => user.email === email);
+        dispatch(infouser(user));
+        // if (info_user.user) navigate("/");
+      }
+    }
   };
   return (
     <Box maxWidth="100%" component="section" sx={{ backgroundColor: "white" }}>
+      {console.log(info_user)}
       <Grid
         container
         sx={{
@@ -142,8 +178,9 @@ const Login = () => {
                   color: "#fff",
                   fontSize: "18px",
                 }}
+                onClick={loginHandeler}
               >
-                ورود به سایت
+                {loading ? "Loading ..." : "ورود به سایت"}
               </Button>
             </Box>
           </Box>

@@ -99,10 +99,22 @@ const GET_POSTTOBLOG = gql`
     }
   }
 `;
+
+const GET_USERS = gql`
+  query {
+    persons {
+      id
+      userName
+      email
+      password
+    }
+  }
+`;
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
   GET_COMMENTSHOME,
   GET_POSTS,
   GET_POSTTOBLOG,
+  GET_USERS,
 };
