@@ -110,6 +110,17 @@ const GET_USERS = gql`
     }
   }
 `;
+
+const GET_USER = gql`
+  query getuser($email: String!) {
+    person(where: { email: $email }) {
+      id
+      userName
+      email
+      password
+    }
+  }
+`;
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
@@ -117,4 +128,5 @@ export {
   GET_POSTS,
   GET_POSTTOBLOG,
   GET_USERS,
+  GET_USER,
 };

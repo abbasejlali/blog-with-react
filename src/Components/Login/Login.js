@@ -12,6 +12,7 @@ import { CssTextField } from "../shared/CustomizeMui";
 // Graph Ql
 import { useQuery } from "@apollo/client";
 import { GET_USERS } from "../GraphQl/query";
+import { GET_USER } from "../GraphQl/query";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [user_email_main, setUser_email_main] = useState("");
 
   const emailHandeler = (e) => {
     setEmail(e.target.value);
@@ -64,19 +66,25 @@ const Login = () => {
       // }
       if (users.find((user) => user.email === email)) {
         let user = users.find((user) => user.email === email);
-        dispatch(infouser(user));
-        if (
-          email === info_user.user.email &&
-          pass === info_user.user.password
-        ) {
-          navigate("/");
+        console.log(user);
+
+        if (email === user.email && pass === user.password) {
+          // navigate("/");
+          setUser_email_main(user.email);
         }
-      } else {
-        dispatch(infouser([]));
       }
-      console.log(info_user);
     }
   };
+
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: dataUser,
+  } = useQuery(GET_USER, {
+    variables: {
+      email: `${user_email_main && user_email_main}`,
+    },
+  });
 
   // useEffect(() => {
   //   if (JSON.parse(localStorage.getItem("infoUser"))) {
@@ -88,6 +96,8 @@ const Login = () => {
 
   return (
     <Box maxWidth="100%" component="section" sx={{ backgroundColor: "white" }}>
+      {console.log(user_email_main)}
+      {console.log(dataUser)}
       <Grid
         container
         sx={{
