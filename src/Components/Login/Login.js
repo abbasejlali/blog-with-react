@@ -51,10 +51,28 @@ const Login = () => {
       ) {
         let user = users.find((user) => user.email === email);
         dispatch(infouser(user));
-        // if (info_user.user) navigate("/");
+        if (info_user.user) navigate("/");
+        if (!JSON.parse(localStorage.getItem("infoUser")))
+          localStorage.setItem(
+            "infoUser",
+            JSON.stringify({
+              userName: info_user.user.userName,
+              email: info_user.user.email,
+              password: info_user.user.password,
+            })
+          );
       }
     }
   };
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("infoUser"))) {
+      const get_info_user = JSON.parse(localStorage.getItem("infoUser"));
+      setEmail(get_info_user.email);
+      setPass(get_info_user.password);
+    }
+  }, []);
+
   return (
     <Box maxWidth="100%" component="section" sx={{ backgroundColor: "white" }}>
       {console.log(info_user)}
@@ -149,6 +167,7 @@ const Login = () => {
                 id="custom-css-outlined-input"
                 label="رمز خود را وارد کنید"
                 fullWidth
+                type="password"
                 value={pass}
                 sx={{ width: "100%", marginTop: "16px" }}
                 onChange={passHandeler}
