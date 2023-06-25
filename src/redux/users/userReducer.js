@@ -6,6 +6,7 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "INFOUSER":
       return {
+        ...state,
         user: action.payload,
       };
     default:

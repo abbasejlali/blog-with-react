@@ -45,37 +45,49 @@ const Login = () => {
   const loginHandeler = (e) => {
     if (data) {
       const users = data.persons;
-      if (
-        users.find((user) => user.email === email) &&
-        users.find((user) => user.password === pass)
-      ) {
+      // if (
+      //   users.find((user) => user.email === email) &&
+      //   users.find((user) => user.password === pass)
+      // ) {
+      //   let user = users.find((user) => user.email === email);
+      //   dispatch(infouser(user));
+      //   if (info_user.user) navigate("/");
+      //   if (!JSON.parse(localStorage.getItem("infoUser")))
+      //     localStorage.setItem(
+      //       "infoUser",
+      //       JSON.stringify({
+      //         userName: info_user.user.userName,
+      //         email: info_user.user.email,
+      //         password: info_user.user.password,
+      //       })
+      //     );
+      // }
+      if (users.find((user) => user.email === email)) {
         let user = users.find((user) => user.email === email);
         dispatch(infouser(user));
-        if (info_user.user) navigate("/");
-        if (!JSON.parse(localStorage.getItem("infoUser")))
-          localStorage.setItem(
-            "infoUser",
-            JSON.stringify({
-              userName: info_user.user.userName,
-              email: info_user.user.email,
-              password: info_user.user.password,
-            })
-          );
+        if (
+          email === info_user.user.email &&
+          pass === info_user.user.password
+        ) {
+          navigate("/");
+        }
+      } else {
+        dispatch(infouser([]));
       }
+      console.log(info_user);
     }
   };
 
-  useEffect(() => {
-    if (JSON.parse(localStorage.getItem("infoUser"))) {
-      const get_info_user = JSON.parse(localStorage.getItem("infoUser"));
-      setEmail(get_info_user.email);
-      setPass(get_info_user.password);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (JSON.parse(localStorage.getItem("infoUser"))) {
+  //     const get_info_user = JSON.parse(localStorage.getItem("infoUser"));
+  //     setEmail(get_info_user.email);
+  //     setPass(get_info_user.password);
+  //   }
+  // }, []);
 
   return (
     <Box maxWidth="100%" component="section" sx={{ backgroundColor: "white" }}>
-      {console.log(info_user)}
       <Grid
         container
         sx={{
