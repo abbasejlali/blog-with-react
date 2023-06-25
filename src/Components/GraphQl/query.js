@@ -118,6 +118,7 @@ const GET_USER = gql`
       userName
       email
       password
+      slugPersone
     }
   }
 `;

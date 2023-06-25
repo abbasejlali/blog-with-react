@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Mui
 import { Box, Grid, Button, Typography } from "@mui/material";
@@ -67,9 +67,7 @@ const Login = () => {
       if (users.find((user) => user.email === email)) {
         let user = users.find((user) => user.email === email);
         console.log(user);
-
         if (email === user.email && pass === user.password) {
-          // navigate("/");
           setUser_email_main(user.email);
         }
       }
@@ -86,6 +84,16 @@ const Login = () => {
     },
   });
 
+  useEffect(() => {
+    if (dataUser) {
+      if (dataUser.person) {
+        navigate(`/dashboard/${dataUser.person.slugPersone}`);
+        dispatch(infouser(dataUser.person));
+        console.log(info_user);
+      }
+    }
+  }, [dataUser]);
+
   // useEffect(() => {
   //   if (JSON.parse(localStorage.getItem("infoUser"))) {
   //     const get_info_user = JSON.parse(localStorage.getItem("infoUser"));
@@ -96,8 +104,6 @@ const Login = () => {
 
   return (
     <Box maxWidth="100%" component="section" sx={{ backgroundColor: "white" }}>
-      {console.log(user_email_main)}
-      {console.log(dataUser)}
       <Grid
         container
         sx={{
@@ -221,7 +227,7 @@ const Login = () => {
                 }}
                 onClick={loginHandeler}
               >
-                {loading ? "Loading ..." : "ورود به سایت"}
+                {loadingUser ? "Loading ..." : "ورود به سایت"}
               </Button>
             </Box>
           </Box>

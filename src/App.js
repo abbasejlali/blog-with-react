@@ -17,6 +17,7 @@ import ScrollToTop from "./Components/shared/ScrollToTop";
 // redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import DashboardUser from "./Components/DashboardUser/DashboardUser";
 
 function App() {
   const { pathname } = useLocation();
@@ -40,6 +41,10 @@ function App() {
               <Route path="/blogs/:slug" element={<Blog />} />
               <Route path="/blogs/category/:slug" element={<CategorySlug />} />
               <Route path="/authors/:slug" element={<AuthorsSlug />} />
+              <Route
+                path="/dashboard/:slugPersone"
+                element={<DashboardUser />}
+              />
             </Routes>
           </Layout>
         )}
