@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 
 // Mui
-import { Box, Grid, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Button,
+  Typography,
+  Snackbar,
+  Alert,
+  IconButton,
+} from "@mui/material";
+
+// Mui Icons
+import CloseIcon from "@mui/icons-material/Close";
 
 // img background
 import background_blog from "../../asset/img/background-login1.jpg";
@@ -33,6 +44,31 @@ const Login = () => {
   const passHandeler = (e) => {
     setPass(e.target.value);
   };
+
+  // alert success to login
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   // Redux
   const dispatch = useDispatch();
@@ -69,6 +105,7 @@ const Login = () => {
         console.log(user);
         if (email === user.email && pass === user.password) {
           setUser_email_main(user.email);
+          setOpen(true);
         }
       }
     }
@@ -87,9 +124,9 @@ const Login = () => {
   useEffect(() => {
     if (dataUser) {
       if (dataUser.person) {
-        navigate(`/dashboard/${dataUser.person.slugPersone}`);
         dispatch(infouser(dataUser.person));
-        console.log(info_user);
+        navigate(`/dashboard`);
+        console.log(open);
       }
     }
   }, [dataUser]);
@@ -103,151 +140,171 @@ const Login = () => {
   // }, []);
 
   return (
-    <Box maxWidth="100%" component="section" sx={{ backgroundColor: "white" }}>
-      <Grid
-        container
-        sx={{
-          height: "100vh",
-        }}
+    <>
+      <Box
+        maxWidth="100%"
+        component="section"
+        sx={{ backgroundColor: "white" }}
       >
         <Grid
-          item
-          xs={12}
-          md={6}
+          container
           sx={{
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            height: "100vh",
           }}
         >
-          <Box
-            component="form"
+          <Grid
+            item
+            xs={12}
+            md={6}
             sx={{
-              maxWidth: "340px",
-              width: "100%",
+              height: "100%",
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
+              justifyContent: "center",
               alignItems: "center",
-              padding: "12px",
-              border: "2px solid #f2f2f2",
-              borderRadius: "5px",
             }}
           >
             <Box
+              component="form"
               sx={{
-                maxWidth: "100%",
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{
-                  borderBottom: "2px solid #f2f2f2",
-                  fontWeight: "bold",
-                  color: "#666",
-                  cursor: "pointer",
-                  padding: "0  10px 5px 10px",
-                  "&:hover": { borderBottom: "2px solid #43a047" },
-                  transition: "all 0.3s ease",
-                }}
-              >
-                ورود
-              </Typography>
-              <Typography
-                sx={{
-                  borderBottom: "2px solid #f2f2f2",
-                  fontWeight: "bold",
-                  color: "#666",
-                  cursor: "pointer",
-                  padding: "0  10px 5px 10px",
-                  "&:hover": { borderBottom: "2px solid #43a047" },
-                  transition: "all 0.3s ease",
-                }}
-              >
-                ثبت نام
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                maxWidth: "100%",
+                maxWidth: "340px",
                 width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "center",
+                padding: "12px",
+                border: "2px solid #f2f2f2",
+                borderRadius: "5px",
               }}
-              mt={2}
             >
-              <CssTextField
-                id="custom-css-outlined-input"
-                label="ایمیل خود را وارد نمایید"
-                fullWidth
-                value={email}
-                sx={{ width: "100%" }}
-                onChange={emailHandeler}
-              />
-              <CssTextField
-                id="custom-css-outlined-input"
-                label="رمز خود را وارد کنید"
-                fullWidth
-                type="password"
-                value={pass}
-                sx={{ width: "100%", marginTop: "16px" }}
-                onChange={passHandeler}
-              />
-              <Typography
-                component="a"
-                variant="h6"
-                color="#666"
-                sx={{
-                  fontSize: "14px",
-                  cursor: "pointer",
-                  transition: "color 0.4s ease",
-                  "&:hover": { color: "blue" },
-                  alignSelf: "flex-start",
-                }}
-                my={2}
-              >
-                رمز خود را فراموش کردید؟
-              </Typography>
-              <Button
+              <Box
                 sx={{
                   maxWidth: "100%",
                   width: "100%",
-                  backgroundColor: "#43a047",
-                  "&:hover": { backgroundColor: "#68b36b  !important" },
-                  fontWeight: "bold",
-                  color: "#fff",
-                  fontSize: "18px",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                onClick={loginHandeler}
               >
-                {loadingUser ? "Loading ..." : "ورود به سایت"}
-              </Button>
+                <Typography
+                  sx={{
+                    borderBottom: "2px solid #f2f2f2",
+                    fontWeight: "bold",
+                    color: "#666",
+                    cursor: "pointer",
+                    padding: "0  10px 5px 10px",
+                    "&:hover": { borderBottom: "2px solid #43a047" },
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  ورود
+                </Typography>
+                <Typography
+                  sx={{
+                    borderBottom: "2px solid #f2f2f2",
+                    fontWeight: "bold",
+                    color: "#666",
+                    cursor: "pointer",
+                    padding: "0  10px 5px 10px",
+                    "&:hover": { borderBottom: "2px solid #43a047" },
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  ثبت نام
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  maxWidth: "100%",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+                mt={2}
+              >
+                <CssTextField
+                  id="custom-css-outlined-input"
+                  label="ایمیل خود را وارد نمایید"
+                  fullWidth
+                  value={email}
+                  sx={{ width: "100%" }}
+                  onChange={emailHandeler}
+                />
+                <CssTextField
+                  id="custom-css-outlined-input"
+                  label="رمز خود را وارد کنید"
+                  fullWidth
+                  type="password"
+                  value={pass}
+                  sx={{ width: "100%", marginTop: "16px" }}
+                  onChange={passHandeler}
+                />
+                <Typography
+                  component="a"
+                  variant="h6"
+                  color="#666"
+                  sx={{
+                    fontSize: "14px",
+                    cursor: "pointer",
+                    transition: "color 0.4s ease",
+                    "&:hover": { color: "blue" },
+                    alignSelf: "flex-start",
+                  }}
+                  my={2}
+                >
+                  رمز خود را فراموش کردید؟
+                </Typography>
+                <Button
+                  sx={{
+                    maxWidth: "100%",
+                    width: "100%",
+                    backgroundColor: "#43a047",
+                    "&:hover": { backgroundColor: "#68b36b  !important" },
+                    fontWeight: "bold",
+                    color: "#fff",
+                    fontSize: "18px",
+                  }}
+                  onClick={loginHandeler}
+                >
+                  ورود به سایت
+                </Button>
+              </Box>
             </Box>
-          </Box>
+          </Grid>
+          <Grid
+            sx={{
+              height: "100%",
+            }}
+            item
+            xs={12}
+            md={6}
+          >
+            <img
+              src={background_blog}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              alt="background-blog"
+            />
+          </Grid>
         </Grid>
-        <Grid
-          sx={{
-            height: "100%",
-          }}
-          item
-          xs={12}
-          md={6}
+        <Snackbar
+          open={open}
+          autoHideDuration={3500}
+          onClose={handleClose}
+          action={action}
         >
-          <img
-            src={background_blog}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            alt="background-blog"
-          />
-        </Grid>
-      </Grid>
-    </Box>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            با موفقیت وارد شدید
+          </Alert>
+        </Snackbar>
+      </Box>
+    </>
   );
 };
 

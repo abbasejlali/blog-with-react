@@ -30,6 +30,7 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import CloseIcon from "@mui/icons-material/Close";
 import CircleIcon from "@mui/icons-material/Circle";
 import LoginIcon from "@mui/icons-material/Login";
+import PersonIcon from "@mui/icons-material/Person";
 
 // react-router-dom
 import { Link } from "react-router-dom";
@@ -40,6 +41,9 @@ import { GET_POSTS } from "../GraphQl/query";
 
 // CardElement SearchBox
 import CardBoxSearch from "../Card/CardBoxSearch";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
 
 const Header = () => {
   // Media Query in Mui
@@ -203,6 +207,10 @@ const Header = () => {
   const blurHandeler = () => {
     setIsfocus(false);
   };
+
+  // Redux
+  const user = useSelector((state) => state.userState);
+
   return (
     <>
       <Box maxWidth="100%" position="sticky" sx={{ top: 0, zIndex: "999" }}>
@@ -247,12 +255,26 @@ const Header = () => {
                 وبلاگ اجلالی
               </Typography>
             </Link>
-
-            <Link to="/login">
-              <IconButton size="large" sx={{ padding: "8px" }} color="white">
-                <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
-              </IconButton>
-            </Link>
+            {user.user.slugPersone ? (
+              <Link to={`/dashboard`}>
+                <Typography
+                  component="span"
+                  variant="span"
+                  sx={{ color: "#666" }}
+                >
+                  {user.user.slugPersone}
+                </Typography>
+                <IconButton size="large" sx={{ padding: "8px" }} color="white">
+                  <PersonIcon style={{ fontSize: "35px", color: "#666" }} />
+                </IconButton>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <IconButton size="large" sx={{ padding: "8px" }} color="white">
+                  <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
+                </IconButton>
+              </Link>
+            )}
           </Toolbar>
         </AppBar>
       </Box>

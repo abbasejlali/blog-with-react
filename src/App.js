@@ -41,10 +41,7 @@ function App() {
               <Route path="/blogs/:slug" element={<Blog />} />
               <Route path="/blogs/category/:slug" element={<CategorySlug />} />
               <Route path="/authors/:slug" element={<AuthorsSlug />} />
-              <Route
-                path="/dashboard/:slugPersone"
-                element={<DashboardUser />}
-              />
+              <Route path="/dashboard" element={<DashboardUser />} />
             </Routes>
           </Layout>
         )}
