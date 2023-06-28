@@ -15,6 +15,7 @@ import {
 
 // Mui Icons
 import CloseIcon from "@mui/icons-material/Close";
+import WestIcon from "@mui/icons-material/West";
 
 // img background
 import background_blog from "../../asset/img/background-login1.jpg";
@@ -32,12 +33,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { infouser } from "../../redux/users/usersActions";
 
 // react router dom
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [user_email_main, setUser_email_main] = useState("");
+  const [get_user_redux, setGet_user_redux] = useState(false);
 
   const emailHandeler = (e) => {
     setEmail(e.target.value);
@@ -86,6 +88,7 @@ const Login = () => {
 
   // Redux
   const dispatch = useDispatch();
+  const user_redux = useSelector((state) => state.userState.user);
 
   // location
   const navigate = useNavigate();
@@ -181,6 +184,9 @@ const Login = () => {
     //     setPass(get_info_user.password);
     //   }
     document.body.style.overflow = "hidden";
+    if (dataUser) {
+      setGet_user_redux(true);
+    }
   }, []);
 
   return (
@@ -190,6 +196,7 @@ const Login = () => {
         component="section"
         sx={{ backgroundColor: "white" }}
       >
+        {console.log(user_redux)}
         <Grid
           container
           sx={{
@@ -207,117 +214,155 @@ const Login = () => {
               alignItems: "center",
             }}
           >
-            {data ? (
-              <Box
-                component="form"
-                sx={{
-                  maxWidth: "340px",
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  padding: "12px",
-                  border: "2px solid #f2f2f2",
-                  borderRadius: "5px",
-                }}
+            {get_user_redux ? (
+              <Typography
+                component="h6"
+                variant="h6"
+                color="#666"
+                fontWeight="bold"
               >
+                شما قبلا وارد سایت شدید
+              </Typography>
+            ) : data ? (
+              <>
                 <Box
                   sx={{
-                    maxWidth: "100%",
+                    maxWidth: "340px",
                     width: "100%",
+                    minHeight: "fit-content",
+                    height: "100%",
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
-                  <Typography
-                    sx={{
-                      borderBottom: "2px solid #f2f2f2",
-                      fontWeight: "bold",
+                  <Link
+                    style={{
                       color: "#666",
-                      cursor: "pointer",
-                      padding: "0  10px 5px 10px",
-                      "&:hover": { borderBottom: "2px solid #43a047" },
-                      transition: "all 0.3s ease",
-                    }}
-                  >
-                    ورود
-                  </Typography>
-                  <Typography
-                    sx={{
-                      borderBottom: "2px solid #f2f2f2",
-                      fontWeight: "bold",
-                      color: "#666",
-                      cursor: "pointer",
-                      padding: "0  10px 5px 10px",
-                      "&:hover": { borderBottom: "2px solid #43a047" },
-                      transition: "all 0.3s ease",
-                    }}
-                  >
-                    ثبت نام
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    maxWidth: "100%",
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                  }}
-                  mt={2}
-                >
-                  <CssTextField
-                    id="custom-css-outlined-input"
-                    label="ایمیل خود را وارد نمایید"
-                    fullWidth
-                    value={email}
-                    sx={{ width: "100%" }}
-                    onChange={emailHandeler}
-                  />
-                  <CssTextField
-                    id="custom-css-outlined-input"
-                    label="رمز خود را وارد کنید"
-                    fullWidth
-                    type="password"
-                    value={pass}
-                    sx={{ width: "100%", marginTop: "16px" }}
-                    onChange={passHandeler}
-                  />
-                  <Typography
-                    component="a"
-                    variant="h6"
-                    color="#666"
-                    sx={{
-                      fontSize: "14px",
-                      cursor: "pointer",
-                      transition: "color 0.4s ease",
-                      "&:hover": { color: "blue" },
+                      marginBottom: "16px",
                       alignSelf: "flex-start",
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
                     }}
-                    my={2}
+                    to="/"
                   >
-                    رمز خود را فراموش کردید؟
-                  </Typography>
-                  <Button
+                    بازگشت به خانه <WestIcon style={{ marginRight: "4px" }} />
+                  </Link>
+
+                  <Box
+                    component="form"
                     sx={{
-                      maxWidth: "100%",
+                      maxWidth: "340px",
                       width: "100%",
-                      backgroundColor: "#43a047",
-                      "&:hover": { backgroundColor: "#68b36b  !important" },
-                      fontWeight: "bold",
-                      color: "#fff",
-                      fontSize: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      padding: "12px",
+                      border: "2px solid #f2f2f2",
+                      borderRadius: "5px",
                     }}
-                    onClick={loginHandeler}
                   >
-                    ورود به سایت
-                  </Button>
+                    <Box
+                      sx={{
+                        maxWidth: "100%",
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          borderBottom: "2px solid #f2f2f2",
+                          fontWeight: "bold",
+                          color: "#666",
+                          cursor: "pointer",
+                          padding: "0  10px 5px 10px",
+                          "&:hover": { borderBottom: "2px solid #43a047" },
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        ورود
+                      </Typography>
+                      <Typography
+                        sx={{
+                          borderBottom: "2px solid #f2f2f2",
+                          fontWeight: "bold",
+                          color: "#666",
+                          cursor: "pointer",
+                          padding: "0  10px 5px 10px",
+                          "&:hover": { borderBottom: "2px solid #43a047" },
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        ثبت نام
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        maxWidth: "100%",
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                      mt={2}
+                    >
+                      <CssTextField
+                        id="custom-css-outlined-input"
+                        label="ایمیل خود را وارد نمایید"
+                        fullWidth
+                        value={email}
+                        sx={{ width: "100%" }}
+                        onChange={emailHandeler}
+                      />
+                      <CssTextField
+                        id="custom-css-outlined-input"
+                        label="رمز خود را وارد کنید"
+                        fullWidth
+                        type="password"
+                        value={pass}
+                        sx={{ width: "100%", marginTop: "16px" }}
+                        onChange={passHandeler}
+                      />
+                      <Typography
+                        component="a"
+                        variant="h6"
+                        color="#666"
+                        sx={{
+                          fontSize: "14px",
+                          cursor: "pointer",
+                          transition: "color 0.4s ease",
+                          "&:hover": { color: "blue" },
+                          alignSelf: "flex-start",
+                        }}
+                        my={2}
+                      >
+                        رمز خود را فراموش کردید؟
+                      </Typography>
+                      <Button
+                        sx={{
+                          maxWidth: "100%",
+                          width: "100%",
+                          backgroundColor: "#43a047",
+                          "&:hover": { backgroundColor: "#68b36b  !important" },
+                          fontWeight: "bold",
+                          color: "#fff",
+                          fontSize: "18px",
+                        }}
+                        onClick={loginHandeler}
+                      >
+                        ورود به سایت
+                      </Button>
+                    </Box>
+                  </Box>
                 </Box>
-              </Box>
+              </>
             ) : (
               <Stack
                 sx={{

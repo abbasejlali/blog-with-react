@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-router-dom
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -10,6 +10,7 @@ import CategorySlug from "./Components/Category/CategorySlug";
 import Layout from "./Components/Layout/Layout";
 import AuthorsSlug from "./Components/Authors/AuthorsSlug";
 import Login from "./Components/Login/Login";
+import DashboardUser from "./Components/DashboardUser/DashboardUser";
 
 // scroll to top
 import ScrollToTop from "./Components/shared/ScrollToTop";
@@ -17,10 +18,10 @@ import ScrollToTop from "./Components/shared/ScrollToTop";
 // redux
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import DashboardUser from "./Components/DashboardUser/DashboardUser";
 
 function App() {
   const { pathname } = useLocation();
+
   return (
     <>
       <Provider store={store}>
