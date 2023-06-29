@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Mui
 import {
@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 // icons
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 // js function
 import { fistename, sharePage } from "../../js/function";
@@ -29,6 +30,10 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../shared/lazy_load.css";
 
+// Graph Ql
+import { useQuery } from "@apollo/client";
+import { GET_USER } from "../GraphQl/query";
+
 const CardElement = ({
   title,
   author,
@@ -37,6 +42,20 @@ const CardElement = ({
   comments,
   category,
 }) => {
+  // Get data in localStorage
+  const email_login = JSON.parse(localStorage.getItem("info_User"));
+
+  // Get User
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { email: `${email_login && email_login.email}` },
+  });
+
+  // lick betting
+  const [icon_like, setIcon_like] = useState(false);
+  const likeHandeler = (e) => {
+    setIcon_like(!icon_like);
+  };
+
   return (
     <Card
       sx={{
@@ -122,9 +141,24 @@ const CardElement = ({
         </Link>
       </CardContent>
       <CardActions disableSpacing sx={{ direction: "ltr" }}>
-        <IconButton aria-label="add to favorites">
-          <FavoriteBorderIcon />
-        </IconButton>
+        {!data ? (
+          <IconButton aria-label="add to favorites">
+            <FavoriteBorderIcon />
+          </IconButton>
+        ) : data.person !== null ? (
+          <IconButton onClick={likeHandeler} aria-label="add to favorites">
+            {icon_like ? (
+              <FavoriteIcon sx={{ color: "#ff6347" }} />
+            ) : (
+              <FavoriteBorderIcon />
+            )}
+          </IconButton>
+        ) : (
+          <IconButton aria-label="add to favorites">
+            <FavoriteBorderIcon />
+          </IconButton>
+        )}
+
         <IconButton
           aria-label="share"
           onClick={() => sharePage(title, `/blogs/${slug}`)}
