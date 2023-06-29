@@ -122,6 +122,21 @@ const GET_USER = gql`
     }
   }
 `;
+
+const GET_USER_DASHBOARD = gql`
+  query get_user_dashboard($email: String!) {
+    person(where: { email: $email }) {
+      email
+      userName
+      saveposts {
+        slugPost
+      }
+      followAuthors {
+        slugAuthor
+      }
+    }
+  }
+`;
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
@@ -130,4 +145,5 @@ export {
   GET_POSTTOBLOG,
   GET_USERS,
   GET_USER,
+  GET_USER_DASHBOARD,
 };
