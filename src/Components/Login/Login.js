@@ -178,7 +178,6 @@ const Login = () => {
         component="section"
         sx={{ backgroundColor: "white" }}
       >
-        {console.log(dataUserLocal)}
         <Grid
           container
           sx={{

@@ -263,7 +263,14 @@ const Header = () => {
                 وبلاگ اجلالی
               </Typography>
             </Link>
-            {dataUser ? (
+
+            {!dataUser ? (
+              <Link to="/login">
+                <IconButton size="large" sx={{ padding: "8px" }} color="white">
+                  <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
+                </IconButton>
+              </Link>
+            ) : dataUser.person !== null ? (
               <Link to={`/dashboard`}>
                 <Typography
                   component="span"
@@ -277,11 +284,17 @@ const Header = () => {
                 </IconButton>
               </Link>
             ) : (
-              <Link to="/login">
-                <IconButton size="large" sx={{ padding: "8px" }} color="white">
-                  <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
-                </IconButton>
-              </Link>
+              dataUser.person === null && (
+                <Link to="/login">
+                  <IconButton
+                    size="large"
+                    sx={{ padding: "8px" }}
+                    color="white"
+                  >
+                    <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
+                  </IconButton>
+                </Link>
+              )
             )}
           </Toolbar>
         </AppBar>
