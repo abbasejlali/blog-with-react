@@ -211,7 +211,7 @@ const DashboardUser = () => {
                 >
                   <TurnedInIcon />
                 </ListItemIcon>
-                <Customize_ListItemText primary="پست های مورد علاقه" />
+                <Customize_ListItemText primary="پست های سیو شده" />
               </ListItemButton>
               <ListItemButton
                 onClick={followingHandeler}
@@ -226,7 +226,7 @@ const DashboardUser = () => {
                 >
                   <PeopleAltIcon />
                 </ListItemIcon>
-                <Customize_ListItemText primary="نویسنده های مورد علاقه" />
+                <Customize_ListItemText primary="نویسنده های دنبال شده" />
               </ListItemButton>
               <ListItemButton
                 onClick={ticketHandeler}
@@ -284,7 +284,10 @@ const DashboardUser = () => {
               <Typography component="span" variant="span">
                 به پنل خودت خوش اومدی رفیق 👌
               </Typography>
-              <Alert severity="warning" sx={{ fontWeight: "bold" }} mt={5}>
+              <Alert
+                severity="warning"
+                sx={{ fontWeight: "bold", mt: 5, fontSize: "15px" }}
+              >
                 لطفا اگه جایی به مشکل خوردی از بخش تیکت از ما بپرس
               </Alert>
             </Grid>
