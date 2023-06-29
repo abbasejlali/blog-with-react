@@ -186,14 +186,19 @@ const DashboardUser = () => {
             item
             sx={{
               height: "fit-content",
-              padding: "8px !important",
+              padding: "16px !important",
               backgroundColor: "white",
               borderRadius: "8px",
               boxShadow: "rgb(233 233 233) 0px 8px 24px",
             }}
             ml={2}
           >
-            asasas
+            <Typography component="h6" variant="h6" fontWeight="bold">
+              سلام {data.person.userName} عزیز❤️
+            </Typography>
+            <Typography component="span" variant="span">
+              به پنل خودت خوش اومدی
+            </Typography>
           </Grid>
         </Grid>
       </Box>
