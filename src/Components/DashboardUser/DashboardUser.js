@@ -24,9 +24,6 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import ForumIcon from "@mui/icons-material/Forum";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-// Redux
-import { useSelector } from "react-redux";
-
 // Graph QL
 import { useQuery } from "@apollo/client";
 import { GET_USER_DASHBOARD } from "../GraphQl/query";
@@ -41,18 +38,19 @@ const Customize_ListItemText = styled(ListItemText)({
 });
 
 const DashboardUser = () => {
-  // Redux
-  const user_login = useSelector((state) => state.userState.user);
+  // Get data in localStorage
+  const email_login = JSON.parse(localStorage.getItem("info_User"));
 
   // Get User
   const { loading, error, data } = useQuery(GET_USER_DASHBOARD, {
-    variables: { email: user_login.email },
+    variables: { email: `${email_login && email_login.email}` },
   });
 
-  if (user_login.length === 0)
+  if (!data && !loading)
     return <Typography>شما هنوز وارد سایت نشدید!!!</Typography>;
 
   if (loading) return <Typography>Loading ...</Typography>;
+
   if (data)
     return (
       <Box

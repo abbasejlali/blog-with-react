@@ -37,7 +37,7 @@ import { Link } from "react-router-dom";
 
 // Graph Ql
 import { useQuery } from "@apollo/client";
-import { GET_POSTS } from "../GraphQl/query";
+import { GET_POSTS, GET_USER } from "../GraphQl/query";
 
 // CardElement SearchBox
 import CardBoxSearch from "../Card/CardBoxSearch";
@@ -210,6 +210,14 @@ const Header = () => {
 
   // Redux
   const user = useSelector((state) => state.userState);
+  const email_user = JSON.parse(localStorage.getItem("info_User"));
+
+  // Graph Ql after login to site
+  const { data: dataUser, loading: loadingUser } = useQuery(GET_USER, {
+    variables: {
+      email: `${email_user && email_user.email}`,
+    },
+  });
 
   return (
     <>
@@ -255,14 +263,14 @@ const Header = () => {
                 وبلاگ اجلالی
               </Typography>
             </Link>
-            {user.user.slugPersone ? (
+            {dataUser ? (
               <Link to={`/dashboard`}>
                 <Typography
                   component="span"
                   variant="span"
                   sx={{ color: "#666" }}
                 >
-                  {user.user.slugPersone}
+                  {loadingUser ? "Loading..." : dataUser.person.userName}
                 </Typography>
                 <IconButton size="large" sx={{ padding: "8px" }} color="white">
                   <PersonIcon style={{ fontSize: "35px", color: "#666" }} />
