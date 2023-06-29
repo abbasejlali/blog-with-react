@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // function
 import { fistename } from "../../js/function";
@@ -15,6 +15,9 @@ import {
   ListItemText,
   styled,
   Avatar,
+  Alert,
+  Snackbar,
+  IconButton,
 } from "@mui/material";
 
 // Mui Icons
@@ -23,10 +26,12 @@ import TurnedInIcon from "@mui/icons-material/TurnedIn";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import ForumIcon from "@mui/icons-material/Forum";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Graph QL
 import { useQuery } from "@apollo/client";
 import { GET_USER_DASHBOARD } from "../GraphQl/query";
+import { useNavigate } from "react-router-dom";
 
 // Customize Mui
 const Customize_ListItemText = styled(ListItemText)({
@@ -46,12 +51,77 @@ const DashboardUser = () => {
     variables: { email: `${email_login && email_login.email}` },
   });
 
-  if (!data && !loading)
-    return <Typography>شما هنوز وارد سایت نشدید!!!</Typography>;
+  // betting for click to list item
+  const [account, setAccount] = useState(true);
+  const [favorite_posts, setFavorite_posts] = useState(false);
+  const [followauthor, setFollowauthor] = useState(false);
+  const [ticket, setTicketauthor] = useState(false);
+
+  const accountHandeler = () => {
+    setAccount(true);
+    setFavorite_posts(false);
+    setFollowauthor(false);
+    setTicketauthor(false);
+  };
+
+  const favorite_postsHandeler = () => {
+    setFavorite_posts(true);
+    setAccount(false);
+    setFollowauthor(false);
+    setTicketauthor(false);
+  };
+
+  const followingHandeler = () => {
+    setFollowauthor(true);
+    setFavorite_posts(false);
+    setAccount(false);
+    setTicketauthor(false);
+  };
+
+  const ticketHandeler = () => {
+    setTicketauthor(true);
+    setFollowauthor(false);
+    setFavorite_posts(false);
+    setAccount(false);
+  };
+
+  const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  const exitHandeler = () => {
+    setOpen(true);
+    setTimeout(() => {
+      localStorage.removeItem("info_User");
+      navigate("/");
+    }, 1000);
+  };
 
   if (loading) return <Typography>Loading ...</Typography>;
 
-  if (data)
+  if (error) return <Typography>Error ...</Typography>;
+
+  if (data && data.person === null)
+    return <Typography>شما هنوز وارد سایت نشدید!!!</Typography>;
+
+  if (data && data.person !== null)
     return (
       <Box
         maxWidth="100%"
@@ -107,13 +177,16 @@ const DashboardUser = () => {
             <Typography component="span" color="#666" variant="span">
               {data.person.email}
             </Typography>
-            <Divider variant="middle" sx={{ width: "100%" }} py={2} />
+            <Divider variant="middle" sx={{ width: "100%", pt: 1, pb: 2 }} />
             <List
               sx={{ width: "100%" }}
               component="nav"
               aria-labelledby="nested-list-subheader"
             >
-              <ListItemButton sx={{ borderRadius: "5px" }}>
+              <ListItemButton
+                onClick={accountHandeler}
+                sx={{ borderRadius: "5px" }}
+              >
                 <ListItemIcon
                   sx={{
                     marginRight: "8px",
@@ -125,7 +198,10 @@ const DashboardUser = () => {
                 </ListItemIcon>
                 <Customize_ListItemText primary="حساب کاربری" />
               </ListItemButton>
-              <ListItemButton sx={{ borderRadius: "5px" }}>
+              <ListItemButton
+                onClick={favorite_postsHandeler}
+                sx={{ borderRadius: "5px" }}
+              >
                 <ListItemIcon
                   sx={{
                     marginRight: "8px",
@@ -137,7 +213,10 @@ const DashboardUser = () => {
                 </ListItemIcon>
                 <Customize_ListItemText primary="پست های مورد علاقه" />
               </ListItemButton>
-              <ListItemButton sx={{ borderRadius: "5px" }}>
+              <ListItemButton
+                onClick={followingHandeler}
+                sx={{ borderRadius: "5px" }}
+              >
                 <ListItemIcon
                   sx={{
                     marginRight: "8px",
@@ -149,7 +228,10 @@ const DashboardUser = () => {
                 </ListItemIcon>
                 <Customize_ListItemText primary="نویسنده های مورد علاقه" />
               </ListItemButton>
-              <ListItemButton sx={{ borderRadius: "5px" }}>
+              <ListItemButton
+                onClick={ticketHandeler}
+                sx={{ borderRadius: "5px" }}
+              >
                 <ListItemIcon
                   sx={{
                     marginRight: "8px",
@@ -161,7 +243,10 @@ const DashboardUser = () => {
                 </ListItemIcon>
                 <Customize_ListItemText primary="تیکت" />
               </ListItemButton>
-              <ListItemButton sx={{ borderRadius: "5px" }}>
+              <ListItemButton
+                onClick={exitHandeler}
+                sx={{ borderRadius: "5px" }}
+              >
                 <ListItemIcon
                   sx={{
                     marginRight: "8px",
@@ -178,26 +263,99 @@ const DashboardUser = () => {
               </ListItemButton>
             </List>
           </Grid>
-          <Grid
-            xs={12}
-            md={8.5}
-            item
-            sx={{
-              height: "fit-content",
-              padding: "16px !important",
-              backgroundColor: "white",
-              borderRadius: "8px",
-              boxShadow: "rgb(233 233 233) 0px 8px 24px",
-            }}
-            ml={2}
+
+          {account && (
+            <Grid
+              xs={12}
+              md={8.5}
+              item
+              sx={{
+                height: "fit-content",
+                padding: "24px !important",
+                backgroundColor: "white",
+                borderRadius: "8px",
+                boxShadow: "rgb(233 233 233) 0px 8px 24px",
+              }}
+              ml={2}
+            >
+              <Typography component="h6" variant="h6" mb={2} fontWeight="bold">
+                سلام {data.person.userName} عزیز❤️
+              </Typography>
+              <Typography component="span" variant="span">
+                به پنل خودت خوش اومدی رفیق 👌
+              </Typography>
+              <Alert severity="warning" sx={{ fontWeight: "bold" }} mt={5}>
+                لطفا اگه جایی به مشکل خوردی از بخش تیکت از ما بپرس
+              </Alert>
+            </Grid>
+          )}
+          {favorite_posts && (
+            <Grid
+              xs={12}
+              md={8.5}
+              item
+              sx={{
+                height: "fit-content",
+                padding: "24px !important",
+                backgroundColor: "white",
+                borderRadius: "8px",
+                boxShadow: "rgb(233 233 233) 0px 8px 24px",
+              }}
+              ml={2}
+            >
+              favorite_posts
+            </Grid>
+          )}
+
+          {followauthor && (
+            <Grid
+              xs={12}
+              md={8.5}
+              item
+              sx={{
+                height: "fit-content",
+                padding: "24px !important",
+                backgroundColor: "white",
+                borderRadius: "8px",
+                boxShadow: "rgb(233 233 233) 0px 8px 24px",
+              }}
+              ml={2}
+            >
+              followauthor
+            </Grid>
+          )}
+
+          {ticket && (
+            <Grid
+              xs={12}
+              md={8.5}
+              item
+              sx={{
+                height: "fit-content",
+                padding: "24px !important",
+                backgroundColor: "white",
+                borderRadius: "8px",
+                boxShadow: "rgb(233 233 233) 0px 8px 24px",
+              }}
+              ml={2}
+            >
+              ticket
+            </Grid>
+          )}
+          <Snackbar
+            open={open}
+            autoHideDuration={3500}
+            onClose={handleClose}
+            action={action}
           >
-            <Typography component="h6" variant="h6" fontWeight="bold">
-              سلام {data.person.userName} عزیز❤️
-            </Typography>
-            <Typography component="span" variant="span">
-              به پنل خودت خوش اومدی
-            </Typography>
-          </Grid>
+            <Alert
+              onClose={handleClose}
+              severity="error"
+              sx={{ width: "fit-content" }}
+            >
+              از حساب خود خارج شدید
+            </Alert>
+          </Snackbar>
         </Grid>
       </Box>
     );

@@ -146,13 +146,12 @@ const Login = () => {
   useEffect(() => {
     if (dataUser) {
       if (dataUser.person) {
-        if (!JSON.parse(localStorage.getItem("info_User")))
-          localStorage.setItem(
-            "info_User",
-            JSON.stringify({
-              email: dataUser.person.email,
-            })
-          );
+        localStorage.setItem(
+          "info_User",
+          JSON.stringify({
+            email: dataUser.person.email,
+          })
+        );
         navigate(`/dashboard`);
         console.log(open);
       }
