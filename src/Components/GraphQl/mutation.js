@@ -22,4 +22,12 @@ const SEND_COMMENT = gql`
   }
 `;
 
-export { SEND_COMMENT };
+const SAVE_LIKE = gql`
+  mutation savelike($slugPostLiked: String!) {
+    createSaveLike(data: { slugPostLiked: $slugPostLiked }) {
+      id
+    }
+  }
+`;
+
+export { SEND_COMMENT, SAVE_LIKE };

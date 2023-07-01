@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Mui
 import {
@@ -31,8 +31,9 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "../shared/lazy_load.css";
 
 // Graph Ql
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { GET_USER } from "../GraphQl/query";
+import { SAVE_LIKE } from "../GraphQl/mutation";
 
 const CardElement = ({
   title,
@@ -55,6 +56,16 @@ const CardElement = ({
   const likeHandeler = (e) => {
     setIcon_like(!icon_like);
   };
+
+  const [add_like, { data: dataLike, loading: loadingLike, error: errorLike }] =
+    useMutation(SAVE_LIKE, {
+      variables: {
+        slugPostLiked: slug,
+      },
+    });
+  useEffect(() => {
+    if (icon_like) add_like();
+  }, [icon_like]);
 
   return (
     <Card
@@ -146,7 +157,11 @@ const CardElement = ({
             <FavoriteBorderIcon />
           </IconButton>
         ) : data.person !== null ? (
-          <IconButton onClick={likeHandeler} aria-label="add to favorites">
+          <IconButton
+            value={slug}
+            onClick={likeHandeler}
+            aria-label="add to favorites"
+          >
             {icon_like ? (
               <FavoriteIcon sx={{ color: "#ff6347" }} />
             ) : (
