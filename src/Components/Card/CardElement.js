@@ -32,7 +32,7 @@ import "../shared/lazy_load.css";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_LIKES, GET_USER } from "../GraphQl/query";
+import { GET_LIKES, GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
 import { SAVE_LIKE } from "../GraphQl/mutation";
 
 const CardElement = ({
@@ -73,17 +73,21 @@ const CardElement = ({
     }
   }, [icon_like]);
 
-  // const { data: dataGetLike } = useQuery(GET_LIKES);
+  const { data: dataGetLike } = useQuery(GET_LIKES);
+
+  const { data: dataGetSaveLike_Bet } = useQuery(GET_LIKES_for_user, {
+    variables: {
+      emailPersonLike_Betting: `${data && data.person.email}`,
+    },
+  });
   // useEffect(() => {
-  //   if (data)
-  //     if (data.person !== null)
-  //       if (dataGetLike) {
-  //         console.log(
-  //           dataGetLike.dataGetLike.filter(
-  //             (item_like) => item_like.emailPersonLike === data.person.email
-  //           )
-  //         );
-  //       }
+  //   if (dataGetLike) {
+  //     const like_user = dataGetLike.saveLikes.filter(
+  //       (item_like) => item_like.emailPersonLike === "abbas.ejlali18@gmail.com"
+  //     );
+  //     console.log(like_user);
+  //     console.log(dataGetLike);
+  //   }
   // }, []);
 
   return (
@@ -181,10 +185,24 @@ const CardElement = ({
             onClick={likeHandeler}
             aria-label="add to favorites"
           >
-            {icon_like ? (
-              <FavoriteIcon sx={{ color: "#ff6347" }} />
+            {dataGetSaveLike_Bet ? (
+              dataGetSaveLike_Bet.saveLikes.find(
+                (item) => item.slugPostLiked === slug
+              ) ? (
+                <FavoriteIcon sx={{ color: "#ff6347" }} />
+              ) : icon_like ? (
+                <FavoriteIcon sx={{ color: "#ff6347" }} />
+              ) : (
+                <FavoriteBorderIcon />
+              )
             ) : (
-              <FavoriteBorderIcon />
+              loading
+            )}
+            {console.log(
+              dataGetLike &&
+                dataGetLike.saveLikes.find(
+                  (item) => item.slugPostLiked === slug
+                )
             )}
           </IconButton>
         ) : (
