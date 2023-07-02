@@ -23,8 +23,10 @@ const SEND_COMMENT = gql`
 `;
 
 const SAVE_LIKE = gql`
-  mutation savelike($slugPostLiked: String!) {
-    createSaveLike(data: { slugPostLiked: $slugPostLiked }) {
+  mutation savelike($slugPostLiked: String!, $emailPersonLike: String!) {
+    createSaveLike(
+      data: { slugPostLiked: $slugPostLiked, emailPersonLike: $emailPersonLike }
+    ) {
       id
     }
   }

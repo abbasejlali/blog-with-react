@@ -137,6 +137,14 @@ const GET_USER_DASHBOARD = gql`
     }
   }
 `;
+
+const GET_LIKES = gql`
+  query {
+    saveLikes {
+      slugPostLiked
+    }
+  }
+`;
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
@@ -146,4 +154,5 @@ export {
   GET_USERS,
   GET_USER,
   GET_USER_DASHBOARD,
+  GET_LIKES,
 };

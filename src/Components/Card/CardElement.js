@@ -32,7 +32,7 @@ import "../shared/lazy_load.css";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_USER } from "../GraphQl/query";
+import { GET_LIKES, GET_USER } from "../GraphQl/query";
 import { SAVE_LIKE } from "../GraphQl/mutation";
 
 const CardElement = ({
@@ -53,6 +53,8 @@ const CardElement = ({
 
   // lick betting
   const [icon_like, setIcon_like] = useState(false);
+  const [slug_like, setISlug_like] = useState("");
+  const [email_like, setEmail_like] = useState("");
   const likeHandeler = (e) => {
     setIcon_like(!icon_like);
   };
@@ -61,11 +63,28 @@ const CardElement = ({
     useMutation(SAVE_LIKE, {
       variables: {
         slugPostLiked: slug,
+        emailPersonLike: `${data && data.person.email}`,
       },
     });
+
   useEffect(() => {
-    if (icon_like) add_like();
+    if (icon_like) {
+      add_like();
+    }
   }, [icon_like]);
+
+  // const { data: dataGetLike } = useQuery(GET_LIKES);
+  // useEffect(() => {
+  //   if (data)
+  //     if (data.person !== null)
+  //       if (dataGetLike) {
+  //         console.log(
+  //           dataGetLike.dataGetLike.filter(
+  //             (item_like) => item_like.emailPersonLike === data.person.email
+  //           )
+  //         );
+  //       }
+  // }, []);
 
   return (
     <Card
