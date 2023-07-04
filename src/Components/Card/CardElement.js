@@ -33,7 +33,11 @@ import "../shared/lazy_load.css";
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
-import { DEL_SAVE_LIKE, SAVE_LIKE } from "../GraphQl/mutation";
+import {
+  DEL_SAVE_LIKE,
+  SAVELIKE_PUBLISHED,
+  SAVE_LIKE,
+} from "../GraphQl/mutation";
 
 const CardElement = ({
   title,
@@ -81,6 +85,15 @@ const CardElement = ({
     },
   });
 
+  const [published_save_like, { data: datapublish }] = useMutation(
+    SAVELIKE_PUBLISHED,
+    {
+      variables: {
+        slugPostLiked_published: slug,
+      },
+    }
+  );
+
   const likeHandeler = (e) => {
     dataGetSaveLike_Bet &&
     dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
@@ -96,6 +109,7 @@ const CardElement = ({
     ) {
       console.log("add heart");
       add_like();
+      published_save_like();
       console.log(
         dataLike && dataLike.createSaveLike && dataLike.createSaveLike.id
       );
@@ -231,21 +245,6 @@ const CardElement = ({
             ) : (
               <FavoriteBorderIcon />
             )}
-            {/* {dataGetSaveLike_Bet &&
-              (dataGetSaveLike_Bet.saveLikes.find(
-                (item) => item.slugPostLiked === slug
-              )
-                ? // <FavoriteIcon sx={{ color: "#ff6347" }} />
-                  () => setIcon_like(true)
-                : () =>
-                    setIcon_like(
-                      false
-                    ))
-
-                  // <FavoriteBorderIcon />
-            } */}
-
-            {console.log(icon_like)}
           </IconButton>
         ) : (
           <IconButton aria-label="add to favorites">
@@ -259,7 +258,6 @@ const CardElement = ({
         >
           <ShareIcon />
         </IconButton>
-        <button onClick={() => setIcon_like(false)}>delete</button>
         {comments.length > 2 ? (
           <AvatarGroup
             total={comments.length}

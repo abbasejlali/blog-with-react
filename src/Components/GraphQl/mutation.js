@@ -40,4 +40,15 @@ const DEL_SAVE_LIKE = gql`
   }
 `;
 
-export { SEND_COMMENT, SAVE_LIKE, DEL_SAVE_LIKE };
+const SAVELIKE_PUBLISHED = gql`
+  mutation published_savelike($slugPostLiked_published: String!) {
+    publishSaveLike(
+      where: { slugPostLiked: $slugPostLiked_published }
+      to: PUBLISHED
+    ) {
+      id
+    }
+  }
+`;
+
+export { SEND_COMMENT, SAVE_LIKE, DEL_SAVE_LIKE, SAVELIKE_PUBLISHED };
