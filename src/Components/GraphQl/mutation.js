@@ -32,4 +32,12 @@ const SAVE_LIKE = gql`
   }
 `;
 
-export { SEND_COMMENT, SAVE_LIKE };
+const DEL_SAVE_LIKE = gql`
+  mutation deletelike($slugPostLiked_delete: String!) {
+    deleteSaveLike(where: { slugPostLiked: $slugPostLiked_delete }) {
+      id
+    }
+  }
+`;
+
+export { SEND_COMMENT, SAVE_LIKE, DEL_SAVE_LIKE };

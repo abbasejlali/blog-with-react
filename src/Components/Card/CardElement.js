@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // Mui
 import {
@@ -32,8 +32,8 @@ import "../shared/lazy_load.css";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_LIKES, GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
-import { SAVE_LIKE } from "../GraphQl/mutation";
+import { GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
+import { DEL_SAVE_LIKE, SAVE_LIKE } from "../GraphQl/mutation";
 
 const CardElement = ({
   title,
@@ -52,12 +52,7 @@ const CardElement = ({
   });
 
   // lick betting
-  const [icon_like, setIcon_like] = useState(false);
-  const [slug_like, setISlug_like] = useState("");
-  const [email_like, setEmail_like] = useState("");
-  const likeHandeler = (e) => {
-    setIcon_like(!icon_like);
-  };
+  const [icon_like, setIcon_like] = useState(null);
 
   const [add_like, { data: dataLike, loading: loadingLike, error: errorLike }] =
     useMutation(SAVE_LIKE, {
@@ -67,28 +62,71 @@ const CardElement = ({
       },
     });
 
-  useEffect(() => {
-    if (icon_like) {
-      add_like();
-    }
-  }, [icon_like]);
+  const [del_like, { data: datadellike, loading: loading_del_like }] =
+    useMutation(DEL_SAVE_LIKE, {
+      variables: {
+        slugPostLiked_delete: slug,
+      },
+    });
 
-  const { data: dataGetLike } = useQuery(GET_LIKES);
+  const tagRef = useRef(null);
 
-  const { data: dataGetSaveLike_Bet } = useQuery(GET_LIKES_for_user, {
+  const {
+    data: dataGetSaveLike_Bet,
+    loading: loadingGetLike_Bet,
+    refetch,
+  } = useQuery(GET_LIKES_for_user, {
     variables: {
       emailPersonLike_Betting: `${data && data.person.email}`,
     },
   });
-  // useEffect(() => {
-  //   if (dataGetLike) {
-  //     const like_user = dataGetLike.saveLikes.filter(
-  //       (item_like) => item_like.emailPersonLike === "abbas.ejlali18@gmail.com"
-  //     );
-  //     console.log(like_user);
-  //     console.log(dataGetLike);
-  //   }
-  // }, []);
+
+  const likeHandeler = (e) => {
+    dataGetSaveLike_Bet &&
+    dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+      ? setIcon_like(false)
+      : setIcon_like(true);
+  };
+
+  useEffect(() => {
+    if (
+      icon_like &&
+      dataGetSaveLike_Bet &&
+      !dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+    ) {
+      console.log("add heart");
+      add_like();
+      console.log(
+        dataLike && dataLike.createSaveLike && dataLike.createSaveLike.id
+      );
+    }
+
+    if (
+      !icon_like &&
+      dataGetSaveLike_Bet &&
+      dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+    ) {
+      console.log("delete heart");
+      del_like();
+      console.log(
+        datadellike &&
+          datadellike.deleteSaveLike &&
+          datadellike.deleteSaveLike.id
+      );
+    }
+  }, [icon_like]);
+
+  useEffect(() => {
+    !loadingGetLike_Bet &&
+    dataGetSaveLike_Bet &&
+    dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+      ? setIcon_like(true)
+      : setIcon_like(false);
+  }, [dataGetSaveLike_Bet]);
+
+  useEffect(() => {
+    refetch();
+  }, [datadellike]);
 
   return (
     <Card
@@ -184,26 +222,30 @@ const CardElement = ({
             value={slug}
             onClick={likeHandeler}
             aria-label="add to favorites"
+            ref={tagRef}
           >
-            {dataGetSaveLike_Bet ? (
-              dataGetSaveLike_Bet.saveLikes.find(
-                (item) => item.slugPostLiked === slug
-              ) ? (
-                <FavoriteIcon sx={{ color: "#ff6347" }} />
-              ) : icon_like ? (
-                <FavoriteIcon sx={{ color: "#ff6347" }} />
-              ) : (
-                <FavoriteBorderIcon />
-              )
+            {!dataGetSaveLike_Bet && loadingGetLike_Bet ? (
+              <span>Loading...</span>
+            ) : dataGetSaveLike_Bet && icon_like ? (
+              <FavoriteIcon sx={{ color: "#ff6347" }} />
             ) : (
-              loading
+              <FavoriteBorderIcon />
             )}
-            {console.log(
-              dataGetLike &&
-                dataGetLike.saveLikes.find(
-                  (item) => item.slugPostLiked === slug
-                )
-            )}
+            {/* {dataGetSaveLike_Bet &&
+              (dataGetSaveLike_Bet.saveLikes.find(
+                (item) => item.slugPostLiked === slug
+              )
+                ? // <FavoriteIcon sx={{ color: "#ff6347" }} />
+                  () => setIcon_like(true)
+                : () =>
+                    setIcon_like(
+                      false
+                    ))
+
+                  // <FavoriteBorderIcon />
+            } */}
+
+            {console.log(icon_like)}
           </IconButton>
         ) : (
           <IconButton aria-label="add to favorites">
@@ -217,6 +259,7 @@ const CardElement = ({
         >
           <ShareIcon />
         </IconButton>
+        <button onClick={() => setIcon_like(false)}>delete</button>
         {comments.length > 2 ? (
           <AvatarGroup
             total={comments.length}

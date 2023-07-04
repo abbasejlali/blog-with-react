@@ -138,14 +138,6 @@ const GET_USER_DASHBOARD = gql`
   }
 `;
 
-const GET_LIKES = gql`
-  query {
-    saveLikes {
-      slugPostLiked
-    }
-  }
-`;
-
 const GET_LIKES_for_user = gql`
   query getsavelikes($emailPersonLike_Betting: String!) {
     saveLikes(where: { emailPersonLike: $emailPersonLike_Betting }) {
@@ -162,6 +154,5 @@ export {
   GET_USERS,
   GET_USER,
   GET_USER_DASHBOARD,
-  GET_LIKES,
   GET_LIKES_for_user,
 };
