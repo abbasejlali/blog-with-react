@@ -59,21 +59,57 @@ const CardElement = ({
   const [icon_like, setIcon_like] = useState(null);
 
   const [add_like, { data: dataLike, loading: loadingLike, error: errorLike }] =
-    useMutation(SAVE_LIKE, {
+    useMutation(SAVE_LIKE);
+
+  const [data_add_like, setData_add_like] = useState("");
+  const handleSubmit = async () => {
+    try {
+      const response = await add_like({
+        variables: {
+          slugPostLiked: slug,
+          emailPersonLike: `${
+            data && data.person !== null && data.person.email
+          }`,
+        },
+      });
+      setData_add_like(response.data.createSaveLike.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [published_save_like, { data: datapublish }] = useMutation(
+    SAVELIKE_PUBLISHED,
+    {
       variables: {
-        slugPostLiked: slug,
-        emailPersonLike: `${data && data.person.email}`,
+        slug_published: slug,
+        email_published: `${data && data.person !== null && data.person.email}`,
       },
-    });
+    }
+  );
 
   const [del_like, { data: datadellike, loading: loading_del_like }] =
-    useMutation(DEL_SAVE_LIKE, {
-      variables: {
-        slugPostLiked_delete: slug,
-      },
-    });
+    useMutation(DEL_SAVE_LIKE);
 
-  const tagRef = useRef(null);
+  const [id_delete, setId_delete] = useState("");
+  const handleDelete = async () => {
+    try {
+      const response2 = await del_like({
+        variables: {
+          slugPostLiked_delete: slug,
+          emailPersonLike_delete: `${
+            data && data.person !== null && data.person.email
+          }`,
+        },
+      });
+      setId_delete(
+        response2 &&
+          response2.data.deleteManySaveLikesConnection.edges[0].node.id
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const {
     data: dataGetSaveLike_Bet,
@@ -81,18 +117,11 @@ const CardElement = ({
     refetch,
   } = useQuery(GET_LIKES_for_user, {
     variables: {
-      emailPersonLike_Betting: `${data && data.person.email}`,
+      emailPersonLike_Betting: `${
+        data && data.person !== null && data.person.email
+      }`,
     },
   });
-
-  const [published_save_like, { data: datapublish }] = useMutation(
-    SAVELIKE_PUBLISHED,
-    {
-      variables: {
-        slugPostLiked_published: slug,
-      },
-    }
-  );
 
   const likeHandeler = (e) => {
     dataGetSaveLike_Bet &&
@@ -108,11 +137,7 @@ const CardElement = ({
       !dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
     ) {
       console.log("add heart");
-      add_like();
-      published_save_like();
-      console.log(
-        dataLike && dataLike.createSaveLike && dataLike.createSaveLike.id
-      );
+      handleSubmit();
     }
 
     if (
@@ -121,12 +146,7 @@ const CardElement = ({
       dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
     ) {
       console.log("delete heart");
-      del_like();
-      console.log(
-        datadellike &&
-          datadellike.deleteSaveLike &&
-          datadellike.deleteSaveLike.id
-      );
+      handleDelete();
     }
   }, [icon_like]);
 
@@ -139,8 +159,15 @@ const CardElement = ({
   }, [dataGetSaveLike_Bet]);
 
   useEffect(() => {
-    refetch();
-  }, [datadellike]);
+    if (id_delete.length > 0) refetch();
+  }, [id_delete]);
+
+  useEffect(() => {
+    if (data_add_like.length > 0) {
+      published_save_like();
+      refetch();
+    }
+  }, [data_add_like]);
 
   return (
     <Card
@@ -236,7 +263,6 @@ const CardElement = ({
             value={slug}
             onClick={likeHandeler}
             aria-label="add to favorites"
-            ref={tagRef}
           >
             {!dataGetSaveLike_Bet && loadingGetLike_Bet ? (
               <span>Loading...</span>

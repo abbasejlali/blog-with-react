@@ -33,20 +33,39 @@ const SAVE_LIKE = gql`
 `;
 
 const DEL_SAVE_LIKE = gql`
-  mutation deletelike($slugPostLiked_delete: String!) {
-    deleteSaveLike(where: { slugPostLiked: $slugPostLiked_delete }) {
-      id
+  mutation delete_like(
+    $slugPostLiked_delete: String!
+    $emailPersonLike_delete: String!
+  ) {
+    deleteManySaveLikesConnection(
+      where: {
+        slugPostLiked: $slugPostLiked_delete
+        emailPersonLike: $emailPersonLike_delete
+      }
+    ) {
+      edges {
+        node {
+          id
+        }
+      }
     }
   }
 `;
 
 const SAVELIKE_PUBLISHED = gql`
-  mutation published_savelike($slugPostLiked_published: String!) {
-    publishSaveLike(
-      where: { slugPostLiked: $slugPostLiked_published }
+  mutation published_like($email_published: String!, $slug_published: String!) {
+    publishManySaveLikesConnection(
       to: PUBLISHED
+      where: {
+        emailPersonLike: $email_published
+        slugPostLiked: $slug_published
+      }
     ) {
-      id
+      edges {
+        node {
+          id
+        }
+      }
     }
   }
 `;

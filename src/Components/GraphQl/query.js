@@ -129,7 +129,7 @@ const GET_USER_DASHBOARD = gql`
       email
       userName
       saveposts {
-        slugPost
+        slugPostSaved
       }
       followAuthors {
         slugAuthor
