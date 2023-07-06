@@ -187,8 +187,8 @@ const CardElement = ({
         borderRadius: "10px",
         cursor: "pointer",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-        boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
-        "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
+        boxShadow: "rgb(233 233 233) 0px 8px 24px",
+        "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
         position: "relative",
       }}
     >
@@ -214,7 +214,7 @@ const CardElement = ({
         }
         title={author.name}
       />
-      <CardMedia width="100%" height="100%">
+      <CardMedia width="100%" sx={{ p: 0.8 }} height="100%">
         <LazyLoadImage
           width="100%"
           height={194}
@@ -227,11 +227,11 @@ const CardElement = ({
       <Box
         sx={{
           position: "absolute",
-          top: "78px",
-          left: "5px",
+          top: "83px",
+          right: "10px",
           backgroundColor: "white",
-          padding: "0px 10px 5px 10px",
-          borderRadius: "31px",
+          padding: "3px 5px",
+          borderRadius: "4px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
