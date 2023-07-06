@@ -39,6 +39,9 @@ import {
   SAVE_LIKE,
 } from "../GraphQl/mutation";
 
+// react-loader-spinner
+import { TailSpin } from "react-loader-spinner";
+
 const CardElement = ({
   title,
   author,
@@ -265,7 +268,16 @@ const CardElement = ({
             aria-label="add to favorites"
           >
             {!dataGetSaveLike_Bet && loadingGetLike_Bet ? (
-              <span>Loading...</span>
+              <TailSpin
+                height="24"
+                width="24"
+                color="#666"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
             ) : dataGetSaveLike_Bet && icon_like ? (
               <FavoriteIcon sx={{ color: "#ff6347" }} />
             ) : (
