@@ -94,7 +94,7 @@ const CardsHome = ({ categoryen, categoryfa }) => {
                     mb={2}
                   >
                     <Skeleton variant="circular" width={40} height={40} />
-                    <Skeleton variant="text" width="20%" sx={{ mr: 2 }} />
+                    <Skeleton variant="text" width="20%" sx={{ ml: 2 }} />
                   </Box>
                   <Skeleton variant="rounded" width="100%" height={194} />
                   <Skeleton variant="text" width="70%" />

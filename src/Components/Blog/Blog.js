@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // react router dom
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 // Graph Ql
-import { useQuery } from "@apollo/client";
-import { GET_POSTTOBLOG } from "../GraphQl/query";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_POSTTOBLOG, GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
+import {
+  DEL_SAVE_LIKE,
+  SAVELIKE_PUBLISHED,
+  SAVE_LIKE,
+} from "../GraphQl/mutation";
 
 // Mui
 import {
@@ -27,6 +32,7 @@ import {
 import CircleIcon from "@mui/icons-material/Circle";
 import WestIcon from "@mui/icons-material/West";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
@@ -44,6 +50,7 @@ import "../shared/lazy_load.css";
 
 // function share
 import { sharePage } from "../../js/function";
+import { TailSpin } from "react-loader-spinner";
 
 // Customize Mui Textfield
 const CssBox = styled(Box)({
@@ -134,13 +141,147 @@ const Blog = () => {
     variables: { slug },
   });
 
+  // Like Betting
+  // Get data in localStorage
+  const email_login = JSON.parse(localStorage.getItem("info_User"));
+
+  // Get User
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: dataUser,
+  } = useQuery(GET_USER, {
+    variables: { email: `${email_login && email_login.email}` },
+  });
+
+  // lick betting
+  const [icon_like, setIcon_like] = useState(null);
+
+  const [add_like, { data: dataLike, loading: loadingLike, error: errorLike }] =
+    useMutation(SAVE_LIKE);
+
+  const [data_add_like, setData_add_like] = useState("");
+  const handleSubmit = async () => {
+    try {
+      const response = await add_like({
+        variables: {
+          slugPostLiked: slug,
+          emailPersonLike: `${
+            data && data.person !== null && data.person.email
+          }`,
+        },
+      });
+      setData_add_like(response.data.createSaveLike.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [published_save_like, { data: datapublish }] = useMutation(
+    SAVELIKE_PUBLISHED,
+    {
+      variables: {
+        slug_published: slug,
+        email_published: `${
+          dataUser && dataUser.person !== null && dataUser.person.email
+        }`,
+      },
+    }
+  );
+
+  const [del_like, { data: datadellike, loading: loading_del_like }] =
+    useMutation(DEL_SAVE_LIKE);
+
+  const [id_delete, setId_delete] = useState("");
+  const handleDelete = async () => {
+    try {
+      const response2 = await del_like({
+        variables: {
+          slugPostLiked_delete: slug,
+          emailPersonLike_delete: `${
+            dataUser && dataUser.person !== null && dataUser.person.email
+          }`,
+        },
+      });
+      setId_delete(
+        response2 &&
+          response2.data.deleteManySaveLikesConnection.edges[0].node.id
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const {
+    data: dataGetSaveLike_Bet,
+    loading: loadingGetLike_Bet,
+    refetch,
+  } = useQuery(GET_LIKES_for_user, {
+    variables: {
+      emailPersonLike_Betting: `${
+        dataUser && dataUser.person !== null && dataUser.person.email
+      }`,
+    },
+  });
+
+  const likeHandeler = (e) => {
+    dataGetSaveLike_Bet &&
+    dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+      ? setIcon_like(false)
+      : setIcon_like(true);
+  };
+
+  useEffect(() => {
+    if (!loadingGetLike_Bet)
+      if (
+        icon_like !== null &&
+        icon_like &&
+        dataGetSaveLike_Bet &&
+        !dataGetSaveLike_Bet.saveLikes.find(
+          (item) => item.slugPostLiked === slug
+        )
+      ) {
+        console.log("add heart");
+        handleSubmit();
+      }
+
+    if (
+      icon_like !== null &&
+      !icon_like &&
+      dataGetSaveLike_Bet &&
+      dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+    ) {
+      console.log("delete heart");
+      handleDelete();
+    }
+    console.log(icon_like);
+  }, [icon_like]);
+
+  useEffect(() => {
+    !loadingGetLike_Bet &&
+    dataGetSaveLike_Bet &&
+    dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
+      ? setIcon_like(true)
+      : setIcon_like(false);
+  }, [dataGetSaveLike_Bet]);
+
+  useEffect(() => {
+    if (id_delete.length > 0) refetch();
+  }, [id_delete]);
+
+  useEffect(() => {
+    if (data_add_like.length > 0) {
+      published_save_like();
+      refetch();
+    }
+  }, [data_add_like]);
+
   if (error) return <div>error</div>;
 
   if (loading) return <div>loading</div>;
 
   return (
     <React.Fragment>
-      {console.log(location)}
       <Box
         component="article"
         sx={{
@@ -306,9 +447,38 @@ const Blog = () => {
             <IconButton>
               <BookmarkBorderIcon />
             </IconButton>
-            <IconButton aria-label="add to favorites">
-              <FavoriteBorderIcon />
-            </IconButton>
+            {!dataUser ? (
+              <IconButton aria-label="add to favorites">
+                <FavoriteBorderIcon />
+              </IconButton>
+            ) : dataUser.person !== null ? (
+              <IconButton
+                value={slug}
+                onClick={likeHandeler}
+                aria-label="add to favorites"
+              >
+                {!dataGetSaveLike_Bet && loadingGetLike_Bet ? (
+                  <TailSpin
+                    height="24"
+                    width="24"
+                    color="#666"
+                    ariaLabel="tail-spin-loading"
+                    radius="1"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                ) : dataGetSaveLike_Bet && icon_like ? (
+                  <FavoriteIcon sx={{ color: "#ff6347" }} />
+                ) : (
+                  <FavoriteBorderIcon />
+                )}
+              </IconButton>
+            ) : (
+              <IconButton aria-label="add to favorites">
+                <FavoriteBorderIcon />
+              </IconButton>
+            )}
             <IconButton
               aria-label="share"
               onClick={() => sharePage(document.title, window.location.href)}

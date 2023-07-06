@@ -135,6 +135,7 @@ const CardElement = ({
 
   useEffect(() => {
     if (
+      icon_like !== null &&
       icon_like &&
       dataGetSaveLike_Bet &&
       !dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
@@ -144,6 +145,7 @@ const CardElement = ({
     }
 
     if (
+      icon_like !== null &&
       !icon_like &&
       dataGetSaveLike_Bet &&
       dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
@@ -171,6 +173,12 @@ const CardElement = ({
       refetch();
     }
   }, [data_add_like]);
+
+  // const blogHandeler = () => {
+  //   if(icon_like){
+
+  //   }
+  // }
 
   return (
     <Card
