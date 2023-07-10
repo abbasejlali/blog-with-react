@@ -5,7 +5,16 @@ import { GET_POST_SAVED_BY_USER } from "../GraphQl/query";
 import { useQuery } from "@apollo/client";
 
 // Mui
-import { Card, Grid, CardMedia, Typography, CardContent } from "@mui/material";
+import {
+  Card,
+  Grid,
+  CardMedia,
+  Typography,
+  CardContent,
+  CardActions,
+  Button,
+  IconButton,
+} from "@mui/material";
 
 // React-router-dom
 import { Link } from "react-router-dom";
@@ -85,6 +94,18 @@ const CardDashboard = ({ slugPostSaved }) => {
                 </Typography>
               </CardContent>
             </Link>
+            <CardActions>
+              <Button
+                sx={{
+                  width: "100%",
+                  backgroundColor: "#f2f2f2",
+                  color: "#666",
+                  "&:hover": { backgroundColor: "#f2f2f2 !important" },
+                }}
+              >
+                حذف پست
+              </Button>
+            </CardActions>
           </Card>
         </Grid>
       </>
