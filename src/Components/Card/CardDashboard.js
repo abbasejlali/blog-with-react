@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Graph Ql
-import { GET_POST_SAVED_BY_USER } from "../GraphQl/query";
-import { useQuery } from "@apollo/client";
+import { GET_POSTS_FOR_USER, GET_POST_SAVED_BY_USER } from "../GraphQl/query";
+import { useMutation, useQuery } from "@apollo/client";
+import { DEL_SAVE_POST } from "../GraphQl/mutation";
 
 // Mui
 import {
@@ -13,29 +14,78 @@ import {
   CardContent,
   CardActions,
   Button,
-  IconButton,
 } from "@mui/material";
 
 // React-router-dom
 import { Link } from "react-router-dom";
 
-const CardDashboard = ({ slugPostSaved }) => {
+const CardDashboard = (props) => {
   const {
     data: dataPostSaved,
     loading: loadingPostSaved,
     error,
   } = useQuery(GET_POST_SAVED_BY_USER, {
     variables: {
-      slug_post_saved: slugPostSaved,
+      slug_post_saved: props.savepost.slugPostSaved,
     },
   });
 
-  //   const { slug, coverphoto, title } = dataPostSaved.post;
+  //Delete SavePost Betting
+  const [icon_bookmark, setIcon_bookmark] = useState(null);
+
+  const [del_post, { data: datadelpost, loading: loading_del_post }] =
+    useMutation(DEL_SAVE_POST);
+
+  const [id_delete_post, setId_delete_post] = useState("");
+  const handleDeletePost = async () => {
+    try {
+      const response2 = await del_post({
+        variables: {
+          slugPostSaved_delete: dataPostSaved.post.slug,
+          emailPersonPost_delete: `${
+            props.dataUser &&
+            props.dataUser.person !== null &&
+            props.dataUser.person.email
+          }`,
+        },
+      });
+      setId_delete_post(
+        response2 &&
+          response2.data.deleteManySavepostsConnection.edges[0].node.id
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const {
+    data: dataGetSavePOST_Bet,
+    loading: loadingGetPOST_Bet,
+    refetch,
+  } = useQuery(GET_POSTS_FOR_USER, {
+    variables: {
+      emailPersonPost_Betting: `${
+        props.dataUser &&
+        props.dataUser.person !== null &&
+        props.dataUser.person.email
+      }`,
+    },
+  });
+  const removeHandeler = () => {
+    setIcon_bookmark(false);
+  };
+
+  useEffect(() => {
+    if (icon_bookmark !== null && !icon_bookmark) handleDeletePost();
+  }, [icon_bookmark]);
+
+  useEffect(() => {
+    if (id_delete_post.length > 0) refetch();
+  }, [id_delete_post]);
+
   if (loadingPostSaved) return <div>Loading...</div>;
 
   if (error) return <div>Error ...</div>;
-
-  //   if (!slugPostSaved) return <div>شما هیج پستی را سیو نکردید</div>;
 
   if (dataPostSaved && dataPostSaved.post)
     return (
@@ -102,6 +152,7 @@ const CardDashboard = ({ slugPostSaved }) => {
                   color: "#666",
                   "&:hover": { backgroundColor: "#f2f2f2 !important" },
                 }}
+                onClick={removeHandeler}
               >
                 حذف پست
               </Button>

@@ -330,7 +330,11 @@ const DashboardUser = () => {
                 dataGetSavePOST &&
                 dataGetSavePOST.saveposts.length > 0 &&
                 dataGetSavePOST.saveposts.map((item) => (
-                  <CardDashboard key={item.slugPostSaved} {...item} />
+                  <CardDashboard
+                    key={item.slugPostSaved}
+                    savepost={item}
+                    dataUser={data}
+                  />
                 ))}
               {data &&
                 dataGetSavePOST &&
