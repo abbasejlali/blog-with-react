@@ -33,8 +33,10 @@ const SAVE_LIKE = gql`
 `;
 
 const SAVE_POST = gql`
-  mutation savelike($slugPostSaved: String!, $emailPersonPost: String!){
-    createSavepost(data: { emailPersonPost: $slugPostSaved, slugPostSaved: $$emailPersonPost }) {
+  mutation savelike($slugPostSaved: String!, $emailPersonPost: String!) {
+    createSavepost(
+      data: { emailPersonPost: $emailPersonPost, slugPostSaved: $slugPostSaved }
+    ) {
       id
     }
   }

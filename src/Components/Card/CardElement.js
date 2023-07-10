@@ -22,9 +22,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 // js function
-import { fistename, inceaseLike, sharePage } from "../../js/function";
+import { fistename, sharePage } from "../../js/function";
 
 // LazyLoadImage
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -37,7 +38,6 @@ import { useQuery, useMutation } from "@apollo/client";
 import {
   GET_LIKES_for_user,
   GET_POSTS_FOR_USER,
-  GET_POST_TO_LIKE,
   GET_USER,
 } from "../GraphQl/query";
 
@@ -134,7 +134,7 @@ const CardElement = ({
   const {
     data: dataGetSavePOST_Bet,
     loading: loadingGetPOST_Bet,
-    refetch,
+    refetch: refetchSavePost,
   } = useQuery(GET_POSTS_FOR_USER, {
     variables: {
       emailPersonPost_Betting: `${
@@ -142,6 +142,57 @@ const CardElement = ({
       }`,
     },
   });
+
+  const SavePostHandeler = (e) => {
+    dataGetSavePOST_Bet &&
+    dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
+      ? setIcon_bookmark(false)
+      : setIcon_bookmark(true);
+  };
+
+  useEffect(() => {
+    if (!loadingGetPOST_Bet)
+      if (
+        icon_bookmark !== null &&
+        icon_bookmark &&
+        dataGetSavePOST_Bet &&
+        !dataGetSavePOST_Bet.saveposts.find(
+          (item) => item.slugPostSaved === slug
+        )
+      ) {
+        console.log("add bookmark");
+        handleCreatePost();
+      }
+
+    if (
+      icon_bookmark !== null &&
+      !icon_bookmark &&
+      dataGetSavePOST_Bet &&
+      dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
+    ) {
+      console.log("delete bookmark");
+      handleDeletePost();
+    }
+  }, [icon_bookmark]);
+
+  useEffect(() => {
+    !loadingGetPOST_Bet &&
+    dataGetSavePOST_Bet &&
+    dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
+      ? setIcon_bookmark(true)
+      : setIcon_bookmark(false);
+  }, [dataGetSavePOST_Bet]);
+
+  useEffect(() => {
+    if (id_delete_post.length > 0) refetchSavePost();
+  }, [id_delete_post]);
+
+  useEffect(() => {
+    if (data_add_post.length > 0) {
+      published_save_post();
+      refetchSavePost();
+    }
+  }, [data_add_post]);
 
   // lick betting
   const [icon_like, setIcon_like] = useState(null);
@@ -380,9 +431,35 @@ const CardElement = ({
         </Link>
       </CardContent>
       <CardActions disableSpacing sx={{ direction: "ltr" }}>
-        <IconButton>
-          <BookmarkBorderIcon />
-        </IconButton>
+        {!data ? (
+          <IconButton>
+            <BookmarkBorderIcon />
+          </IconButton>
+        ) : data.person !== null ? (
+          <IconButton onClick={SavePostHandeler}>
+            {!dataGetSavePOST_Bet && loadingGetPOST_Bet ? (
+              <TailSpin
+                height="24"
+                width="24"
+                color="#666"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            ) : dataGetSavePOST_Bet && icon_bookmark ? (
+              <BookmarkIcon sx={{ color: "#666" }} />
+            ) : (
+              <BookmarkBorderIcon />
+            )}
+          </IconButton>
+        ) : (
+          <IconButton>
+            <BookmarkBorderIcon />
+          </IconButton>
+        )}
+
         {!data ? (
           <IconButton aria-label="add to favorites">
             <FavoriteBorderIcon />
