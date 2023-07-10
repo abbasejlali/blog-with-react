@@ -70,4 +70,18 @@ const SAVELIKE_PUBLISHED = gql`
   }
 `;
 
-export { SEND_COMMENT, SAVE_LIKE, DEL_SAVE_LIKE, SAVELIKE_PUBLISHED };
+const UPDATEING_LIKE_POST = gql`
+  mutation update_like($quantity_like: String!, $slug_post: String!) {
+    updatePost(data: { like: $quantity_like }, where: { slug: $slug_post }) {
+      id
+    }
+  }
+`;
+
+export {
+  SEND_COMMENT,
+  SAVE_LIKE,
+  DEL_SAVE_LIKE,
+  SAVELIKE_PUBLISHED,
+  UPDATEING_LIKE_POST,
+};

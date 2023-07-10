@@ -20,7 +20,7 @@ const GET_POSTSCARDSHOME = gql`
       date
       slug
       category
-
+      like
       coverphoto {
         url
       }
@@ -145,6 +145,14 @@ const GET_LIKES_for_user = gql`
     }
   }
 `;
+
+const GET_POST_TO_LIKE = gql`
+  query get_post_to_like($slug_post_to_like: String!) {
+    post(where: { slug: $slug_post_to_like }) {
+      like
+    }
+  }
+`;
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
@@ -155,4 +163,5 @@ export {
   GET_USER,
   GET_USER_DASHBOARD,
   GET_LIKES_for_user,
+  GET_POST_TO_LIKE,
 };

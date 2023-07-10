@@ -23,7 +23,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 // js function
-import { fistename, sharePage } from "../../js/function";
+import { fistename, inceaseLike, sharePage } from "../../js/function";
 
 // LazyLoadImage
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -32,11 +32,16 @@ import "../shared/lazy_load.css";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
+import {
+  GET_LIKES_for_user,
+  GET_POST_TO_LIKE,
+  GET_USER,
+} from "../GraphQl/query";
 import {
   DEL_SAVE_LIKE,
   SAVELIKE_PUBLISHED,
   SAVE_LIKE,
+  UPDATEING_LIKE_POST,
 } from "../GraphQl/mutation";
 
 // react-loader-spinner
@@ -49,6 +54,7 @@ const CardElement = ({
   coverphoto,
   comments,
   category,
+  like,
 }) => {
   // Get data in localStorage
   const email_login = JSON.parse(localStorage.getItem("info_User"));
@@ -126,6 +132,25 @@ const CardElement = ({
     },
   });
 
+  const { data: dataPostToLike } = useQuery(GET_POST_TO_LIKE, {
+    variables: {
+      slug_post_to_like: slug,
+    },
+  });
+
+  // The condition of increasing the number of likes
+
+  // const [increase, setIncrease] = useState("");
+  // const [updateing_like, { data: dataIncreaseLike }] = useMutation(
+  //   UPDATEING_LIKE_POST,
+  //   {
+  //     variables: {
+  //       quantity_like: `${increase && increase}`,
+  //       slug_post: slug,
+  //     },
+  //   }
+  // );
+
   const likeHandeler = (e) => {
     dataGetSaveLike_Bet &&
     dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
@@ -134,15 +159,24 @@ const CardElement = ({
   };
 
   useEffect(() => {
-    if (
-      icon_like !== null &&
-      icon_like &&
-      dataGetSaveLike_Bet &&
-      !dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
-    ) {
-      console.log("add heart");
-      handleSubmit();
-    }
+    if (!loadingGetLike_Bet)
+      if (
+        icon_like !== null &&
+        icon_like &&
+        dataGetSaveLike_Bet &&
+        !dataGetSaveLike_Bet.saveLikes.find(
+          (item) => item.slugPostLiked === slug
+        )
+      ) {
+        console.log("add heart");
+        // The condition of increasing the number of likes
+
+        // const convert_to_num = parseInt(like);
+        // const sum = convert_to_num + 1;
+        // const convert_to_str = sum.toString();
+        // if (convert_to_str) setIncrease(convert_to_str);
+        handleSubmit();
+      }
 
     if (
       icon_like !== null &&
@@ -163,6 +197,20 @@ const CardElement = ({
       : setIcon_like(false);
   }, [dataGetSaveLike_Bet]);
 
+  // The condition of increasing the number of likes
+
+  // useEffect(() => {
+  //   console.log(increase);
+  //   console.log(typeof increase);
+  //   console.log(increase ? "true" : "false");
+  //   if (increase) {
+  //     console.log("okay");
+  //     updateing_like();
+  //     console.log(dataIncreaseLike && dataIncreaseLike);
+  //   }
+  //   // if (update_increase) updateing_like();
+  // }, [increase]);
+
   useEffect(() => {
     if (id_delete.length > 0) refetch();
   }, [id_delete]);
@@ -173,12 +221,6 @@ const CardElement = ({
       refetch();
     }
   }, [data_add_like]);
-
-  // const blogHandeler = () => {
-  //   if(icon_like){
-
-  //   }
-  // }
 
   return (
     <Card
