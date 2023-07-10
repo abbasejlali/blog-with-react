@@ -158,7 +158,7 @@ const DashboardUser = () => {
             item
             sx={{
               minHeight: "fit-content",
-              height: "100%",
+              height: "fit-content",
               padding: "8px !important",
               backgroundColor: "white",
               borderRadius: "8px",
