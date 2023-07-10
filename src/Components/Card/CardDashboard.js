@@ -67,7 +67,7 @@ const CardDashboard = ({ slugPostSaved }) => {
                     },
                     "&::-webkit-scrollbar-track": {
                       backgroundColor: `${
-                        dataPostSaved.post.title.length > 20
+                        dataPostSaved.post.title.length > 24
                           ? "#f2f2f2"
                           : "#fff"
                       }`,
@@ -75,7 +75,7 @@ const CardDashboard = ({ slugPostSaved }) => {
                     },
                     "&::-webkit-scrollbar-thumb": {
                       backgroundColor: `${
-                        dataPostSaved.post.title.length > 20 ? "#666" : "#fff"
+                        dataPostSaved.post.title.length > 24 ? "#666" : "#fff"
                       }`,
                       borderRadius: "25px",
                     },

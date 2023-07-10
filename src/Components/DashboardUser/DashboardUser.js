@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // function
 import { fistename } from "../../js/function";
@@ -99,29 +99,16 @@ const DashboardUser = () => {
   };
 
   // GET POST SAVED
-  const {
-    data: dataGetSavePOST,
-    loading: loadingGetPOST,
-    refetch: refetchSavePost,
-  } = useQuery(GET_POSTS_FOR_USER, {
-    variables: {
-      emailPersonPost_Betting: `${
-        data && data.person !== null && data.person.email
-      }`,
-    },
-  });
-
-  // const {data:dataPostsSaved} = useQuery(GET_POSTS_SAVED_BY_USER, {
-  //   variables:{
-  //     slug_post_saved:
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   if(!loadingGetPOST){
-  //     if(dataGetSavePOST)
-  //   }
-  // },[dataGetSavePOST])
+  const { data: dataGetSavePOST, loading: loadingGetPOST } = useQuery(
+    GET_POSTS_FOR_USER,
+    {
+      variables: {
+        emailPersonPost_Betting: `${
+          data && data.person !== null && data.person.email
+        }`,
+      },
+    }
+  );
 
   const action = (
     <React.Fragment>
@@ -333,6 +320,7 @@ const DashboardUser = () => {
                 backgroundColor: "white",
                 borderRadius: "8px",
                 boxShadow: "rgb(233 233 233) 0px 8px 24px",
+                marginTop: "0 !important",
               }}
               ml={2}
               container
@@ -344,6 +332,20 @@ const DashboardUser = () => {
                 dataGetSavePOST.saveposts.map((item) => (
                   <CardDashboard key={item.slugPostSaved} {...item} />
                 ))}
+              {data &&
+                dataGetSavePOST &&
+                dataGetSavePOST.saveposts.length === 0 && (
+                  <Alert
+                    severity="warning"
+                    sx={{
+                      fontWeight: "bold",
+                      width: "100%",
+                      fontSize: "15px",
+                    }}
+                  >
+                    شما هنوز پستی را دخیره نکردید
+                  </Alert>
+                )}
             </Grid>
           )}
 
