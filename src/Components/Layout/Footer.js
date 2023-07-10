@@ -164,7 +164,7 @@ const Footer = (props) => {
               component="a"
               variant="a"
               href="https://github.com/abbasejlali"
-              mr="3px"
+              ml="3px"
             >
               عباس اجلالی
             </Typography>

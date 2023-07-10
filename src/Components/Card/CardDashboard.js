@@ -14,10 +14,14 @@ import {
   CardContent,
   CardActions,
   Button,
+  Box,
 } from "@mui/material";
 
 // React-router-dom
 import { Link } from "react-router-dom";
+
+// React loader spinner
+import { InfinitySpin } from "react-loader-spinner";
 
 const CardDashboard = (props) => {
   const {
@@ -83,7 +87,20 @@ const CardDashboard = (props) => {
     if (id_delete_post.length > 0) refetch();
   }, [id_delete_post]);
 
-  if (loadingPostSaved) return <div>Loading...</div>;
+  if (loadingPostSaved)
+    return (
+      <Box
+        sx={{
+          width: "94vw",
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <InfinitySpin width="200" color="#666" />
+      </Box>
+    );
 
   if (error) return <div>Error ...</div>;
 

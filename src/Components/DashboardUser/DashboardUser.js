@@ -38,6 +38,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import CardDashboard from "../Card/CardDashboard";
 
+// react loader spinner
+import { InfinitySpin } from "react-loader-spinner";
+
 // Customize Mui
 const Customize_ListItemText = styled(ListItemText)({
   "& span": {
@@ -131,7 +134,20 @@ const DashboardUser = () => {
     }, 1000);
   };
 
-  if (loading) return <Typography>Loading ...</Typography>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          width: "94vw",
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <InfinitySpin width="200" color="#666" />
+      </Box>
+    );
 
   if (error) return <Typography>Error ...</Typography>;
 

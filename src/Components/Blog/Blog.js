@@ -59,7 +59,7 @@ import "../shared/lazy_load.css";
 
 // function share
 import { sharePage } from "../../js/function";
-import { TailSpin } from "react-loader-spinner";
+import { InfinitySpin, TailSpin } from "react-loader-spinner";
 
 // Customize Mui Textfield
 const CssBox = styled(Box)({
@@ -400,7 +400,20 @@ const Blog = () => {
 
   if (error) return <div>error</div>;
 
-  if (loading) return <div>loading</div>;
+  if (loading)
+    return (
+      <Box
+        sx={{
+          width: "94vw",
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <InfinitySpin width="200" color="#666" />
+      </Box>
+    );
 
   return (
     <React.Fragment>
