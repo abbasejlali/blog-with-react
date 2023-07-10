@@ -32,6 +32,14 @@ const SAVE_LIKE = gql`
   }
 `;
 
+const SAVE_POST = gql`
+  mutation savelike($slugPostSaved: String!, $emailPersonPost: String!){
+    createSavepost(data: { emailPersonPost: $slugPostSaved, slugPostSaved: $$emailPersonPost }) {
+      id
+    }
+  }
+`;
+
 const DEL_SAVE_LIKE = gql`
   mutation delete_like(
     $slugPostLiked_delete: String!
@@ -41,6 +49,26 @@ const DEL_SAVE_LIKE = gql`
       where: {
         slugPostLiked: $slugPostLiked_delete
         emailPersonLike: $emailPersonLike_delete
+      }
+    ) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`;
+
+const DEL_SAVE_POST = gql`
+  mutation delete_post(
+    $slugPostSaved_delete: String!
+    $emailPersonPost_delete: String!
+  ) {
+    deleteManySavepostsConnection(
+      where: {
+        emailPersonPost: $emailPersonPost_delete
+        slugPostSaved: $slugPostSaved_delete
       }
     ) {
       edges {
@@ -70,6 +98,27 @@ const SAVELIKE_PUBLISHED = gql`
   }
 `;
 
+const SAVEPOST_PUBLISHED = gql`
+  mutation published_post(
+    $email_published_post: String!
+    $slug_published_post: String!
+  ) {
+    publishManySavepostsConnection(
+      to: PUBLISHED
+      where: {
+        emailPersonPost: $email_published_post
+        slugPostSaved: $slug_published_post
+      }
+    ) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`;
+
 const UPDATEING_LIKE_POST = gql`
   mutation update_like($quantity_like: String!, $slug_post: String!) {
     updatePost(data: { like: $quantity_like }, where: { slug: $slug_post }) {
@@ -84,4 +133,7 @@ export {
   DEL_SAVE_LIKE,
   SAVELIKE_PUBLISHED,
   UPDATEING_LIKE_POST,
+  SAVE_POST,
+  SAVEPOST_PUBLISHED,
+  DEL_SAVE_POST,
 };

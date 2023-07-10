@@ -33,16 +33,22 @@ import "../shared/lazy_load.css";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
+
 import {
   GET_LIKES_for_user,
+  GET_POSTS_FOR_USER,
   GET_POST_TO_LIKE,
   GET_USER,
 } from "../GraphQl/query";
+
 import {
   DEL_SAVE_LIKE,
+  DEL_SAVE_POST,
   SAVELIKE_PUBLISHED,
+  SAVEPOST_PUBLISHED,
   SAVE_LIKE,
-  UPDATEING_LIKE_POST,
+  SAVE_POST,
+  // UPDATEING_LIKE_POST,
 } from "../GraphQl/mutation";
 
 // react-loader-spinner
@@ -63,6 +69,78 @@ const CardElement = ({
   // Get User
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { email: `${email_login && email_login.email}` },
+  });
+
+  // savePost Betting
+  const [icon_bookmark, setIcon_bookmark] = useState(null);
+
+  const [
+    add_post,
+    { data: dataPostSaved, loading: loadingPostSaved, error: errorPostSaved },
+  ] = useMutation(SAVE_POST);
+
+  const [data_add_post, setData_add_post] = useState("");
+  const handleCreatePost = async () => {
+    try {
+      const response = await add_post({
+        variables: {
+          slugPostSaved: slug,
+          emailPersonPost: `${
+            data && data.person !== null && data.person.email
+          }`,
+        },
+      });
+      setData_add_post(response.data.createSavepost.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [published_save_post, { data: datapublishpost }] = useMutation(
+    SAVEPOST_PUBLISHED,
+    {
+      variables: {
+        slug_published_post: slug,
+        email_published_post: `${
+          data && data.person !== null && data.person.email
+        }`,
+      },
+    }
+  );
+
+  const [del_post, { data: datadelpost, loading: loading_del_post }] =
+    useMutation(DEL_SAVE_POST);
+
+  const [id_delete_post, setId_delete_post] = useState("");
+  const handleDeletePost = async () => {
+    try {
+      const response2 = await del_post({
+        variables: {
+          slugPostSaved_delete: slug,
+          emailPersonPost_delete: `${
+            data && data.person !== null && data.person.email
+          }`,
+        },
+      });
+      setId_delete_post(
+        response2 &&
+          response2.data.deleteManySavepostsConnection.edges[0].node.id
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const {
+    data: dataGetSavePOST_Bet,
+    loading: loadingGetPOST_Bet,
+    refetch,
+  } = useQuery(GET_POSTS_FOR_USER, {
+    variables: {
+      emailPersonPost_Betting: `${
+        data && data.person !== null && data.person.email
+      }`,
+    },
   });
 
   // lick betting
@@ -102,7 +180,7 @@ const CardElement = ({
     useMutation(DEL_SAVE_LIKE);
 
   const [id_delete, setId_delete] = useState("");
-  const handleDelete = async () => {
+  const handleDeleteLike = async () => {
     try {
       const response2 = await del_like({
         variables: {
@@ -130,12 +208,6 @@ const CardElement = ({
       emailPersonLike_Betting: `${
         data && data.person !== null && data.person.email
       }`,
-    },
-  });
-
-  const { data: dataPostToLike } = useQuery(GET_POST_TO_LIKE, {
-    variables: {
-      slug_post_to_like: slug,
     },
   });
 
@@ -186,7 +258,7 @@ const CardElement = ({
       dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
     ) {
       console.log("delete heart");
-      handleDelete();
+      handleDeleteLike();
     }
   }, [icon_like]);
 
