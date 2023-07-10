@@ -26,12 +26,4 @@ const sharePage = (title, url) => {
   }
 };
 
-// Increase Like
-const inceaseLike = (like) => {
-  // const convert_to_num = parseInt(like);
-  // const num = convert_to_num + 1;
-  // const convert_to_str = num.toString();
-  // return convert_to_str;
-};
-
-export { fistename, generate_rabndomnum, generate_fa, sharePage, inceaseLike };
+export { fistename, generate_rabndomnum, generate_fa, sharePage };

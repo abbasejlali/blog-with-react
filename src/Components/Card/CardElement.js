@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 // js function
 import { fistename, inceaseLike, sharePage } from "../../js/function";
@@ -307,6 +308,9 @@ const CardElement = ({
         </Link>
       </CardContent>
       <CardActions disableSpacing sx={{ direction: "ltr" }}>
+        <IconButton>
+          <BookmarkBorderIcon />
+        </IconButton>
         {!data ? (
           <IconButton aria-label="add to favorites">
             <FavoriteBorderIcon />

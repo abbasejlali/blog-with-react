@@ -153,6 +153,15 @@ const GET_POST_TO_LIKE = gql`
     }
   }
 `;
+
+const GET_POSTS_FOR_USER = gql`
+  query getsavelikes($emailPersonPost_Betting: String!) {
+    saveposts(where: { emailPersonPost: $emailPersonPost_Betting }) {
+      slugPostSaved
+    }
+  }
+`;
+
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
@@ -164,4 +173,5 @@ export {
   GET_USER_DASHBOARD,
   GET_LIKES_for_user,
   GET_POST_TO_LIKE,
+  GET_POSTS_FOR_USER,
 };
