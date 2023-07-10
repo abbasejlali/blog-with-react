@@ -157,7 +157,6 @@ const CardElement = ({
           (item) => item.slugPostSaved === slug
         )
       ) {
-        console.log("add bookmark");
         handleCreatePost();
       }
 
@@ -167,7 +166,6 @@ const CardElement = ({
       dataGetSavePOST_Bet &&
       dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
     ) {
-      console.log("delete bookmark");
       handleDeletePost();
     }
   }, [icon_bookmark]);
@@ -289,7 +287,6 @@ const CardElement = ({
           (item) => item.slugPostLiked === slug
         )
       ) {
-        console.log("add heart");
         // The condition of increasing the number of likes
 
         // const convert_to_num = parseInt(like);
@@ -305,7 +302,6 @@ const CardElement = ({
       dataGetSaveLike_Bet &&
       dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
     ) {
-      console.log("delete heart");
       handleDeleteLike();
     }
   }, [icon_like]);

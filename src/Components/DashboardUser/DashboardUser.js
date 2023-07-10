@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // function
 import { fistename } from "../../js/function";
@@ -30,8 +30,13 @@ import CloseIcon from "@mui/icons-material/Close";
 
 // Graph QL
 import { useQuery } from "@apollo/client";
-import { GET_USER_DASHBOARD } from "../GraphQl/query";
+import {
+  GET_POSTS_FOR_USER,
+  GET_POSTS_SAVED_BY_USER,
+  GET_USER_DASHBOARD,
+} from "../GraphQl/query";
 import { useNavigate } from "react-router-dom";
+import CardDashboard from "../Card/CardDashboard";
 
 // Customize Mui
 const Customize_ListItemText = styled(ListItemText)({
@@ -92,6 +97,31 @@ const DashboardUser = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // GET POST SAVED
+  const {
+    data: dataGetSavePOST,
+    loading: loadingGetPOST,
+    refetch: refetchSavePost,
+  } = useQuery(GET_POSTS_FOR_USER, {
+    variables: {
+      emailPersonPost_Betting: `${
+        data && data.person !== null && data.person.email
+      }`,
+    },
+  });
+
+  // const {data:dataPostsSaved} = useQuery(GET_POSTS_SAVED_BY_USER, {
+  //   variables:{
+  //     slug_post_saved:
+  //   }
+  // })
+
+  // useEffect(() => {
+  //   if(!loadingGetPOST){
+  //     if(dataGetSavePOST)
+  //   }
+  // },[dataGetSavePOST])
 
   const action = (
     <React.Fragment>
@@ -305,8 +335,15 @@ const DashboardUser = () => {
                 boxShadow: "rgb(233 233 233) 0px 8px 24px",
               }}
               ml={2}
+              container
+              spacing={2}
             >
-              favorite_posts
+              {data &&
+                dataGetSavePOST &&
+                dataGetSavePOST.saveposts.length > 0 &&
+                dataGetSavePOST.saveposts.map((item) => (
+                  <CardDashboard key={item.slugPostSaved} {...item} />
+                ))}
             </Grid>
           )}
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // react router dom
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
@@ -75,7 +75,6 @@ const CssBox = styled(Box)({
 const Blog = () => {
   // Navigate
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Get Slug
   const { slug } = useParams();
@@ -248,7 +247,6 @@ const Blog = () => {
           (item) => item.slugPostSaved === slug
         )
       ) {
-        console.log("add bookmark");
         handleCreatePost();
       }
 
@@ -258,7 +256,6 @@ const Blog = () => {
       dataGetSavePOST_Bet &&
       dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
     ) {
-      console.log("delete bookmark");
       handleDeletePost();
     }
   }, [icon_bookmark]);
@@ -369,7 +366,6 @@ const Blog = () => {
           (item) => item.slugPostLiked === slug
         )
       ) {
-        console.log("add heart");
         handleSubmit();
       }
 
@@ -379,10 +375,8 @@ const Blog = () => {
       dataGetSaveLike_Bet &&
       dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
     ) {
-      console.log("delete heart");
       handleDelete();
     }
-    console.log(icon_like);
   }, [icon_like]);
 
   useEffect(() => {

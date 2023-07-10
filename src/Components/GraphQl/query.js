@@ -162,6 +162,18 @@ const GET_POSTS_FOR_USER = gql`
   }
 `;
 
+const GET_POST_SAVED_BY_USER = gql`
+  query getpostssaved($slug_post_saved: String!) {
+    post(where: { slug: $slug_post_saved }) {
+      coverphoto {
+        url
+      }
+      title
+      slug
+    }
+  }
+`;
+
 export {
   GET_COVERPHOTO,
   GET_POSTSCARDSHOME,
@@ -174,4 +186,5 @@ export {
   GET_LIKES_for_user,
   GET_POST_TO_LIKE,
   GET_POSTS_FOR_USER,
+  GET_POST_SAVED_BY_USER,
 };
