@@ -5,11 +5,19 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 
 // Graph Ql
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_POSTTOBLOG, GET_LIKES_for_user, GET_USER } from "../GraphQl/query";
+import {
+  GET_POSTTOBLOG,
+  GET_LIKES_for_user,
+  GET_USER,
+  GET_POSTS_FOR_USER,
+} from "../GraphQl/query";
 import {
   DEL_SAVE_LIKE,
+  DEL_SAVE_POST,
   SAVELIKE_PUBLISHED,
+  SAVEPOST_PUBLISHED,
   SAVE_LIKE,
+  SAVE_POST,
 } from "../GraphQl/mutation";
 
 // Mui
@@ -35,6 +43,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 // Function convert En to Fa
 import { generate_fa } from "../../js/function";
@@ -141,7 +150,6 @@ const Blog = () => {
     variables: { slug },
   });
 
-  // Like Betting
   // Get data in localStorage
   const email_login = JSON.parse(localStorage.getItem("info_User"));
 
@@ -153,6 +161,126 @@ const Blog = () => {
   } = useQuery(GET_USER, {
     variables: { email: `${email_login && email_login.email}` },
   });
+
+  // SavePost Betting
+  const [icon_bookmark, setIcon_bookmark] = useState(null);
+
+  const [add_post, { data: dataPostSaved }] = useMutation(SAVE_POST);
+
+  const [data_add_post, setData_add_post] = useState("");
+  const handleCreatePost = async () => {
+    try {
+      const response = await add_post({
+        variables: {
+          slugPostSaved: slug,
+          emailPersonPost: `${
+            dataUser && dataUser.person !== null && dataUser.person.email
+          }`,
+        },
+      });
+      setData_add_post(response.data.createSavepost.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [published_save_post, { data: datapublishpost }] = useMutation(
+    SAVEPOST_PUBLISHED,
+    {
+      variables: {
+        slug_published_post: slug,
+        email_published_post: `${
+          dataUser && dataUser.person !== null && dataUser.person.email
+        }`,
+      },
+    }
+  );
+
+  const [del_post, { data: datadelpost, loading: loading_del_post }] =
+    useMutation(DEL_SAVE_POST);
+
+  const [id_delete_post, setId_delete_post] = useState("");
+  const handleDeletePost = async () => {
+    try {
+      const response2 = await del_post({
+        variables: {
+          slugPostSaved_delete: slug,
+          emailPersonPost_delete: `${
+            dataUser && dataUser.person !== null && dataUser.person.email
+          }`,
+        },
+      });
+      setId_delete_post(
+        response2 &&
+          response2.data.deleteManySavepostsConnection.edges[0].node.id
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const {
+    data: dataGetSavePOST_Bet,
+    loading: loadingGetPOST_Bet,
+    refetch: refetchSavePost,
+  } = useQuery(GET_POSTS_FOR_USER, {
+    variables: {
+      emailPersonPost_Betting: `${
+        dataUser && dataUser.person !== null && dataUser.person.email
+      }`,
+    },
+  });
+
+  const SavePostHandeler = (e) => {
+    dataGetSavePOST_Bet &&
+    dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
+      ? setIcon_bookmark(false)
+      : setIcon_bookmark(true);
+  };
+
+  useEffect(() => {
+    if (!loadingGetPOST_Bet)
+      if (
+        icon_bookmark !== null &&
+        icon_bookmark &&
+        dataGetSavePOST_Bet &&
+        !dataGetSavePOST_Bet.saveposts.find(
+          (item) => item.slugPostSaved === slug
+        )
+      ) {
+        console.log("add bookmark");
+        handleCreatePost();
+      }
+
+    if (
+      icon_bookmark !== null &&
+      !icon_bookmark &&
+      dataGetSavePOST_Bet &&
+      dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
+    ) {
+      console.log("delete bookmark");
+      handleDeletePost();
+    }
+  }, [icon_bookmark]);
+
+  useEffect(() => {
+    !loadingGetPOST_Bet &&
+    dataGetSavePOST_Bet &&
+    dataGetSavePOST_Bet.saveposts.find((item) => item.slugPostSaved === slug)
+      ? setIcon_bookmark(true)
+      : setIcon_bookmark(false);
+  }, [dataGetSavePOST_Bet]);
+
+  useEffect(() => {
+    if (id_delete_post.length > 0) refetchSavePost();
+  }, [id_delete_post]);
+
+  useEffect(() => {
+    if (data_add_post.length > 0) {
+      published_save_post();
+      refetchSavePost();
+    }
+  }, [data_add_post]);
 
   // lick betting
   const [icon_like, setIcon_like] = useState(null);
@@ -444,9 +572,34 @@ const Blog = () => {
               width: "fit-content",
             }}
           >
-            <IconButton>
-              <BookmarkBorderIcon />
-            </IconButton>
+            {!dataUser ? (
+              <IconButton>
+                <BookmarkBorderIcon />
+              </IconButton>
+            ) : dataUser.person !== null ? (
+              <IconButton onClick={SavePostHandeler}>
+                {!dataGetSavePOST_Bet && loadingGetPOST_Bet ? (
+                  <TailSpin
+                    height="24"
+                    width="24"
+                    color="#666"
+                    ariaLabel="tail-spin-loading"
+                    radius="1"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                ) : dataGetSavePOST_Bet && icon_bookmark ? (
+                  <BookmarkIcon sx={{ color: "#666" }} />
+                ) : (
+                  <BookmarkBorderIcon />
+                )}
+              </IconButton>
+            ) : (
+              <IconButton>
+                <BookmarkBorderIcon />
+              </IconButton>
+            )}
             {!dataUser ? (
               <IconButton aria-label="add to favorites">
                 <FavoriteBorderIcon />

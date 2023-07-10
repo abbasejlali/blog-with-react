@@ -71,13 +71,10 @@ const CardElement = ({
     variables: { email: `${email_login && email_login.email}` },
   });
 
-  // savePost Betting
+  // SavePost Betting
   const [icon_bookmark, setIcon_bookmark] = useState(null);
 
-  const [
-    add_post,
-    { data: dataPostSaved, loading: loadingPostSaved, error: errorPostSaved },
-  ] = useMutation(SAVE_POST);
+  const [add_post, { data: dataPostSaved }] = useMutation(SAVE_POST);
 
   const [data_add_post, setData_add_post] = useState("");
   const handleCreatePost = async () => {
