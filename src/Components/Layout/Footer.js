@@ -30,7 +30,7 @@ const Footer = (props) => {
       maxWidth="100%"
       sx={{
         background: "white",
-        boxShadow: "0px 4px 15px 0px rgba(0, 0, 0, 0.2)",
+        border: "1px solid #f2f2f2",
       }}
     >
       <Grid
@@ -42,6 +42,7 @@ const Footer = (props) => {
           ...dynamicStyles3,
           maxWidth: "100%",
           width: "100%",
+          background: "white",
         }}
       >
         <Grid
@@ -155,7 +156,7 @@ const Footer = (props) => {
               variant="span"
               mx="3px"
             >
-              &#x2764;
+              ❤️
             </Typography>{" "}
             توسط{" "}
             <Typography
