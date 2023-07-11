@@ -57,6 +57,18 @@ const Header = () => {
     }),
   };
 
+  const headerPaddingXS = {
+    ...(matchesXS && {
+      padding: "0 16px !important",
+    }),
+  };
+
+  const headerPaddingSM = {
+    ...(matchesSM && {
+      padding: "0 36px !important",
+    }),
+  };
+
   const IconMenuXS = {
     ...(matchesXS && {
       display: "flex",
@@ -240,12 +252,13 @@ const Header = () => {
 
   return (
     <>
-      <Box maxWidth="100%" sx={{ zIndex: "999" }}>
+      <Box maxWidth="100%">
         <AppBar
           sx={{
-            boxShadow: "0 3px 6px 0 hsl(0deg 0% 51.8% / 15%)",
             backgroundColor: "white !important",
             position: "unset !important",
+            borderBottom: "1px solid #f2f2f2",
+            boxShadow: "unset !important",
           }}
         >
           <Toolbar
@@ -253,6 +266,8 @@ const Header = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              ...headerPaddingXS,
+              ...headerPaddingSM,
             }}
           >
             <IconButton
@@ -275,13 +290,7 @@ const Header = () => {
               to="/"
               style={{ color: "#666", ...TitleMenuXS, ...TitleMenuMD }}
             >
-              <Typography
-                component="h1"
-                mb="4px"
-                variant="h6"
-                color="#666"
-                pl="12px"
-              >
+              <Typography component="h1" mb="4px" variant="h6" color="#666">
                 وبلاگ اجلالی
               </Typography>
             </Link>
@@ -376,7 +385,7 @@ const Header = () => {
                   padding: "5px 8px",
                   display: "flex",
                   justifyContent: "center",
-                  aligItems: "center",
+                  alignItems: "center",
                 }}
               >
                 <Typography
@@ -398,7 +407,7 @@ const Header = () => {
                     padding: "6px 13px ",
                     display: "flex",
                     justifyContent: "center",
-                    aligItems: "center",
+                    alignItems: "center",
                   }}
                 >
                   <LoginIcon style={{ fontSize: "31.5px", color: "#666" }} />
