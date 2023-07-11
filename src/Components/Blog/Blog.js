@@ -34,6 +34,7 @@ import {
   styled,
   useTheme,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 
 // icons Mui
@@ -781,9 +782,32 @@ const Blog = () => {
               width: "fit-content",
             }}
           >
-            <IconButton aria-label="add to favorites">
-              <FavoriteBorderIcon />
-            </IconButton>
+            <Button
+              sx={{
+                color: "#fff",
+                backgroundColor: "#00c853 !important",
+                "&:hover": { backgroundColor: "#00c853 !important" },
+                mr: 1,
+              }}
+            >
+              <span
+                style={{
+                  color: "#fff",
+                }}
+              >
+                دنبال کردن{" "}
+              </span>{" "}
+              <span
+                style={{
+                  marginRight: "3px",
+
+                  color: "#fff",
+                  paddingTop: "3px",
+                }}
+              >
+                +
+              </span>
+            </Button>
             <IconButton
               aria-label="share"
               onClick={() =>
