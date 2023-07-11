@@ -42,20 +42,40 @@ import { GET_POSTS, GET_USER } from "../GraphQl/query";
 // CardElement SearchBox
 import CardBoxSearch from "../Card/CardBoxSearch";
 
-// Redux
-import { useSelector, useDispatch } from "react-redux";
-
 const Header = () => {
   // Media Query in Mui
   const theme = useTheme();
   const matchesXS = useMediaQuery(theme.breakpoints.up("xs"));
   const matchesSM = useMediaQuery(theme.breakpoints.up("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.up("md"));
 
   const cardXS = {
     ...(matchesXS && {
       flexDirection: "column",
       justifyContent: "flex-start",
       alignItems: "center",
+    }),
+  };
+
+  const IconMenuXS = {
+    ...(matchesXS && {
+      display: "flex",
+    }),
+  };
+  const IconMenuMD = {
+    ...(matchesMD && {
+      display: "none",
+    }),
+  };
+
+  const TitleMenuXS = {
+    ...(matchesXS && {
+      display: "none",
+    }),
+  };
+  const TitleMenuMD = {
+    ...(matchesMD && {
+      display: "flex",
     }),
   };
 
@@ -208,8 +228,7 @@ const Header = () => {
     setIsfocus(false);
   };
 
-  // Redux
-  const user = useSelector((state) => state.userState);
+  // Get User in LocalStorage
   const email_user = JSON.parse(localStorage.getItem("info_User"));
 
   // Graph Ql after login to site
@@ -221,7 +240,7 @@ const Header = () => {
 
   return (
     <>
-      <Box maxWidth="100%" position="sticky" sx={{ top: 0, zIndex: "999" }}>
+      <Box maxWidth="100%" sx={{ zIndex: "999" }}>
         <AppBar
           sx={{
             boxShadow: "0 3px 6px 0 hsl(0deg 0% 51.8% / 15%)",
@@ -241,7 +260,7 @@ const Header = () => {
               size="large"
               edge="start"
               color="white"
-              sx={{ padding: "8px" }}
+              sx={{ padding: "8px", ...IconMenuXS, ...IconMenuMD }}
             >
               <MenuIcon
                 sx={{
@@ -252,7 +271,10 @@ const Header = () => {
                 }}
               />
             </IconButton>
-            <Link to="/" style={{ color: "#666" }}>
+            <Link
+              to="/"
+              style={{ color: "#666", ...TitleMenuXS, ...TitleMenuMD }}
+            >
               <Typography
                 component="h1"
                 mb="4px"
@@ -264,35 +286,129 @@ const Header = () => {
               </Typography>
             </Link>
 
+            <Box
+              component="ui"
+              variant="ui"
+              sx={{ ...TitleMenuXS, ...TitleMenuMD, mb: "5px" }}
+            >
+              <Box component="li" variant="li">
+                <Link to="/">
+                  <Button
+                    sx={{
+                      color: "#666",
+                      "&:hover": { backgroundColor: "#f2f2f2 !important" },
+                      fontSize: "16px",
+                    }}
+                  >
+                    صفحه اصلی
+                  </Button>
+                </Link>
+              </Box>
+
+              <Box component="li" variant="li">
+                <Link to="/authors">
+                  <Button
+                    sx={{
+                      color: "#666",
+                      "&:hover": { backgroundColor: "#f2f2f2 !important" },
+                      fontSize: "16px",
+                    }}
+                  >
+                    نویسنده ها
+                  </Button>
+                </Link>
+              </Box>
+
+              <Box component="li" variant="li">
+                <Link to="/category">
+                  <Button
+                    sx={{
+                      color: "#666",
+                      "&:hover": { backgroundColor: "#f2f2f2 !important" },
+                      fontSize: "16px",
+                    }}
+                  >
+                    دسته بندی ها
+                  </Button>
+                </Link>
+              </Box>
+
+              <Box component="li" variant="li">
+                <Button
+                  sx={{
+                    color: "#666",
+                    "&:hover": { backgroundColor: "#f2f2f2 !important" },
+                    fontSize: "16px",
+                  }}
+                  onClick={() => setOpen(true)}
+                >
+                  جستجو کن
+                </Button>
+              </Box>
+            </Box>
             {!dataUser ? (
-              <Link to="/login">
-                <IconButton size="large" sx={{ padding: "8px" }} color="white">
-                  <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
-                </IconButton>
-              </Link>
-            ) : dataUser.person !== null ? (
-              <Link to={`/dashboard`}>
+              <Link
+                to="/login"
+                style={{
+                  backgroundColor: "#f2f2f2",
+                  borderRadius: "10px",
+                  padding: "6px 13px ",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <LoginIcon style={{ fontSize: "31.5px", color: "#666" }} />
                 <Typography
                   component="span"
                   variant="span"
-                  sx={{ color: "#666" }}
+                  sx={{ color: "#666", ml: "2px" }}
+                >
+                  ورود
+                </Typography>
+              </Link>
+            ) : dataUser.person !== null ? (
+              <Link
+                to={`/dashboard`}
+                style={{
+                  backgroundColor: "#f2f2f2",
+                  borderRadius: "10px",
+                  padding: "5px 8px",
+                  display: "flex",
+                  justifyContent: "center",
+                  aligItems: "center",
+                }}
+              >
+                <Typography
+                  component="span"
+                  variant="span"
+                  sx={{ color: "#666", mr: "2px" }}
                 >
                   {loadingUser ? "Loading..." : dataUser.person.userName}
                 </Typography>
-                <IconButton size="large" sx={{ padding: "8px" }} color="white">
-                  <PersonIcon style={{ fontSize: "35px", color: "#666" }} />
-                </IconButton>
+                <PersonIcon style={{ fontSize: "31.5px", color: "#666" }} />
               </Link>
             ) : (
               dataUser.person === null && (
-                <Link to="/login">
-                  <IconButton
-                    size="large"
-                    sx={{ padding: "8px" }}
-                    color="white"
+                <Link
+                  to="/login"
+                  style={{
+                    backgroundColor: "#f2f2f2",
+                    borderRadius: "10px",
+                    padding: "6px 13px ",
+                    display: "flex",
+                    justifyContent: "center",
+                    aligItems: "center",
+                  }}
+                >
+                  <LoginIcon style={{ fontSize: "31.5px", color: "#666" }} />
+                  <Typography
+                    component="span"
+                    variant="span"
+                    sx={{ color: "#666", ml: "2px" }}
                   >
-                    <LoginIcon style={{ fontSize: "35px", color: "#666" }} />
-                  </IconButton>
+                    ورود
+                  </Typography>
                 </Link>
               )
             )}
@@ -307,6 +423,7 @@ const Header = () => {
         {list("left")}
       </Drawer>
 
+      {/* Search Box Home Page */}
       <Slide direction="up" in={open}>
         <Box
           maxWidth="100%"

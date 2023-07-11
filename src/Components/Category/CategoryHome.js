@@ -54,8 +54,8 @@ const CategoryHome = () => {
             borderRadius: "10px",
             cursor: "pointer",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-            boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
-            "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
+            boxShadow: "rgb(233 233 233) 0px 8px 24px",
+            "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
           }}
         >
           <Link to="/blogs/category/programming">
@@ -87,8 +87,8 @@ const CategoryHome = () => {
             borderRadius: "10px",
             cursor: "pointer",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-            boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
-            "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
+            boxShadow: "rgb(233 233 233) 0px 8px 24px",
+            "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
           }}
         >
           <Link to="/blogs/category/digital-world">
@@ -120,8 +120,8 @@ const CategoryHome = () => {
             borderRadius: "10px",
             cursor: "pointer",
             transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-            boxShadow: "0px 2px 15px 1px rgba(0, 0, 0, 0.2)",
-            "&:hover": { boxShadow: "0px 2px 15px 3px rgba(0, 0, 0, 0.2)" },
+            boxShadow: "rgb(233 233 233) 0px 8px 24px",
+            "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
           }}
         >
           <Link to="/blogs/category/technology">
