@@ -320,7 +320,7 @@ const DashboardUser = () => {
                   <LogoutIcon />
                 </ListItemIcon>
                 <Customize_ListItemText
-                  sx={{ color: "#ff6347" }}
+                  sx={{ color: "#FF0000" }}
                   primary="خروج"
                 />
               </ListItemButton>

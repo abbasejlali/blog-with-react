@@ -12,9 +12,14 @@ import {
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 
+// react loader spinner
+import { InfinitySpin } from "react-loader-spinner";
+
 // Graph Ql
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { SEND_COMMENT } from "../GraphQl/mutation";
+
+import { GET_USER } from "../GraphQl/query";
 
 // Mui Icons
 import { MutatingDots } from "react-loader-spinner";
@@ -22,9 +27,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 // jalaali
 import jalaali from "jalaali-js";
-
-// toast
-import { ToastContainer, toast } from "react-toastify";
 
 // Customize Mui Textfield
 const CssTextField = styled(TextField)({
@@ -57,10 +59,21 @@ const CssTextField = styled(TextField)({
 
 // Mui toast
 const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} {...props} />;
 });
 
 const SendCommentBlog = ({ slug }) => {
+  // Get data in localStorage
+  const email_login = JSON.parse(localStorage.getItem("info_User"));
+
+  // Get User
+  const {
+    loading: loadingUser,
+    error: errorUser,
+    data: dataUser,
+  } = useQuery(GET_USER, {
+    variables: { email: `${email_login && email_login.email}` },
+  });
   const today = new Date();
 
   // data for send Comment
@@ -214,152 +227,190 @@ const SendCommentBlog = ({ slug }) => {
     )
       setOpen3(true);
   };
-
-  return (
-    <>
-      <Typography
-        component="h4"
-        variant="h5"
-        color="#666"
-        fontWeight="bold"
-        mb={3}
+  if (loadingUser)
+    return (
+      <Box
+        sx={{
+          width: "94vw",
+          height: "80vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        ثبت دیدگاه
-      </Typography>
-      <Box sx={{ width: "100%", height: "100%" }}>
-        <CssTextField
-          label="لطفا نظر خود را وارد نمایید ..."
-          id="custom-css-outlined-input"
-          fullWidth
-          multiline
-          rows={4}
-          value={text}
-          onChange={textHandeler}
-        />
-        <Box
-          sx={{
-            maxWidth: "100%",
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            opacity: `${loading && "0.3"}`,
-            position: "relative",
-          }}
-          mt={2}
-        >
-          {loading && (
-            <Box
-              sx={{
-                zIndex: "99",
-                position: "absolute",
-                top: "-50%",
-                right: "50%",
-                transform: "translateX(50%) translateY(-50%)",
-              }}
-            >
-              <MutatingDots
-                height="100"
-                width="100"
-                color="#666"
-                secondaryColor="#666"
-                radius="12.5"
-                ariaLabel="mutating-dots-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            </Box>
-          )}
-          <CssTextField
-            id="custom-css-outlined-input"
-            label="نام و نام خانوادگی"
-            sx={{ width: "49%" }}
-            value={name}
-            onChange={nameHandeler}
-          />
-          <CssTextField
-            id="custom-css-outlined-input"
-            label="ایمیل خود را وارد نمایید"
-            fullWidth
-            value={email}
-            sx={{ width: "49%" }}
-            onChange={emailHandeler}
-          />
-        </Box>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#00e676",
-            "&:hover": {
-              backgroundColor: "#00c853 !important",
-            },
-            fontWeight: "bold",
-            alignSelf: "flex-start",
-            marginTop: "16px",
-          }}
-          onClick={sendHandeler}
+        <InfinitySpin width="200" color="#666" />
+      </Box>
+    );
+  {
+    console.log(dataUser);
+  }
+
+  if (dataUser && dataUser.person === null)
+    return (
+      <Alert
+        severity="warning"
+        sx={{
+          fontWeight: "bold",
+          mt: 5,
+          fontSize: "15px",
+          boxShadow: "unset !important",
+          width: "100%",
+        }}
+      >
+        برای کامنت گذاشتن باید وارد سایت شوید
+      </Alert>
+    );
+
+  if (dataUser && dataUser.person !== null)
+    return (
+      <>
+        <Typography
+          component="h4"
+          variant="h5"
+          color="#666"
+          fontWeight="bold"
+          mb={3}
         >
           ثبت دیدگاه
-        </Button>
-      </Box>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        action={action}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          رفیق ، نظرت ثبت شد و منتظر تایید مدیره
-        </Alert>
-      </Snackbar>
+        </Typography>
+        <Box sx={{ width: "100%", height: "100%" }}>
+          <CssTextField
+            label="لطفا نظر خود را وارد نمایید ..."
+            id="custom-css-outlined-input"
+            fullWidth
+            multiline
+            rows={4}
+            value={text}
+            onChange={textHandeler}
+          />
+          <Box
+            sx={{
+              maxWidth: "100%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              opacity: `${loading && "0.3"}`,
+              position: "relative",
+            }}
+            mt={2}
+          >
+            {loading && (
+              <Box
+                sx={{
+                  zIndex: "99",
+                  position: "absolute",
+                  top: "-50%",
+                  right: "50%",
+                  transform: "translateX(50%) translateY(-50%)",
+                }}
+              >
+                <MutatingDots
+                  height="100"
+                  width="100"
+                  color="#666"
+                  secondaryColor="#666"
+                  radius="12.5"
+                  ariaLabel="mutating-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              </Box>
+            )}
+            <CssTextField
+              id="custom-css-outlined-input"
+              label="نام و نام خانوادگی"
+              sx={{ width: "49%" }}
+              value={name}
+              onChange={nameHandeler}
+            />
+            <CssTextField
+              id="custom-css-outlined-input"
+              label="ایمیل خود را وارد نمایید"
+              fullWidth
+              value={email}
+              sx={{ width: "49%" }}
+              onChange={emailHandeler}
+            />
+          </Box>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#00e676",
+              "&:hover": {
+                backgroundColor: "#00c853 !important",
+              },
+              fontWeight: "bold",
+              alignSelf: "flex-start",
+              marginTop: "16px",
+            }}
+            onClick={sendHandeler}
+          >
+            ثبت دیدگاه
+          </Button>
+        </Box>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          action={action}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            رفیق ، نظرت ثبت شد و منتظر تایید مدیره
+          </Alert>
+        </Snackbar>
 
-      <Snackbar
-        open={open2}
-        autoHideDuration={6000}
-        onClose={handleClose2}
-        action={action}
-      >
-        <Alert onClose={handleClose2} severity="error" sx={{ width: "100%" }}>
-          لطفا همه فیلد ها رو پر کن
-        </Alert>
-      </Snackbar>
+        <Snackbar
+          open={open2}
+          autoHideDuration={6000}
+          onClose={handleClose2}
+          action={action}
+        >
+          <Alert onClose={handleClose2} severity="error" sx={{ width: "100%" }}>
+            لطفا همه فیلد ها رو پر کن
+          </Alert>
+        </Snackbar>
 
-      <Snackbar
-        open={open3}
-        autoHideDuration={6000}
-        onClose={handleClose3}
-        action={action}
-      >
-        <Alert onClose={handleClose3} severity="error" sx={{ width: "100%" }}>
-          لطفا ایمیل رو بدرستی پر کن
-        </Alert>
-      </Snackbar>
+        <Snackbar
+          open={open3}
+          autoHideDuration={6000}
+          onClose={handleClose3}
+          action={action}
+        >
+          <Alert onClose={handleClose3} severity="error" sx={{ width: "100%" }}>
+            لطفا ایمیل رو بدرستی پر کن
+          </Alert>
+        </Snackbar>
 
-      <Snackbar
-        open={open4}
-        autoHideDuration={6000}
-        onClose={handleClose4}
-        action={action}
-      >
-        <Alert onClose={handleClose4} severity="error" sx={{ width: "100%" }}>
-          نام نباید کمتر از 5 حرف باشد
-        </Alert>
-      </Snackbar>
+        <Snackbar
+          open={open4}
+          autoHideDuration={6000}
+          onClose={handleClose4}
+          action={action}
+        >
+          <Alert onClose={handleClose4} severity="error" sx={{ width: "100%" }}>
+            نام نباید کمتر از 5 حرف باشد
+          </Alert>
+        </Snackbar>
 
-      <Snackbar
-        open={open5}
-        autoHideDuration={6000}
-        onClose={handleClose5}
-        action={action}
-      >
-        <Alert onClose={handleClose5} severity="error" sx={{ width: "100%" }}>
-          متن توضیح نباید کمتر از 20 حرف باشه
-        </Alert>
-      </Snackbar>
-    </>
-  );
+        <Snackbar
+          open={open5}
+          autoHideDuration={6000}
+          onClose={handleClose5}
+          action={action}
+        >
+          <Alert onClose={handleClose5} severity="error" sx={{ width: "100%" }}>
+            متن توضیح نباید کمتر از 20 حرف باشه
+          </Alert>
+        </Snackbar>
+      </>
+    );
 };
 
 export default SendCommentBlog;

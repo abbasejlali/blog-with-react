@@ -16,39 +16,34 @@ import NotFound from "./Components/NotFound/NotFound";
 // scroll to top
 import ScrollToTop from "./Components/shared/ScrollToTop";
 
-// redux
-import { Provider } from "react-redux";
-import store from "./redux/store";
-
 function App() {
   const { pathname } = useLocation();
 
   return (
     <>
-      <Provider store={store}>
-        <ScrollToTop />
-        {pathname === "/login" ? (
+      {pathname === "/login" ? (
+        <Routes>
+          <ScrollToTop />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/blogs/:slug" element={<Blog />} />
+          <Route path="/blogs/category/:slug" element={<CategorySlug />} />
+          <Route path="/authors/:slug" element={<AuthorsSlug />} />
+        </Routes>
+      ) : (
+        <Layout>
           <Routes>
+            <ScrollToTop />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/blogs/:slug" element={<Blog />} />
             <Route path="/blogs/category/:slug" element={<CategorySlug />} />
             <Route path="/authors/:slug" element={<AuthorsSlug />} />
+            <Route path="/dashboard" element={<DashboardUser />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
-        ) : (
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/blogs/:slug" element={<Blog />} />
-              <Route path="/blogs/category/:slug" element={<CategorySlug />} />
-              <Route path="/authors/:slug" element={<AuthorsSlug />} />
-              <Route path="/dashboard" element={<DashboardUser />} />
-              <Route path="/*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        )}
-      </Provider>
+        </Layout>
+      )}
     </>
   );
 }

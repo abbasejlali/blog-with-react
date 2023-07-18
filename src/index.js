@@ -1,8 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
+// General Style
 import "./index.css";
 import "./Styles/fonts.css";
+
+// App Main
 import App from "./App";
+
+
 
 // react-router-dom
 import { BrowserRouter } from "react-router-dom";
