@@ -18,6 +18,8 @@ import {
   Alert,
   Snackbar,
   IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 // Mui Icons
@@ -51,6 +53,37 @@ const Customize_ListItemText = styled(ListItemText)({
 });
 
 const DashboardUser = () => {
+  // MefiaQuery in Mui
+  const theme = useTheme();
+  const MatchesXS = useMediaQuery(theme.breakpoints.up("xs"));
+  const MatchesSM = useMediaQuery(theme.breakpoints.up("sm"));
+  const MatchesMD = useMediaQuery(theme.breakpoints.up("md"));
+
+  const BoxXS = {
+    ...(MatchesXS && {
+      marginRight: "16px",
+      marginLeft: "16px",
+    }),
+  };
+
+  const BoxOneXS = {
+    ...(MatchesXS && {
+      marginBottom: "16px",
+    }),
+  };
+  const BoxOneMD = {
+    ...(MatchesMD && {
+      marginRight: "16px",
+      marginLeft: "0",
+      marginBottom: "0",
+    }),
+  };
+  const BoxTwoMD = {
+    ...(MatchesMD && {
+      marginRight: "0",
+      marginLeft: "16px",
+    }),
+  };
   // Get data in localStorage
   const email_login = JSON.parse(localStorage.getItem("info_User"));
 
@@ -183,8 +216,10 @@ const DashboardUser = () => {
               flexDirection: "column",
               justifyContent: "flex-start",
               alignItems: "center",
+              ...BoxXS,
+              ...BoxOneXS,
+              ...BoxOneMD,
             }}
-            mr={2}
           >
             <Avatar
               sx={{
@@ -308,8 +343,9 @@ const DashboardUser = () => {
                 backgroundColor: "white",
                 borderRadius: "8px",
                 boxShadow: "rgb(233 233 233) 0px 8px 24px",
+                ...BoxXS,
+                ...BoxTwoMD,
               }}
-              ml={2}
             >
               <Typography component="h6" variant="h6" mb={2} fontWeight="bold">
                 سلام {data.person.userName} عزیز❤️
@@ -337,8 +373,9 @@ const DashboardUser = () => {
                 borderRadius: "8px",
                 boxShadow: "rgb(233 233 233) 0px 8px 24px",
                 marginTop: "0 !important",
+                ...BoxXS,
+                ...BoxTwoMD,
               }}
-              ml={2}
               container
               spacing={2}
             >
@@ -380,8 +417,9 @@ const DashboardUser = () => {
                 backgroundColor: "white",
                 borderRadius: "8px",
                 boxShadow: "rgb(233 233 233) 0px 8px 24px",
+                ...BoxXS,
+                ...BoxTwoMD,
               }}
-              ml={2}
             >
               followauthor
             </Grid>
@@ -398,8 +436,9 @@ const DashboardUser = () => {
                 backgroundColor: "white",
                 borderRadius: "8px",
                 boxShadow: "rgb(233 233 233) 0px 8px 24px",
+                ...BoxXS,
+                ...BoxTwoMD,
               }}
-              ml={2}
             >
               ticket
             </Grid>

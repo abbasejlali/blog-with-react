@@ -107,7 +107,7 @@ const CardDashboard = (props) => {
   if (dataPostSaved && dataPostSaved.post)
     return (
       <>
-        <Grid item xs={12} md={6} lg={3.2} xl={3} mb={2}>
+        <Grid item xs={12} sm={6} md={6} lg={3.2} xl={3} mb={2}>
           <Card
             sx={{
               maxWidth: "100%",
