@@ -15,7 +15,7 @@ import "swiper/css/effect-cards";
 import "./CommentsHome.css";
 
 // Loader Spinner
-import { MutatingDots } from "react-loader-spinner";
+import { InfinitySpin } from "react-loader-spinner";
 
 // Mui
 import { Avatar } from "@mui/material";
@@ -51,17 +51,7 @@ const CommentsHome = () => {
             border: "0",
           }}
         >
-          <MutatingDots
-            height="100"
-            width="100"
-            color="#666"
-            secondaryColor="#666"
-            radius="12.5"
-            ariaLabel="mutating-dots-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
+          <InfinitySpin width="200" color="#666" />
         </SwiperSlide>
       ) : (
         <>
