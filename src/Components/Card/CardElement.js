@@ -257,19 +257,6 @@ const CardElement = ({
     },
   });
 
-  // The condition of increasing the number of likes
-
-  // const [increase, setIncrease] = useState("");
-  // const [updateing_like, { data: dataIncreaseLike }] = useMutation(
-  //   UPDATEING_LIKE_POST,
-  //   {
-  //     variables: {
-  //       quantity_like: `${increase && increase}`,
-  //       slug_post: slug,
-  //     },
-  //   }
-  // );
-
   const likeHandeler = (e) => {
     dataGetSaveLike_Bet &&
     dataGetSaveLike_Bet.saveLikes.find((item) => item.slugPostLiked === slug)
@@ -287,12 +274,6 @@ const CardElement = ({
           (item) => item.slugPostLiked === slug
         )
       ) {
-        // The condition of increasing the number of likes
-
-        // const convert_to_num = parseInt(like);
-        // const sum = convert_to_num + 1;
-        // const convert_to_str = sum.toString();
-        // if (convert_to_str) setIncrease(convert_to_str);
         handleSubmit();
       }
 
@@ -313,20 +294,6 @@ const CardElement = ({
       ? setIcon_like(true)
       : setIcon_like(false);
   }, [dataGetSaveLike_Bet]);
-
-  // The condition of increasing the number of likes
-
-  // useEffect(() => {
-  //   console.log(increase);
-  //   console.log(typeof increase);
-  //   console.log(increase ? "true" : "false");
-  //   if (increase) {
-  //     console.log("okay");
-  //     updateing_like();
-  //     console.log(dataIncreaseLike && dataIncreaseLike);
-  //   }
-  //   // if (update_increase) updateing_like();
-  // }, [increase]);
 
   useEffect(() => {
     if (id_delete.length > 0) refetch();

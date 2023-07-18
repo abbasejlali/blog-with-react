@@ -51,6 +51,7 @@ const CardsHome = ({ categoryen, categoryfa }) => {
               color="#666"
               variant="h5"
               fontWeight="bold"
+              id={categoryen}
             >
               {categoryfa}
             </Typography>

@@ -1,13 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
 
 // Mui
 import { Box, Typography, Grid } from "@mui/material";
 
 // styles
 import styles from "./CategoryHome.module.css";
-
-// react-router-dom
-import { Link } from "react-router-dom";
 
 const CategoryHome = () => {
   return (
@@ -58,7 +55,7 @@ const CategoryHome = () => {
             "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
           }}
         >
-          <Link to="/blogs/category/programming">
+          <a href="#programming">
             <Typography
               component="h4"
               variant="h6"
@@ -74,7 +71,7 @@ const CategoryHome = () => {
             >
               برنامه نویسی
             </Typography>
-          </Link>
+          </a>
         </Grid>
         <Grid
           item
@@ -91,7 +88,7 @@ const CategoryHome = () => {
             "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
           }}
         >
-          <Link to="/blogs/category/digital-world">
+          <a href="#digital-world">
             <Typography
               component="h4"
               variant="h6"
@@ -107,7 +104,7 @@ const CategoryHome = () => {
             >
               دنیای دیجیتال
             </Typography>
-          </Link>
+          </a>
         </Grid>
         <Grid
           item
@@ -124,7 +121,7 @@ const CategoryHome = () => {
             "&:hover": { boxShadow: "rgb(220 220 220) 0px 8px 24px" },
           }}
         >
-          <Link to="/blogs/category/technology">
+          <a href="#technology">
             <Typography
               component="h4"
               variant="h6"
@@ -140,7 +137,7 @@ const CategoryHome = () => {
             >
               تکنولوژی
             </Typography>
-          </Link>
+          </a>
         </Grid>
       </Grid>
     </Box>
