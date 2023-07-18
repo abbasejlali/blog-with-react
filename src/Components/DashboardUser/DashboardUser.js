@@ -32,11 +32,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 // Graph QL
 import { useQuery } from "@apollo/client";
-import {
-  GET_POSTS_FOR_USER,
-  GET_POSTS_SAVED_BY_USER,
-  GET_USER_DASHBOARD,
-} from "../GraphQl/query";
+import { GET_POSTS_FOR_USER, GET_USER_DASHBOARD } from "../GraphQl/query";
 import { useNavigate } from "react-router-dom";
 import CardDashboard from "../Card/CardDashboard";
 
@@ -56,7 +52,6 @@ const DashboardUser = () => {
   // MefiaQuery in Mui
   const theme = useTheme();
   const MatchesXS = useMediaQuery(theme.breakpoints.up("xs"));
-  const MatchesSM = useMediaQuery(theme.breakpoints.up("sm"));
   const MatchesMD = useMediaQuery(theme.breakpoints.up("md"));
 
   const BoxXS = {

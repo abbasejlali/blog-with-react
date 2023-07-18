@@ -18,7 +18,9 @@ import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 
 // Mui
-import { Skeleton } from "@mui/material";
+import { Skeleton, Typography } from "@mui/material";
+
+// function
 import { generate_rabndomnum } from "../../js/function";
 
 // LazyLoadImage
@@ -72,6 +74,22 @@ const SlideShow = () => {
                     effect="blur"
                     id="lazy_img"
                   />
+                  <Typography
+                    sx={{
+                      backgroundColor: "#fff",
+                      p: "4px 10px",
+                      borderRadius: "4px",
+                      boxShadow: "rgb(233 233 233) 0px 8px 24px",
+                      position: "absolute",
+                      bottom: "50px",
+                      right: "40px",
+                    }}
+                    component="h2"
+                    variant="span"
+                    color="#666"
+                  >
+                    {post.title}
+                  </Typography>
                 </Link>
               </SwiperSlide>
             ))}
