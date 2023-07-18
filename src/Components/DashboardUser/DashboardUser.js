@@ -33,7 +33,11 @@ import CloseIcon from "@mui/icons-material/Close";
 // Graph QL
 import { useQuery } from "@apollo/client";
 import { GET_POSTS_FOR_USER, GET_USER_DASHBOARD } from "../GraphQl/query";
+
+// react-router-dom
 import { useNavigate } from "react-router-dom";
+
+// card dashboard
 import CardDashboard from "../Card/CardDashboard";
 
 // react loader spinner

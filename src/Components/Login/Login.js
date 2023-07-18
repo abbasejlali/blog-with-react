@@ -153,7 +153,6 @@ const Login = () => {
           })
         );
         navigate(`/dashboard`);
-        console.log(open);
       }
     }
   }, [dataUser]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 // Mui
 import {
@@ -22,7 +22,6 @@ import { SEND_COMMENT } from "../GraphQl/mutation";
 import { GET_USER } from "../GraphQl/query";
 
 // Mui Icons
-import { MutatingDots } from "react-loader-spinner";
 import CloseIcon from "@mui/icons-material/Close";
 
 // jalaali
@@ -80,7 +79,6 @@ const SendCommentBlog = ({ slug }) => {
   const [text, setText] = useState("");
 
   const [name, setName] = useState("");
-
   const [email, setEmail] = useState("");
   const [isvalidateemail, setIsvalidateemail] = useState(false);
 
@@ -109,7 +107,7 @@ const SendCommentBlog = ({ slug }) => {
   useEffect(() => {
     const { jy, jm, jd } = jalaali.toJalaali(today);
 
-    setDate(`${jy}-${jm}-${jd}`);
+    setDate(`${jy}/${jm}/${jd}`);
   }, []);
 
   // build toast by Mui
@@ -227,6 +225,7 @@ const SendCommentBlog = ({ slug }) => {
     )
       setOpen3(true);
   };
+
   if (loadingUser)
     return (
       <Box
@@ -241,9 +240,6 @@ const SendCommentBlog = ({ slug }) => {
         <InfinitySpin width="200" color="#666" />
       </Box>
     );
-  {
-    console.log(dataUser);
-  }
 
   if (dataUser && dataUser.person === null)
     return (
@@ -306,17 +302,7 @@ const SendCommentBlog = ({ slug }) => {
                   transform: "translateX(50%) translateY(-50%)",
                 }}
               >
-                <MutatingDots
-                  height="100"
-                  width="100"
-                  color="#666"
-                  secondaryColor="#666"
-                  radius="12.5"
-                  ariaLabel="mutating-dots-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                />
+                <InfinitySpin width="200" color="#666" />
               </Box>
             )}
             <CssTextField

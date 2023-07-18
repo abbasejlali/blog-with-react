@@ -56,11 +56,9 @@ const Footer = (props) => {
           }}
           width="100%"
         >
-          <Typography
-            coponent="a"
-            variant="h6"
-            href="/https://www.telegram.org/abbas_ejlali"
-            sx={{
+          <a
+            href="https://t.me/abbas_ejlali"
+            style={{
               color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
@@ -69,12 +67,10 @@ const Footer = (props) => {
             target="_blank"
           >
             <TelegramIcon />
-          </Typography>
-          <Typography
-            coponent="a"
-            variant="h6"
-            href="/https://www.instagram.com/abbas_ejlali1"
-            sx={{
+          </a>
+          <a
+            href="https://www.instagram.com/abbas.ejlali1"
+            style={{
               color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
@@ -83,13 +79,11 @@ const Footer = (props) => {
             target="_blank"
           >
             <InstagramIcon />
-          </Typography>
-          <Typography
-            coponent="a"
-            variant="h6"
-            href="/https://ir.linkedin.com/in/abbas-ejlali-30541520b?original_referer=https%3A%2F%2Fwww.google.com%2F"
+          </a>
+          <a
+            href="https://ir.linkedin.com/in/abbas-ejlali-30541520b?original_referer=https%3A%2F%2Fwww.google.com%2F"
             target="_blank"
-            sx={{
+            style={{
               color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
@@ -97,12 +91,10 @@ const Footer = (props) => {
             }}
           >
             <LinkedInIcon />
-          </Typography>
-          <Typography
-            coponent="a"
-            variant="h6"
-            href="/https://wa.me/989199294036"
-            sx={{
+          </a>
+          <a
+            href="https://wa.me/989199294036"
+            style={{
               color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
@@ -111,12 +103,10 @@ const Footer = (props) => {
             target="_blank"
           >
             <WhatsAppIcon />
-          </Typography>
-          <Typography
-            coponent="a"
-            variant="h6"
-            href="/https://github.com/abbasejlali"
-            sx={{
+          </a>
+          <a
+            href="https://github.com/abbasejlali"
+            style={{
               color: "#666",
               transition: "all ease 0.2s",
               cursor: "pointer",
@@ -125,7 +115,7 @@ const Footer = (props) => {
             target="_blank"
           >
             <GitHubIcon />
-          </Typography>
+          </a>
         </Grid>
         <Grid
           item
