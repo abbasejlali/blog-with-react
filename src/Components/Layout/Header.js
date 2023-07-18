@@ -562,8 +562,8 @@ const Header = () => {
                 }}
                 mt={2}
               >
-                <Link
-                  to="/blogs/category/programming"
+                <a
+                  href="#programming"
                   style={{
                     color: "#666",
                     fontWeight: "bold",
@@ -589,9 +589,33 @@ const Header = () => {
                     />{" "}
                     برنامه نویسی
                   </Button>
-                </Link>
-                <Link
-                  to="/blogs/category/technology"
+                </a>
+                <a
+                  href="#digital-world"
+                  style={{ color: "#666", fontWeight: "bold" }}
+                  onClick={() => setOpen(false)}
+                >
+                  <Button
+                    disabled={false}
+                    size="medium"
+                    variant="elevated"
+                    sx={{
+                      backgroundColor: "white",
+                      "&:hover": { backgroundColor: "#f2f2f2" },
+                    }}
+                  >
+                    <CircleIcon
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "4px",
+                        color: "#c5c5fe",
+                      }}
+                    />{" "}
+                    دنیای دیجیتال
+                  </Button>
+                </a>
+                <a
+                  href="#technology"
                   style={{
                     color: "#666",
                     fontWeight: "bold",
@@ -617,31 +641,7 @@ const Header = () => {
                     />{" "}
                     تکنولوژی
                   </Button>
-                </Link>
-                <Link
-                  to="/blogs/category/digital-world"
-                  style={{ color: "#666", fontWeight: "bold" }}
-                  onClick={() => setOpen(false)}
-                >
-                  <Button
-                    disabled={false}
-                    size="medium"
-                    variant="elevated"
-                    sx={{
-                      backgroundColor: "white",
-                      "&:hover": { backgroundColor: "#f2f2f2" },
-                    }}
-                  >
-                    <CircleIcon
-                      style={{
-                        fontSize: "10px",
-                        marginLeft: "4px",
-                        color: "#c5c5fe",
-                      }}
-                    />{" "}
-                    دنیای دیجیتال
-                  </Button>
-                </Link>
+                </a>
               </Box>
             </Grid>
           </Grid>
