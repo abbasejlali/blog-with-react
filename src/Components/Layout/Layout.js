@@ -7,9 +7,11 @@ import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (
     <>
-      <Header />
-      {children}
-      <Footer style={{ marginTop: "400px" }} />
+      <React.Fragment>
+        <Header />
+        {children}
+        <Footer style={{ marginTop: "400px" }} />
+      </React.Fragment>
     </>
   );
 };

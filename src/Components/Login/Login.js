@@ -15,7 +15,7 @@ import {
 
 // Mui Icons
 import CloseIcon from "@mui/icons-material/Close";
-import WestIcon from "@mui/icons-material/West";
+import EastIcon from "@mui/icons-material/East";
 
 // img background
 import background_blog from "../../asset/img/background-login1.jpg";
@@ -220,7 +220,7 @@ const Login = () => {
                       }}
                       to="/"
                     >
-                      بازگشت به خانه <WestIcon style={{ marginRight: "4px" }} />
+                      <EastIcon style={{ marginLeft: "4px" }} /> بازگشت به خانه
                     </Link>
 
                     <Box
@@ -412,7 +412,7 @@ const Login = () => {
                     }}
                     to="/"
                   >
-                    بازگشت به خانه <WestIcon style={{ marginRight: "4px" }} />
+                    <EastIcon style={{ marginLeft: "4px" }} /> بازگشت به خانه
                   </Link>
 
                   <Box
