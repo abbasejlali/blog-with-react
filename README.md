@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 # Live Site:
 https://friendly-meringue-cdfe86.netlify.app \
-user : abbas.ejlali18@gmail.com
+user : abbas.ejlali18@gmail.com \
 pass :123456789
 ## Available Scripts
 
