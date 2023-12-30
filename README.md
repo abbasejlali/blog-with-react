@@ -1,7 +1,7 @@
 
 # Description :
 
-   **دیدن سایت :**
+**دیدن سایت :**
 
 https://friendly-meringue-cdfe86.netlify.app
 
@@ -29,7 +29,7 @@ React router dom
 
 
 
-### امکانات : 
+**امکانات :**
 
 1- استفاده از materia ui
 
