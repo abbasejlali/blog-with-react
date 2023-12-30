@@ -1,10 +1,18 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-# Live Site:
-https://friendly-meringue-cdfe86.netlify.app \
-user : abbas.ejlali18@gmail.com \
-pass :123456789
+# توضیحات :
+
+**دیدن سایت :**
+
+https://friendly-meringue-cdfe86.netlify.app
+
+ **برای ورود به سایت :**
+ 
+user : abbas.ejlali18@gmail.com
+
+pass : 123456789
+
+### تکنولوژی های مورد استفاده : 
+
 ## Available Scripts
 
 In the project directory, you can run:
