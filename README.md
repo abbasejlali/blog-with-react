@@ -13,8 +13,20 @@ pass : 123456789
 
 ### تکنولوژی های مورد استفاده :
 
-React Js, JavaScript, Material Ui,
-Graph QL, Swiper, React router dom
+React Js
+
+JavaScript
+
+Material Ui
+
+Responsive
+
+Graph QL
+
+Swiper
+
+React router dom
+
 
 
 ### امکانات : 
