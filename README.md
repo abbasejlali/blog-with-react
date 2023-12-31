@@ -13,19 +13,19 @@ pass : 123456789
 
 **تکنولوژی های مورد استفاده :**
 
-React Js
+:black_medium_small_square: React Js
 
-JavaScript
+:black_medium_small_square: JavaScript
 
-Material Ui
+:black_medium_small_square: Material Ui
 
-Responsive
+:black_medium_small_square: Responsive
 
-Graph QL
+:black_medium_small_square: Graph QL
 
-Swiper
+:black_medium_small_square: Swiper
 
-React router dom
+:black_medium_small_square: React router dom
 
 
 
